@@ -1,0 +1,33 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+
+% lingua del testo
+\usepackage[english]{babel}
+% lingua per la bibliografia
+\usepackage[fixlanguage]{babelbib}
+
+% Immagini
+\usepackage{graphicx}
+\graphicspath{ {images} }
+
+
+
+\begin{document}
+
+\include{contents/frontespizio}
+\include{contents/abstract}
+\include{contents/resposability-declaration}
+\tableofcontents
+
+\include{contents/introduction}
+\include{contents/background}
+\include{contents/dataset}
+\include{contents/models}
+\include{contents/experiments}
+\include{contents/conclusion}
+
+\bibliographystyle{plain}
+\bibliography{bibliography}
+
+\end{document}
