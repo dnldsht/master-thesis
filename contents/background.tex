@@ -6,11 +6,11 @@ A time series is a sequence of observations taken at regular intervals of time.
 These observations can be numerical values, categorical variables, or even text.
 Time series data is commonly found in a wide range of fields such as finance, economics, healthcare, meteorology, and transportation.
 
-\begin{figure}[h]
+\begin{figure}[ht]
   \centering
-  \includegraphics[width=0.45\textwidth]{timeseries-ex1}
-  \includegraphics[width=0.45\textwidth]{timeseries-ex2}
-  \caption{Example of timeseries data}
+  \includegraphics[width=0.45\textwidth]{hearth}
+  \includegraphics[width=0.45\textwidth]{nvidia}
+  \caption{Example of time series: health monitoring records \cite{influxdata} and NVIDIA stock price \cite{finance}}
 \end{figure}
 
 In finance, for example, time series data can be used to analyze stock prices, interest rates, and currency exchange rates.
@@ -29,10 +29,10 @@ In transportation, time series data can be used to analyze traffic patterns and 
 \subsubsection[short]{Univariate and Multivariate}
 
 In addition to the concept of a time series, it's also important to understand the difference between univariate and multivariate time series.
-\begin{figure}[h]
+\begin{figure}[ht]
   \centering
   \includegraphics[width=0.6\textwidth]{multivariate}
-  \caption{Example of Multivariate timeserie}
+  \caption{Example of Multivariate timeserie \cite{mltech}}
 \end{figure}
 
 \paragraph{Univariate time series:} This type of time series includes observations of a single variable, such as stock prices or temperature. The main focus is on understanding the patterns and trends in the single variable over time.
@@ -70,10 +70,10 @@ Ensemble learning can be applied to a wide range of machine learning tasks, incl
 
 Random forests are an ensemble learning method used for classification and regression tasks. The name "random forest" comes from the fact that it is a collection of decision trees, where each tree is "trained" on a random subset of the data, and the final predictions are made by combining the predictions of all the trees.
 
-\begin{figure}[h]
+\begin{figure}[ht]
   \centering
   \includegraphics[width=0.8\textwidth]{decision-tree}
-  \caption{Visual representation of a decision tree}
+  \caption{Visual representation of a decision tree \cite{scikit}}
 \end{figure}
 
 A decision tree is a tree-like model that starts with a single node, called the root node, and splits the data into different subsets based on the values of the input features. Each internal node of the tree represents a test on an input feature, and each leaf node represents a prediction. The tree is built by recursively splitting the data until a stopping criterion is met, such as a maximum tree depth or a minimum number of samples in a leaf node.
@@ -111,10 +111,10 @@ These models are trained using large amounts of data and powerful computational 
 Multilayer perceptrons (MLPs) are a popular class of feedforward artificial neural networks that are composed of multiple layers of artificial neurons.
 These networks are also known as fully connected networks due to the fact that each neuron in one layer is connected to all neurons in the following layer.
 
-\begin{figure}[h]
+\begin{figure}[ht]
   \centering
   \includegraphics[width=0.8\textwidth]{mlp}
-  \caption{Multilayer Perceptron (MLP) Diagram}
+  \caption{Multilayer Perceptron (MLP) Diagram \cite{uc}}
 \end{figure}
 
 % TODO explain more?
@@ -147,10 +147,10 @@ Convolutional Neural Networks (CNNs) are a class of deep neural networks that ar
 CNNs are composed of multiple layers, including convolutional layers, pooling layers, and fully connected layers.
 
 
-\begin{figure}[h]
+\begin{figure}[ht]
   \centering
   \includegraphics[width=0.8\textwidth]{cnn}
-  \caption{Convolutional Neural Network (CNN) Diagram: A visual representation of a deep learning architecture consisting of layers of convolutional, pooling and fully connected layers.}
+  \caption{Convolutional Neural Network (CNN) Diagram: A visual representation of a deep learning architecture consisting of layers of convolutional, pooling and fully connected layers. \cite{shah}}
 \end{figure}
 
 % TODO explain better
@@ -162,10 +162,10 @@ These feature maps are then passed on to the next layer for further processing.
 Pooling layers are used to reduce the dimensionality of the feature maps and extract the most important features to increase the robustness of the network.
 Max pooling and average pooling are two types of pooling layers that are commonly used. 
 
-\begin{figure}[h]
+\begin{figure}[ht]
   \centering
   \includegraphics[width=0.4\textwidth]{pooling}
-  \caption{Visualization of max and average pooling layers}
+  \caption{Visualization of max and average pooling layers \cite{boehmke}}
 \end{figure}
 
 Max pooling selects the maximum value from a small region of the input data. This operation is used to capture the most important feature in the region, such as the strongest edge or the highest intensity value. Max pooling is often used in image recognition tasks, as it is able to extract the most salient features from the input image, such as edges and textures.
@@ -238,10 +238,10 @@ GRUs, on the other hand, use two gates: an update gate and a reset gate.
 The update gate controls the flow of new information into the cell, and the reset gate controls the flow of information through the cell.
 The update gate can be seen as a combination of the input gate and forget gate in LSTM.
 
-\begin{figure}[h]
+\begin{figure}[ht]
   \centering
   \includegraphics[width=0.6\textwidth]{lstm-gru}
-  \caption{Visualization of LSTM and GRU cells}
+  \caption{Visualization of LSTM and GRU cells \cite{phi}}
 \end{figure}
 
 In terms of performance, both LSTMs and GRUs have been shown to be effective at handling long-term dependencies in sequential data.
