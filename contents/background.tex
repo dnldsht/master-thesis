@@ -73,7 +73,7 @@ Random forests are an ensemble learning method used for classification and regre
 \begin{figure}[h]
   \centering
   \includegraphics[width=0.8\textwidth]{decision-tree}
-  \caption{Example of a decision tree}
+  \caption{Visual representation of a decision tree}
 \end{figure}
 
 A decision tree is a tree-like model that starts with a single node, called the root node, and splits the data into different subsets based on the values of the input features. Each internal node of the tree represents a test on an input feature, and each leaf node represents a prediction. The tree is built by recursively splitting the data until a stopping criterion is met, such as a maximum tree depth or a minimum number of samples in a leaf node.
@@ -87,103 +87,177 @@ In summary, Random Forests are a combination of decision trees, where each tree 
 
 
 \subsection{Deep learning}
-- [-] briefly explain what deep learning is.
-Deep learning is a subfield of machine learning that utilizes deep neural networks, which are neural networks with multiple hidden layers, to model complex patterns in data. These models are capable of learning abstract features from the data and making predictions based on those features, making them particularly useful for tasks such as image and speech recognition, natural language processing, and anomaly detection.
+Deep learning is a subfield of machine learning that utilizes deep neural networks, which are neural networks with multiple hidden layers, to learn from the data.
+These models are capable of learning abstract features from the data and making predictions based on those features, making them particularly useful for tasks such as image and speech recognition, natural language processing, and anomaly detection.
 
-Deep neural networks are inspired by the structure and function of the human brain, consisting of layers of interconnected nodes, also known as neurons. The input is passed through the layers of neurons, and the output is produced at the last layer. The layers of a neural network can be divided into two main types: the input layer and the hidden layers. The input layer receives the input data, and the hidden layers perform computations on the data and pass the results to the next layer. The output layer produces the final predictions.
+Deep neural networks are inspired by the structure and function of the human brain, consisting of layers of interconnected nodes, also known as neurons.
+The input is passed through the layers of neurons, and the output is produced at the last layer.
+The layers of a neural network can be divided into three main types: the input layer, the hidden layers and the output layer.
+The input layer receives the input data, and the hidden layers perform computations on the data and pass the results to the next layer. 
+The output layer produces the final predictions.
 
-Deep learning models are trained using large amounts of data and powerful computational resources, such as GPUs. The training process involves adjusting the parameters of the model, also known as weights, to minimize the error between the predictions and the true values. This process is known as supervised learning, where the model learns to map inputs to outputs based on labeled examples.
+Deep learning models are trained using large amounts of data and powerful computational resources, such as GPUs.
+The training process involves adjusting the parameters of the model, also known as weights, to minimize the error between the predictions and the true values.
+This process is known as supervised learning, where the model learns to map inputs to outputs based on labeled examples.
 
-In recent years, deep learning has made significant advancements in various fields, including computer vision, natural language processing, and speech recognition. The ability of deep neural networks to learn abstract features has led to significant improvements in performance on various tasks, surpassing traditional machine learning methods.
+In recent years, deep learning has made significant advancements in various fields, including computer vision, natural language processing, and speech recognition.
+The ability of deep neural networks to learn abstract features has led to significant improvements in performance on various tasks, surpassing traditional machine learning methods.
 
-In summary, deep learning is a subfield of machine learning that utilizes deep neural networks, which are neural networks with multiple hidden layers, to model complex patterns in data. These models are trained using large amounts of data and powerful computational resources to minimize the error between predictions and true values and have led to significant advancements in various fields.
+In summary, deep learning is a subfield of machine learning that utilizes deep neural networks, which are neural networks with multiple hidden layers, to model complex patterns in data.
+These models are trained using large amounts of data and powerful computational resources to minimize the error between predictions and true values and have led to significant advancements in various fields.
 
 \subsubsection{Multilayer perceptrons}
-- [-] Perceptron?\\
-- [-] Backpropagation?\\
-- [-] Learning rate\\
-- [-] Overfitting\\
-- [-] Regularization\\
-- [-] Dropout\\
-- [-] Activation functions?
 
-Multilayer perceptrons (MLPs) are a popular class of feedforward artificial neural networks that are composed of multiple layers of artificial neurons. These networks are also known as fully connected networks due to the fact that each neuron in one layer is connected to all neurons in the following layer.
+Multilayer perceptrons (MLPs) are a popular class of feedforward artificial neural networks that are composed of multiple layers of artificial neurons.
+These networks are also known as fully connected networks due to the fact that each neuron in one layer is connected to all neurons in the following layer.
 
-The perceptron is a single layer neural network that was first introduced by Frank Rosenblatt in 1957. It comprises of a single layer of artificial neurons, commonly referred to as perceptrons, which take in input and produce output. A perceptron is a linear classifier that separates the input data into two classes by using a linear decision boundary.
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.8\textwidth]{mlp}
+  \caption{Multilayer Perceptron (MLP) Diagram}
+\end{figure}
 
-Backpropagation is the primary method used to train a multilayer perceptron. It is a supervised learning technique that utilizes the gradient descent optimization algorithm to adjust the weights of the network in order to minimize the error between the predicted output and the true output. The error is calculated using a loss function and is then propagated backwards through the network, adjusting the weights to reduce the error.
+% TODO explain more?
+The perceptron is a single layer neural network that was first introduced by Frank Rosenblatt in 1957. 
+It comprises of a single layer of artificial neurons, commonly referred to as perceptrons, which take in input and produce output. A perceptron is a linear classifier that separates the input data into two classes by using a linear decision boundary.
 
-The learning rate is a hyperparameter that controls the step size of the gradient descent optimization algorithm. It determines the extent to which the weights of the network should be adjusted in response to the error. A high learning rate results in larger weight adjustments, while a low learning rate results in smaller weight adjustments.
+% TODO explain more?
+\paragraph{Backpropagation} is the primary method used to train a multilayer perceptron. It is a supervised learning technique that utilizes the gradient descent optimization algorithm to adjust the weights of the network in order to minimize the error between the predicted output and the true output. The error is calculated using a loss function and is then propagated backwards through the network, adjusting the weights to reduce the error.
 
-Overfitting is a prevalent issue in neural networks and occurs when a model is trained too well on the training data, leading to poor performance on new, unseen data. To mitigate overfitting, techniques such as regularization and dropout can be employed.
+\paragraph {The learning rate} is a hyperparameter that controls the step size of the gradient descent optimization algorithm. It determines the extent to which the weights of the network should be adjusted in response to the error. A high learning rate results in larger weight adjustments, while a low learning rate results in smaller weight adjustments.
 
-Regularization is a technique that adds a penalty term to the loss function, aimed at discourages the model from fitting to the noise in the training data. Common regularization methods include L1 and L2 regularization.
+\paragraph {Overfitting} is a prevalent issue in neural networks and occurs when a model is trained too well on the training data, leading to poor performance on new, unseen data. To mitigate overfitting, techniques such as regularization and dropout can be employed.
 
-Dropout is a technique that randomly drops out neurons during the training process, which helps to prevent overfitting by ensuring that no single neuron can have too much influence on the final predictions.
+\paragraph {Regularization} is a technique that adds a penalty term to the loss function, aimed at discourages the model from fitting to the noise in the training data. Common regularization methods include L1 and L2 regularization.
 
-Activation functions are utilized to introduce non-linearity into the network. They are applied to the output of each neuron before it is passed on to the next layer. Common activation functions include sigmoid, ReLU, and tanh.
+\paragraph {Dropout} is a technique that randomly drops out neurons during the training process, which helps to prevent overfitting by ensuring that no single neuron can have too much influence on the final predictions.
 
-In conclusion, Multilayer perceptrons (MLPs) are a popular class of feedforward artificial neural networks that are composed of multiple layers of artificial neurons. The primary method used to train MLPs is backpropagation, which utilizes the gradient descent optimization algorithm to adjust the weights of the network. To avoid overfitting, techniques such as regularization and dropout can be employed. Activation functions are utilized to introduce non-linearity into the network.
+% TODO explain why
+\paragraph{Activation functions} are utilized to introduce non-linearity into the network. They are applied to the output of each neuron before it is passed on to the next layer. Common activation functions include sigmoid, ReLU, and tanh.
+
+In conclusion, Multilayer perceptrons (MLPs) are a popular class of feedforward artificial neural networks that are composed of multiple layers of artificial neurons.
+The primary method used to train MLPs is backpropagation, which utilizes the gradient descent optimization algorithm to adjust the weights of the network.
+To avoid overfitting, techniques such as regularization and dropout can be employed.
+Activation functions are utilized to introduce non-linearity into the network.
 
 
 
 \subsubsection{Convolutional neural networks}
-- Convolution
-
-- Pooling
-
-- Padding
+Convolutional Neural Networks (CNNs) are a class of deep neural networks that are specifically designed to process data that has a grid-like structure, such as images.
+CNNs are composed of multiple layers, including convolutional layers, pooling layers, and fully connected layers.
 
 
-Convolutional Neural Networks (CNNs) are a class of deep neural networks that are specifically designed to process data that has a grid-like structure, such as images. CNNs are composed of multiple layers, including convolutional layers, pooling layers, and fully connected layers.
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.8\textwidth]{cnn}
+  \caption{Convolutional Neural Network (CNN) Diagram: A visual representation of a deep learning architecture consisting of layers of convolutional, pooling and fully connected layers.}
+\end{figure}
 
-The convolutional layer is the core component of a CNN. It applies a set of learnable filters to the input data, which are used to extract features from the data. These filters are convolved with the input data, resulting in a set of feature maps. These feature maps are then passed on to the next layer for further processing.
+% TODO explain better
+The convolutional layer is the core component of a CNN.
+It applies a set of learnable filters to the input data, which are used to extract features from the data.
+These filters are convolved with the input data, resulting in a set of feature maps.
+These feature maps are then passed on to the next layer for further processing.
 
-Pooling layers are used to reduce the dimensionality of the feature maps and to increase the robustness of the network. The most common type of pooling is max pooling, which selects the maximum value from a small neighborhood of each feature map.
+Pooling layers are used to reduce the dimensionality of the feature maps and extract the most important features to increase the robustness of the network.
+Max pooling and average pooling are two types of pooling layers that are commonly used. 
 
-Fully connected layers are used to classify the features extracted by the convolutional layers. They take the output of the pooling layers and use it as input to a traditional feedforward neural network, which makes the final prediction.
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.4\textwidth]{pooling}
+  \caption{Visualization of max and average pooling layers}
+\end{figure}
 
-CNNs have been successful in a wide range of image classification tasks and have been used to achieve state-of-the-art performance on benchmarks such as the ImageNet dataset. They have also been applied to other domains, such as video analysis and natural language processing.
+Max pooling selects the maximum value from a small region of the input data. This operation is used to capture the most important feature in the region, such as the strongest edge or the highest intensity value. Max pooling is often used in image recognition tasks, as it is able to extract the most salient features from the input image, such as edges and textures.
 
-One of the key advantages of CNNs is their ability to learn spatially hierarchical representations of the data. By using convolutional layers, CNNs can learn local patterns of the data and then compose these local patterns to form more complex patterns. This is in contrast to traditional feedforward neural networks, which use fully connected layers and are not able to take advantage of the spatial structure of the data.
+Average pooling, on the other hand, takes the average value from a small region of the input data. This operation is used to reduce noise and smooth out small variations in the input data. Average pooling is often used in tasks such as image segmentation, as it is able to extract more subtle features from the input image, such as shapes and textures.
 
-Another advantage of CNNs is their ability to learn translations-invariant representations of the data. By using pooling layers, CNNs can learn representations that are robust to small translations of the input data. This is important for tasks such as image classification, where the object of interest can be in different locations within the image.
+They both have different advantages and they are used in different tasks. Many CNNs use both max and average pooling in different layers.
 
-In conclusion, Convolutional Neural Networks (CNNs) are a class of deep neural networks that are specifically designed to process data that has a grid-like structure, such as images. CNNs are composed of multiple layers, including convolutional layers, pooling layers, and fully connected layers. CNNs have been successful in a wide range of image classification tasks and have been used to achieve state-of-the-art performance on benchmarks such as the ImageNet dataset. They have also been applied to other domains, such as video analysis and natural language processing. CNNs are able to learn spatially hierarchical representations of the data and learn translations-invariant representations of the data.
 
-- Temporal convolutional neural networks
+Fully connected layers are used to classify the features extracted by the convolutional layers.
+They take the output of the pooling layers and use it as input to a traditional feedforward neural network, which makes the final prediction.
 
-Temporal Convolutional Networks (TCNs) are a variation of CNNs that are designed to process sequential data, such as time series or videos. They are similar to traditional CNNs in that they use convolutional layers to extract features from the input data, but they also incorporate temporal information by using dilated convolutions.
+CNNs have been successful in a wide range of image classification tasks and have been used to achieve state-of-the-art performance on benchmarks such as the ImageNet dataset.
+They have also been applied to other domains, such as video analysis and natural language processing.
 
-Dilated convolutions are similar to standard convolutions, but they have a dilation factor that controls the spacing between the elements of the convolutional kernel. This allows TCNs to increase the receptive field of the network without increasing the number of parameters. The result is that TCNs can capture long-term dependencies in the input data.
+One of the key advantages of CNNs is their ability to learn spatially hierarchical representations of the data.
+By using convolutional layers, CNNs can learn local patterns of the data and then compose these local patterns to form more complex patterns.
+This is in contrast to traditional feedforward neural networks, which use fully connected layers and are not able to take advantage of the spatial structure of the data.
 
-TCNs also use a causal convolution, which means that the output of the network only depends on the past inputs. This is important in tasks such as prediction, where the future cannot be influenced by the current output.
+Another advantage of CNNs is their ability to learn translations-invariant representations of the data.
+By using pooling layers, CNNs can learn representations that are robust to small translations of the input data.
+This is important for tasks such as image classification, where the object of interest can be in different locations within the image.
 
-TCNs have been used in a variety of tasks, such as speech recognition, natural language processing, and time series forecasting. They have been shown to be effective in capturing temporal dependencies and have achieved state-of-the-art performance on benchmarks such as the Wall Street Journal corpus for speech recognition.
+In conclusion, Convolutional Neural Networks (CNNs) are a class of deep neural networks that are specifically designed to process data that has a grid-like structure, such as images.
+CNNs are composed of multiple layers, including convolutional layers, pooling layers, and fully connected layers.
+CNNs have been successful in a wide range of image classification tasks and have been used to achieve state-of-the-art performance on benchmarks such as the ImageNet dataset.
+They have also been applied to other domains, such as video analysis and natural language processing.
+CNNs are able to learn spatially hierarchical representations of the data and learn translations-invariant representations of the data.
 
-In conclusion, Temporal Convolutional Networks (TCNs) are a variation of CNNs that are designed to process sequential data, such as time series or videos. They incorporate temporal information by using dilated convolutions and causal convolution which allows TCNs to increase the receptive field of the network without increasing the number of parameters and capture long-term dependencies in the input data. TCNs have been used in a variety of tasks and have been shown to be effective in capturing temporal dependencies and have achieved state-of-the-art performance on benchmarks.
+\subsubsection{Temporal convolutional neural networks}
+
+Temporal Convolutional Networks (TCNs) are a variation of CNNs that are designed to process sequential data, such as time series or videos.
+They are similar to traditional CNNs in that they use convolutional layers to extract features from the input data, but they also incorporate temporal information by using dilated convolutions.
+
+Dilated convolutions are similar to standard convolutions, but they have a dilation factor that controls the spacing between the elements of the convolutional kernel.
+This allows TCNs to increase the receptive field of the network without increasing the number of parameters.
+The result is that TCNs can capture long-term dependencies in the input data.
+
+TCNs also use a causal convolution, which means that the output of the network only depends on the past inputs.
+This is important in tasks such as prediction, where the future cannot be influenced by the current output.
+
+TCNs have been used in a variety of tasks, such as speech recognition, natural language processing, and time series forecasting.
+They have been shown to be effective in capturing temporal dependencies and have achieved state-of-the-art performance on benchmarks such as the Wall Street Journal corpus for speech recognition.
+
+In conclusion, Temporal Convolutional Networks (TCNs) are a variation of CNNs that are designed to process sequential data, such as time series or videos.
+They incorporate temporal information by using dilated convolutions and causal convolution which allows TCNs to increase the receptive field of the network without increasing the number of parameters and capture long-term dependencies in the input data.
+TCNs have been used in a variety of tasks and have been shown to be effective in capturing temporal dependencies and have achieved state-of-the-art performance on benchmarks.
 
 
 \subsubsection{Recurrent neural networks}
-- LSTM\\
-- GRU\\
-- Conditionals RNNs?
 
-Recurrent Neural Networks (RNNs) are a type of neural network that are designed to process sequential data, such as time series or natural language. They are called "recurrent" because they have a feedback loop that allows information to flow from one step of the sequence to the next.
+Recurrent Neural Networks (RNNs) are a type of neural network that are designed to process sequential data, such as time series or natural language.
+They are called "recurrent" because they have a feedback loop that allows information to flow from one step of the sequence to the next.
 
-RNNs have a hidden state, which is a vector that contains information about the past inputs. At each time step, the input is combined with the hidden state to produce a new hidden state and an output. The hidden state is then used as input for the next time step.
+RNNs have a hidden state, which is a vector that contains information about the past inputs.
+At each time step, the input is combined with the hidden state to produce a new hidden state and an output.
+The hidden state is then used as input for the next time step.
 
-One of the main limitations of traditional RNNs is the vanishing gradient problem, which occurs when the gradients of the parameters tend to decrease exponentially with the number of time steps. This makes it difficult to train RNNs on long sequences. To overcome this problem, variants of RNNs have been developed, such as Long Short-Term Memory (LSTM) and Gated Recurrent Unit (GRU).
+One of the main limitations of traditional RNNs is the vanishing gradient problem, which occurs when the gradients of the parameters tend to decrease exponentially with the number of time steps.
+This makes it difficult to train RNNs on long sequences.
+To overcome this problem, variants of RNNs have been developed, such as Long Short-Term Memory (LSTM) and Gated Recurrent Unit (GRU).
 
-LSTMs and GRUs are architectures that introduce gates that control the flow of information through the hidden state, which allows them to remember information for longer periods of time. LSTM networks have three gates, an input gate, an output gate and a forget gate, that controls the flow of information into and out of the cell state. On the other hand, GRUs have two gates, a reset gate and an update gate, that control the flow of information into the hidden state.
+LSTMs and GRUs are architectures that introduce gates that control the flow of information through the hidden state, which allows them to remember information for longer periods of time. 
 
-Both LSTMs and GRUs have been shown to be effective in solving a wide range of problems related to sequential data, such as natural language processing, speech recognition, and time series forecasting. They have also been applied to other areas, such as computer vision and reinforcement learning.
+The main difference between LSTMs and GRUs is the number and complexity of the gates that they use to control the flow of information.
+LSTMs use three gates: an input gate, an output gate, and a forget gate.
+The input gate controls the flow of new information into the cell, the output gate controls the flow of information out of the cell, and the forget gate controls the flow of information through the cell.
 
-In conclusion, Recurrent Neural Networks (RNNs) are a type of neural network that are designed to process sequential data. They have a feedback loop that allows information to flow from one step of the sequence to the next and a hidden state that contains information about the past inputs. However, traditional RNNs suffer from the vanishing gradient problem, which makes it difficult to train RNNs on long sequences. To overcome this problem, variants of RNNs such as Long Short-Term Memory (LSTM) and Gated Recurrent Unit (GRU) have been developed. Both LSTMs and GRUs have been shown to be effective in solving a wide range of problems related to sequential data and have been applied to other areas as well.
+GRUs, on the other hand, use two gates: an update gate and a reset gate.
+The update gate controls the flow of new information into the cell, and the reset gate controls the flow of information through the cell.
+The update gate can be seen as a combination of the input gate and forget gate in LSTM.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.6\textwidth]{lstm-gru}
+  \caption{Visualization of LSTM and GRU cells}
+\end{figure}
+
+In terms of performance, both LSTMs and GRUs have been shown to be effective at handling long-term dependencies in sequential data.
+LSTMs have been used in a wide range of applications such as language modeling, speech recognition, and machine translation, and have been shown to achieve state-of-the-art performance in many tasks.
+GRUs, on the other hand, are more computationally efficient and have been used in applications such as natural language processing and speech recognition, and have been shown to achieve similar performance to LSTMs with fewer parameters.
+
+In conclusion, Recurrent Neural Networks (RNNs) are a type of neural network that are designed to process sequential data.
+They have a feedback loop that allows information to flow from one step of the sequence to the next and a hidden state that contains information about the past inputs.
+However, traditional RNNs suffer from the vanishing gradient problem, which makes it difficult to train RNNs on long sequences.
+To overcome this problem, variants of RNNs such as Long Short-Term Memory (LSTM) and Gated Recurrent Unit (GRU) have been developed. Both LSTMs and GRUs have been shown to be effective in solving a wide range of problems related to sequential data and have been applied to other areas as well.
 
 \subsubsection{Generative adversarial networks}
-- Generator\\
+- Generator
+
 - Discriminator
+
 Generative Adversarial Networks (GANs) are a type of neural network architecture that is used for unsupervised learning. They consist of two main components: a generator network and a discriminator network. The generator network is trained to generate new data samples that are similar to a given training dataset, while the discriminator network is trained to distinguish between the generated samples and the real samples from the training dataset.
 
 The training process of GANs is based on a game-theoretic approach, where the generator and the discriminator are competing against each other. The generator is trying to generate samples that are similar to the real samples, while the discriminator is trying to correctly identify which samples are real and which are generated. As the training progresses, the generator becomes better at generating realistic samples, while the discriminator becomes better at identifying the generated samples.
