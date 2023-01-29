@@ -1,47 +1,49 @@
 \section{Background}
 
 \subsection{Time series}
-A time series is a sequence of observations taken at regular intervals of time. These observations can be numerical values, categorical variables, or even text. Time series data is commonly found in a wide range of fields such as finance, economics, healthcare, meteorology, and transportation.
-\begin{center}
-  \includegraphics[width=0.49\textwidth]{timeseries-ex1}
-  \includegraphics[width=0.49\textwidth]{timeseries-ex2}
-  Example of time series data
-\end{center}
-In finance, for example, time series data can be used to analyze stock prices, interest rates, and currency exchange rates. In healthcare, time series data can be used to analyze patient vital signs, such as heart rate and blood pressure. In transportation, time series data can be used to analyze traffic patterns and traffic flow.
+% TODO add hearth observation example 
+A time series is a sequence of observations taken at regular intervals of time.
+These observations can be numerical values, categorical variables, or even text.
+Time series data is commonly found in a wide range of fields such as finance, economics, healthcare, meteorology, and transportation.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.45\textwidth]{timeseries-ex1}
+  \includegraphics[width=0.45\textwidth]{timeseries-ex2}
+  \caption{Example of timeseries data}
+\end{figure}
+
+In finance, for example, time series data can be used to analyze stock prices, interest rates, and currency exchange rates.
+In healthcare, time series data can be used to analyze patient vital signs, such as heart rate and blood pressure.
+In transportation, time series data can be used to analyze traffic patterns and traffic flow.
+% TODO add hearth observation example
 
 
-\subsubsection{What is a time series}
-- [-] Explain what a time series is
+% TODO talk about this too?
+% There are several characteristics that define a time series, including:
+% Regular time intervals: Observations are taken at regular intervals of time, such as every minute, hour, day, or month.
+% Ordering: The observations are ordered in time, meaning that the observation at time t is followed by the observation at time t+1.
+% Time dependence: The value of the observation at time t is dependent on the values of the observations at previous time steps.
+% Stationarity: A time series is considered stationary if its statistical properties, such as mean and variance, do not change over time.
+% One of the main challenges in working with time series data is the presence of missing values. This can occur due to various reasons such as sensor failures, data transmission errors, or data cleaning processes. The presence of missing values can make it difficult to perform tasks such as classification and prediction on time series data.
+\subsubsection[short]{Univariate and Multivariate}
 
-
-
-
-There are several characteristics that define a time series, including:
-
-Regular time intervals: Observations are taken at regular intervals of time, such as every minute, hour, day, or month.
-
-Ordering: The observations are ordered in time, meaning that the observation at time t is followed by the observation at time t+1.
-
-Time dependence: The value of the observation at time t is dependent on the values of the observations at previous time steps.
-
-Stationarity: A time series is considered stationary if its statistical properties, such as mean and variance, do not change over time.
-
-One of the main challenges in working with time series data is the presence of missing values. This can occur due to various reasons such as sensor failures, data transmission errors, or data cleaning processes. The presence of missing values can make it difficult to perform tasks such as classification and prediction on time series data.
-- [-] univariate vs multivariate\\
 In addition to the concept of a time series, it's also important to understand the difference between univariate and multivariate time series.
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.6\textwidth]{multivariate}
+  \caption{Example of Multivariate timeserie}
+\end{figure}
 
-Univariate time series: This type of time series includes observations of a single variable, such as stock prices or temperature. The main focus is on understanding the patterns and trends in the single variable over time.
-
-Multivariate time series: This type of time series includes observations of multiple variables, also known as features, over time. The main focus is on understanding the relationships and interactions between the multiple variables.
+\paragraph{Univariate time series:} This type of time series includes observations of a single variable, such as stock prices or temperature. The main focus is on understanding the patterns and trends in the single variable over time.
+\paragraph{Multivariate time series:} This type of time series includes observations of multiple variables, also known as features, over time. The main focus is on understanding the relationships and interactions between the multiple variables.
 
 In univariate time series, the focus is on understanding the patterns and trends of a single variable over time. This can be done by analyzing the data using techniques such as time series decomposition, trend analysis, and forecasting.
-
-On the other hand, in multivariate time series, the focus is on understanding the relationships and interactions between multiple variables. Techniques such as vector autoregression (VAR) and principal component analysis (PCA) can be used to analyze the relationships between the variables. Additionally, multivariate time series can also be used for tasks such as classification and anomaly detection.
-
+On the other hand, in multivariate time series, the focus is on understanding the relationships and interactions between multiple variables. 
+%Techniques such as vector autoregression (VAR) and principal component analysis (PCA) can be used to analyze the relationships between the variables. Additionally, multivariate time series can also be used for tasks such as classification and anomaly detection.
 It's important to note that, the choice of model and the methods used to analyze the data will depend on the type of time series data you are working with. Univariate and multivariate time series require different approach and techniques to be analyzed.
 
-- [-] spatio-temporal autocorrelation.
-
+\subsubsection[short]{Spatio-temporal autocorrelation}
 Spatio-temporal autocorrelation refers to the correlation between observations that are close in both space and time. It is a common phenomenon in many natural and social phenomena, such as weather patterns, crime rates, and population density.
 
 Spatio-temporal autocorrelation can be of two types: positive and negative. Positive spatio-temporal autocorrelation occurs when similar values tend to cluster together in both space and time. For example, in weather patterns, regions with high temperatures tend to be near other regions with high temperatures, and this pattern tends to persist over time. Negative spatio-temporal autocorrelation occurs when dissimilar values tend to cluster together in both space and time.
@@ -49,25 +51,30 @@ Spatio-temporal autocorrelation can be of two types: positive and negative. Posi
 Spatio-temporal autocorrelation is important to consider when analyzing spatio-temporal data, such as time series data with a spatial component. Ignoring spatio-temporal autocorrelation can lead to biased and unreliable results.
 
 \subsection{Ensemble learning}
-- [-] briefly explain what ensemble learning is.
 Ensemble learning is a technique in machine learning where multiple models are combined to create a more powerful model. The idea behind ensemble learning is that by combining the predictions of multiple models, the ensemble model can reduce the variance and bias of the individual models, leading to improved performance on unseen data.
 
 There are several popular ensemble learning methods, including:
 
-Bagging: This method involves training multiple models independently on different subsets of the data, and then combining their predictions through a majority vote or averaging.
+\paragraph{Bagging:}This method involves training multiple models independently on different subsets of the data, and then combining their predictions through a majority vote or averaging.
 
-Boosting: This method involves training multiple models sequentially, where each model tries to correct the mistakes of the previous model. The final predictions are made by combining the predictions of all the models.
+\paragraph{Boosting:} This method involves training multiple models sequentially, where each model tries to correct the mistakes of the previous model. The final predictions are made by combining the predictions of all the models.
 
-Random Forest: This method is a combination of bagging and decision trees. It involves training multiple decision trees independently on different subsets of the data, and then combining their predictions through a majority vote.
+\paragraph{Random Forest:} This method is a combination of bagging and decision trees. It involves training multiple decision trees independently on different subsets of the data, and then combining their predictions through a majority vote.
 
-Stacking: This method involves training multiple models independently and then using the predictions of these models as input features to train a meta-model.
+\paragraph{Stacking:} This method involves training multiple models independently and then using the predictions of these models as input features to train a meta-model.
 
 Ensemble learning can be applied to a wide range of machine learning tasks, including classification, regression, and anomaly detection. It has been shown to improve performance on a wide range of datasets and is often used in practice to improve the performance of machine learning models.
 
 
 \subsubsection{Random forests}
-- [-] explain what random forests are.
+
 Random forests are an ensemble learning method used for classification and regression tasks. The name "random forest" comes from the fact that it is a collection of decision trees, where each tree is "trained" on a random subset of the data, and the final predictions are made by combining the predictions of all the trees.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.8\textwidth]{decision-tree}
+  \caption{Example of a decision tree}
+\end{figure}
 
 A decision tree is a tree-like model that starts with a single node, called the root node, and splits the data into different subsets based on the values of the input features. Each internal node of the tree represents a test on an input feature, and each leaf node represents a prediction. The tree is built by recursively splitting the data until a stopping criterion is met, such as a maximum tree depth or a minimum number of samples in a leaf node.
 
@@ -121,9 +128,12 @@ In conclusion, Multilayer perceptrons (MLPs) are a popular class of feedforward 
 
 
 \subsubsection{Convolutional neural networks}
-- Convolution\\
-- Pooling\\
-- Padding\\
+- Convolution
+
+- Pooling
+
+- Padding
+
 
 Convolutional Neural Networks (CNNs) are a class of deep neural networks that are specifically designed to process data that has a grid-like structure, such as images. CNNs are composed of multiple layers, including convolutional layers, pooling layers, and fully connected layers.
 

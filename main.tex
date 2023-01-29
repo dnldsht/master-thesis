@@ -1,16 +1,16 @@
 \documentclass{article}
 \usepackage[utf8]{inputenc}
 
-
-% lingua del testo
+% language
 \usepackage[english]{babel}
-% lingua per la bibliografia
 \usepackage[fixlanguage]{babelbib}
 
-% Immagini
+% images
 \usepackage{graphicx}
 \graphicspath{ {images} }
 
+% space betwen paragraphs
+\usepackage{parskip}
 
 
 \begin{document}
@@ -19,6 +19,8 @@
 \include{contents/abstract}
 \include{contents/resposability-declaration}
 \tableofcontents
+\pagebreak
+\listoffigures
 
 \include{contents/introduction}
 \include{contents/background}
