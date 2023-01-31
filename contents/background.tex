@@ -254,35 +254,69 @@ However, traditional RNNs suffer from the vanishing gradient problem, which make
 To overcome this problem, variants of RNNs such as Long Short-Term Memory (LSTM) and Gated Recurrent Unit (GRU) have been developed. Both LSTMs and GRUs have been shown to be effective in solving a wide range of problems related to sequential data and have been applied to other areas as well.
 
 \subsubsection{Generative adversarial networks}
-- Generator
+Generative Adversarial Networks (GANs) are a type of neural network architecture that is used for unsupervised learning.
+They consist of two main components: a generator network and a discriminator network.
+The generator network is trained to generate new data samples that are similar to a given training dataset, while the discriminator network is trained to distinguish between the generated samples and the real samples from the training dataset.
 
-- Discriminator
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.7\textwidth]{gan}
+  \caption{Overview of GAN structure \cite{googledevelopers}}
+\end{figure}
 
-Generative Adversarial Networks (GANs) are a type of neural network architecture that is used for unsupervised learning. They consist of two main components: a generator network and a discriminator network. The generator network is trained to generate new data samples that are similar to a given training dataset, while the discriminator network is trained to distinguish between the generated samples and the real samples from the training dataset.
+The training process of GANs is based on a game-theoretic approach, where the generator and the discriminator are competing against each other.
+The generator is trying to generate samples that are similar to the real samples, while the discriminator is trying to correctly identify which samples are real and which are generated.
+As the training progresses, the generator becomes better at generating realistic samples, while the discriminator becomes better at identifying the generated samples.
 
-The training process of GANs is based on a game-theoretic approach, where the generator and the discriminator are competing against each other. The generator is trying to generate samples that are similar to the real samples, while the discriminator is trying to correctly identify which samples are real and which are generated. As the training progresses, the generator becomes better at generating realistic samples, while the discriminator becomes better at identifying the generated samples.
+One of the main advantages of GANs is that they can be used to generate high-quality images, videos, and other types of data.
+They have been used in a wide range of applications, including image synthesis, image-to-image translation, style transfer, and video prediction. 
+GANs have also been applied to other areas such as natural language processing, speech synthesis, and 3D object generation.
 
-One of the main advantages of GANs is that they can be used to generate high-quality images, videos, and other types of data. They have been used in a wide range of applications, including image synthesis, image-to-image translation, style transfer, and video prediction. GANs have also been applied to other areas such as natural language processing, speech synthesis, and 3D object generation.
+There are many variations of GANs, such as Wasserstein GANs, which use the Wasserstein distance to measure the difference between the generated samples and the real samples, and Cycle GANs, which are used for image-to-image translation.
+There are also GANs that use different architectures, such as convolutional GANs and recurrent GANs.
 
-There are many variations of GANs, such as Wasserstein GANs, which use the Wasserstein distance to measure the difference between the generated samples and the real samples, and Cycle GANs, which are used for image-to-image translation. There are also GANs that use different architectures, such as convolutional GANs and recurrent GANs.
+Conditional GANs, also known as cGANs, are a variant of GANs where both the generator and the discriminator are conditioned on some additional input, such as a class label or an image.
+This allows the model to generate new samples that are conditioned on a specific class or attributes.
+For example, it can generate images of a specific object or in a specific style.
 
-Conditional GANs, also known as cGANs, are a variant of GANs where both the generator and the discriminator are conditioned on some additional input, such as a class label or an image. This allows the model to generate new samples that are conditioned on a specific class or attributes. For example, it can generate images of a specific object or in a specific style.
-
-In conclusion, Generative Adversarial Networks (GANs) are a type of neural network architecture that is used for unsupervised learning. They consist of two main components: a generator network and a discriminator network. The generator network is trained to generate new data samples that are similar to a given training dataset, while the discriminator network is trained to distinguish between the generated samples and the real samples from the training dataset. GANs have many advantages, such as the ability to generate high-quality images, videos, and other types of data. Conditional GANs are a variant of GANs where both the generator and the discriminator are conditioned on some additional input, such as a class label or an image, allowing the model to generate new samples that are conditioned on a specific class or attributes. They have been used in a wide range of applications and have been applied to other areas such as natural language processing, speech synthesis, and 3D object generation
+In conclusion, Generative Adversarial Networks (GANs) are a type of neural network architecture that is used for unsupervised learning.
+They consist of two main components: a generator network and a discriminator network.
+The generator network is trained to generate new data samples that are similar to a given training dataset, while the discriminator network is trained to distinguish between the generated samples and the real samples from the training dataset.
+GANs have many advantages, such as the ability to generate high-quality images, videos, and other types of data.
+Conditional GANs are a variant of GANs where both the generator and the discriminator are conditioned on some additional input, such as a class label or an image, allowing the model to generate new samples that are conditioned on a specific class or attributes.
+They have been used in a wide range of applications and have been applied to other areas such as natural language processing, speech synthesis, and 3D object generation.
 
 \subsubsection{Attention is all you need}
-- Transformer
-The "Attention is All You Need" (AIAYN) model, also known as the Transformer, is a neural network architecture that was introduced in 2017 by Google researchers. It is a type of encoder-decoder model that is primarily used for natural language processing tasks such as language translation, text summarization, and question answering.
 
-The key innovation of the Transformer is the use of self-attention mechanisms, which allow the model to focus on specific parts of the input while processing it. Traditional encoder-decoder models use recurrent neural networks (RNNs) or convolutional neural networks (CNNs) to process the input sequentially, which can be slow and computationally expensive for long sequences. In contrast, the Transformer uses self-attention mechanisms to simultaneously process all parts of the input, which makes it much faster and more efficient.
+The "Attention is All You Need" (AIAYN) model, also known as the Transformer, is a neural network architecture that was introduced in 2017 by Google researchers.
+It is a type of encoder-decoder model that is primarily used for natural language processing tasks such as language translation, text summarization, and question answering.
 
-The Transformer architecture consists of an encoder and a decoder, which are both made up of multiple layers of self-attention and feed-forward neural networks. The encoder takes in the input sequence and processes it using self-attention mechanisms, which allow the model to learn relationships between different parts of the input. The decoder then takes the encoded representation and generates the output sequence.
+The key innovation of the Transformer is the use of self-attention mechanisms, which allow the model to focus on specific parts of the input while processing it.
+Traditional encoder-decoder models use recurrent neural networks (RNNs) or convolutional neural networks (CNNs) to process the input sequentially, which can be slow and computationally expensive for long sequences.
+In contrast, the Transformer uses self-attention mechanisms to simultaneously process all parts of the input, which makes it much faster and more efficient.
 
-The attention mechanism used in the Transformer is a type of dot-product attention, which calculates the similarity between different parts of the input. The attention weights are then used to combine the different parts of the input to create a new representation.
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=0.7\textwidth]{transformer}
+  \caption{The transformer model \cite{vaswani}}
+\end{figure}
 
-One of the key advantages of the Transformer is its ability to handle input sequences of variable length, which is important for natural language processing tasks where the length of the input can vary greatly. Additionally, the Transformer can be parallelized, which allows it to be trained and run on multiple GPUs or TPUs, leading to faster training times.
+The Transformer architecture consists of an encoder and a decoder, which are both made up of multiple layers of self-attention and feed-forward neural networks.
+The encoder takes in the input sequence and processes it using self-attention mechanisms, which allow the model to learn relationships between different parts of the input.
+The decoder then takes the encoded representation and generates the output sequence.
 
-In conclusion, the "Attention is All You Need" (AIAYN) model, also known as the Transformer, is a neural network architecture that was introduced in 2017. The key innovation of the Transformer is the use of self-attention mechanisms, which allow the model to focus on specific parts of the input while processing it. The Transformer architecture consists of an encoder and a decoder, which are both made up of multiple layers of self-attention and feed-forward neural networks. The attention mechanism used in the Transformer is a type of dot-product attention, which calculates the similarity between different parts of the input. One of the key advantages of the Transformer is its ability to handle input sequences of variable length, which is important for natural language processing tasks where the length of the input can vary greatly. Additionally, the Transformer can be parallelized, which allows it to be trained and run on multiple GPUs or TPUs, leading to faster training times.
+The attention mechanism used in the Transformer is a type of dot-product attention, which calculates the similarity between different parts of the input.
+The attention weights are then used to combine the different parts of the input to create a new representation.
+
+One of the key advantages of the Transformer is its ability to handle input sequences of variable length, which is important for natural language processing tasks where the length of the input can vary greatly.
+Additionally, the Transformer can be parallelized, which allows it to be trained and run on multiple GPUs or TPUs, leading to faster training times.
+
+In conclusion, the "Attention is All You Need" (AIAYN) model, also known as the Transformer, is a neural network architecture that was introduced in 2017.
+The key innovation of the Transformer is the use of self-attention mechanisms, which allow the model to focus on specific parts of the input while processing it.
+The Transformer architecture consists of an encoder and a decoder, which are both made up of multiple layers of self-attention and feed-forward neural networks.
+The attention mechanism used in the Transformer is a type of dot-product attention, which calculates the similarity between different parts of the input.
+One of the key advantages of the Transformer is its ability to handle input sequences of variable length, which is important for natural language processing tasks where the length of the input can vary greatly. 
+Additionally, the Transformer can be parallelized, which allows it to be trained and run on multiple GPUs or TPUs, leading to faster training times.
 
 bib
 Time series:
