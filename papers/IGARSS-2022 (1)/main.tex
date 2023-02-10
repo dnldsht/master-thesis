@@ -1,0 +1,99 @@
+% Template for IGARSS-2020 paper; to be used with:
+%          spconf.sty  - LaTeX style file, and
+%          IEEEbib.bst - IEEE bibliography style file.
+% --------------------------------------------------------------------------
+\documentclass{article}
+\usepackage{spconf,amsmath,epsfig}
+%\usepackage{multirow}
+\usepackage{comment}
+\usepackage{url}
+\usepackage[table,xcdraw]{xcolor}
+\usepackage[normalem]{ulem}
+\usepackage[mathcal]{euscript}
+\newcommand{\disc}[1]{{\color{blue}$\Rightarrow$\textbf{ \textit{#1}}$\Leftarrow$}}
+
+
+\useunder{\uline}{\ul}{}
+
+
+% Example definitions.
+% --------------------
+\def\x{{\mathbf x}}
+\def\L{{\cal L}}
+
+% Title.
+% ------
+\title{UNSUPERVISED DOMAIN ADAPTATION METHODS FOR LAND COVER MAPPING WITH OPTICAL SATELLITE IMAGE TIME SERIES}
+%
+% Single address.
+% ---------------
+%\name{Author(s) Name(s)}
+%\address{Author Affiliation(s)}
+%
+% For example:
+% ------------
+%\address{School\\
+%	Department\\
+%	Address}
+%
+% Two addresses (uncomment and modify for two-address case).
+% ----------------------------------------------------------
+%\twoauthors{E. Capliez, D. Ienco, N. Baghdadi}{School A-B\\
+%	Department A-B\\
+%	Address A-B}{R. Gaetano}{School C-D\\
+%	Department C-D\\
+%	Address C-D}{A. Hadj Salah}{School C-D\\
+%	Department C-D\\
+%	Address C-D}
+
+\name{E. Capliez$^{1,3}$ \qquad D. Ienco$^1$ \qquad R. Gaetano$^2$ \qquad N. Baghdadi$^1$ \qquad A. Hadj Salah$^3$}
+
+\address{${}^1$ INRAE, UMR TETIS, Univ. Montpellier, France  \\
+${}^2$ CIRAD, UMR TETIS, Univ. Montpellier, France  \\
+${}^3$ Airbus Defence and Space, Toulouse, France 
+}
+
+\begin{document}
+%\ninept
+%
+\maketitle
+%
+\begin{abstract}
+Nowadays, Satellite Image Time Series (SITS) are employed as input to derive land cover maps (LCM) to support decision makers in several application domains like agriculture and biodiversity. The generation of LCM largely relies on available ground truth (GT) data to calibrate supervised machine learning models. Unfortunately, this data are not always accessible. In this scenario, the possibility to transfer a model learnt on a particular year (\textit{source domain}) to another period of time (\textit{target domain}) could be a valuable tool to deal with the previously mentioned restrictions.
+
+In this paper, we provide an experimental evaluation of recent Unsupervised Domain Adaptation (UDA) methods in the specific context of temporal transfer learning for SITS-based LCM. The objective is to learn a classification model at a certain year (exploiting available GT data) and, successively, transfer such a model on a subsequent year where no labelled samples are accessible. The obtained findings reveal that UDA methods represent a promising research direction to cope with the problem of temporal transfer learning for LCM. While a model learnt on the source data and directly applied on target data achieves an weighted F1-score of 67.1, the best UDA method obtains an F1-score of 83.7 with more than 15 points of positive gap. Nevertheless, there is still room for improvement that should be explored in future works.
+\end{abstract}
+%
+\begin{keywords}
+Domain Adaptation, Satellite Image Time Series, Land Cover Map, Deep Learning.
+\end{keywords}
+%
+\section{Introduction}
+\label{sec:intro}
+\input{introduction}
+
+\section{Related work}
+\label{sec:relatedwork}
+\input{related-work}
+
+\section{Data}
+\label{sec:data}
+\input{data}
+
+\section{Experiments}
+\label{sec:experiments}
+\input{experiments}
+
+\section{Conclusion}
+\label{sec:conclusion}
+\input{conclusion}
+ 
+% References should be produced using the bibtex program from suitable
+% BiBTeX files (here: strings, refs, manuals). The IEEEbib.bst bibliography
+% style file from IEEE produces unsorted bibliography list.
+% -------------------------------------------------------------------------
+\bibliographystyle{IEEEbib}
+%\small
+\bibliography{refs}
+
+\end{document}

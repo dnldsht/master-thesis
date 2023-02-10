@@ -1,0 +1,20 @@
+The following section presents an overview of the state of the art methods in the field of unsupervised domain adaptation (UDA). In the UDA setting, we dispose of data from a source domain $\mathcal{D}_s$, with associated label information and unlabelled data from a target domain $\mathcal{D}_t$. The main assumptions are the follows: i) there is a shift in the data distribution between $\mathcal{D}_s$ and $\mathcal{D}_t$ and ii) $\mathcal{D}_s$ and $\mathcal{D}_t$ share the same label space (homogeneous domain adaptation). The goal is to build a classification model capable to exploit, simultaneously, the information associated to the source domain (data and labels) and the available information associated to the target domain (data) to perform prediction on the unlabelled data belonging to $\mathcal{D}_t$. For a general overview of unsupervised domain adaptation approaches please refer to~\cite{Kouw21}.
+
+\subsection{State-of-the-art unsupervised DA methods}
+\label{ssec:sotauda}
+
+\textit{Geodesic Flow Kernel (GFK)~\cite{6247911}:} This approach aligns the source and target data distributions by means of a geodesic flow kernel-based strategy. The method allows to project both source and target data into a shared, low-dimensional, space in which the distribution shift between the two domains is reduced. Successively, any standard supervised classification method can be trained on the source data and tested on the target ones.
+
+\textit{Domain-Adversarial Neural Networks (DANN) \cite{ganin2016domain}:} This approach enrich a standard neural network-based supervised classification strategy with a domain classifier that may distinguish between source and target examples.
+The domain classifier is associated with a gradient reverse layer (GRL) that enforces the features extracted by the encoder to be invariant w.r.t. the distribution shift that can be present between $\mathcal{D}_s$ and $\mathcal{D}_t$.
+
+\textit{Adversarial Discriminative Domain Adaptation (ADDA) \cite{8099799}:} Inspired by the concept of generative adversaial network (GAN), this approach set up a two players learning strategy where a discriminator network tries to distinguish between source and target data representation provided by the generator while the generator tries to fool the discriminator network. Also in this case, the objective is to extract data representations that are invariant w.r.t. possible distribution shifts that can occur between data coming from $\mathcal{D}_s$ and $\mathcal{D}_t$.
+
+
+\subsection{DA of Satellite Image Time Series}
+\label{ssec:dasits}
+Although there is a significant amount of work on UDA, only a limited number of studies are devoted to cope with time series data~\cite{WilsonDC20} and, even less for satellite image time series~\cite{9324339}. For the latter, the work proposed in~\cite{9324339} clearly underlines that state-of-the-art UDA methods cannot directly deal with spatial transfer learning while no research study, to the best of our literature survey, has evaluated the quality of recent UDA methods in the context of temporal transfer learning for land cover mapping based on SITS data.
+
+
+
+

@@ -1,0 +1,50 @@
+The study area is centered on the city of Balaruc-les-Bains in south-eastern France. It borders the Mediterranean Sea and it has a surface of 100 $ km^2 $. It is a small but dense urban area surrounded by agricultural crops - mostly vineyards - and natural vegetation. Figure~\ref{fig:gtmap} presents the GT map superposed on the Sentinel-2 image of the 23th January 2018. 
+
+\begin{figure}[htb]
+\begin{minipage}[b]{1.0\linewidth}
+  \centering
+    \centerline{\epsfig{figure="Figures/BLC_20180123_SAT-GT_300dpi.png",width=8cm}}
+\end{minipage}
+\caption{Ground truth data superposed to a Sentinel-2 image.}
+\label{fig:gtmap}
+\end{figure}
+
+
+\textit{Satellite Image Time Series:} We collect satellite image time series of Sentinel-2 imagery spanning the years 2018 and 2019. For each year, we retain 24 images to guarantee a similar temporal sampling step. Images were also chosen with the aim to be representative of the temporal (annual) evolution of the land covers associated to the study area as well as to filter out images that were seriously impacted by cloud phenomena. Figure~\ref{fig:chronology} depicts the acquisition dates of the two Sentinel-2 satellite image time series. 
+
+\begin{figure}[htb]
+\begin{minipage}[b]{1.0\linewidth}
+  \centering
+    \centerline{\epsfig{figure="Figures/2018-2019_chronologie_EN.pdf",width=8.5cm}}
+\end{minipage}
+\caption{Acquisition dates of each Satellite Image Time Series.}
+\label{fig:chronology}
+\end{figure}
+
+All images were provided by the THEIA pole platform~\footnote{\url{http://theia.cnes.fr}} at level-2A in top of canopy reflectance values with associated cloud masks. Only 10-m spatial resolution bands (Blue, Green, Red and Near infrared spectrum) were considered in this analysis. A preprocessing was performed over each band to replace cloudy pixel values as detected by the available cloud masks through a linear multi-temporal interpolation (cf. temporal gap-filling~\cite{IENCO201911}). The entire study site is enclosed in the Sentinel-2 tile 31TEJ with relative orbit n°8.
+
+\textit{Ground truth data:} The GT data for 2018 was built from various sources: the \textit{Registre Parcellaire Graphique} (RPG) reference data (the French land parcel identification system), the French National Geographic Institute \textit{‘BD-Topo \& BD Forêt’} and the visual interpretation of a SPOT 6 image (to assess and enrich the GT data) as well. The GT was assembled in Geographic Information System (GIS) vector file, containing a collection of polygons, each attributed with a land cover category. Statistics about the GT data are reported in Table~\ref{tab:gt}.
+It was assumed that this GT data is also valid for 2019 because no significant change has occurred in this area between 2018 and 2019. 
+
+\begin{table}[htb]
+\centering
+\scriptsize
+\begin{tabular}{ |l|c|r|r| }
+ \hline
+ Class Name & Class ID. & \# Polygons & \# Pixels \\ 
+ \hline
+ BUILT & 1 & 712 & 10411\\
+ ROAD & 2 & 328 & 5165 \\
+ WATER & 3 & 82 & 32095 \\  
+ FOREST & 4 & 172 & 49175 \\  
+ VINE & 5 & 223 & 28630 \\
+ ORCHARD & 6 & 32 & 2075 \\
+ CROP & 7 & 39 & 5205 \\
+ OTHER VEGETATION & 8 & 56 & 4812 \\
+ \hline
+ & Total & 1644 & 137568 \\
+ \hline
+\end{tabular}
+\caption{Ground truth statistics.}
+\label{tab:gt}
+\end{table}
