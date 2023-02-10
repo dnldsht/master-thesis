@@ -68,15 +68,94 @@ The performance of each tree is then summarized in Table \ref{tab:rfresults}, wh
   \label{tab:rfresults}
 \end{table}
 
-\subsection{Temp CNN}
-- model overview
 
-- influence of width vs influence of depth
+\subsection{TempCNN}
+%- paper overview
+"Temporal Convolutional Neural Network for the Classification of Satellite Image Time Series" article \cite{tempCNN} presents a machine learning model for classifying satellite image time series data.
+The model is based on Convolutional Neural Networks (CNNs) and aims to improve upon traditional image classification methods by incorporating time-series information into the model.
+
+The model inputs a series of satellite images, which are transformed into a compact representation, and uses a series of convolutional and pooling operations to extract high-level features from the data.
+The article introduces a novel approach to classifying satellite image time series data and highlights the potential applications of the model in fields such as remote sensing and environmental monitoring.
+
+- temporal convolutional layer
+
+- data preparation
+
+-- guidance
+
+
+\subsubsection{Model}
+
+\begin{figure}[!htbp]
+  \centering
+  \includegraphics[width=1\textwidth]{tempCNN}
+  \caption{The TempCNN model \cite{tempCNN}}
+\end{figure}
+
+- description
+
 - regularization
-- batch-size?
+
+- filter size
+
+\subsubsection{Experimental results}
+
+
+
+
+- influence of depth
+
+\begin{table}[!htbp]
+  \centering
+   \begin{tabular}{rclrr}
+   Model&&                  & No imputation         & Pre imputation             \\[0.2cm]
+   \hline \\[-0.2cm]
+    1CONV256 &+& 1FC64   	 & $93.01 \pm 0.97$ 	 & $92.80 \pm 0.65$\\
+    2CONV128 &+& 1FC128  	 & $93.50 \pm 1.81$ 	 & $\mathbf{92.97 \pm 2.05}$\\
+    3CONV64 &+& 1FC256   	 & $\mathbf{93.45 \pm 1.36}$ 	 & $91.29 \pm 1.18$\\
+    4CONV32 &+& 1FC512   	 & $91.89 \pm 2.10$ 	 & $88.94 \pm 1.34$\\
+    5CONV16 &+& 1FC1024  	 & $90.66 \pm 1.21$ 	 & $86.54 \pm 2.00$\\
+    6CONV8 &+& 1FC2048   	 & $86.74 \pm 3.71$ 	 & $87.95 \pm 2.22$\\
+    &&1FC5115          	 & $89.64 \pm 0.48$ 	 & $90.78 \pm 1.69$\\
+   \end{tabular}
+   \caption{depth}
+ \end{table}
+
+ - influence of width
+
+ \begin{table}[!htbp]
+  \centering
+   \begin{tabular}{rclrr}
+   Model&&                  & No imputation         & Pre imputation             \\[0.2cm]
+   \hline \\[-0.2cm]
+    3CONV16 &+& 1FC256    	 & $92.64 \pm 0.01$ 	 & $91.69 \pm 0.12$\\
+    3CONV32 &+& 1FC256    	 & $\mathbf{93.88 \pm 0.76}$ 	 & $91.78 \pm 0.53$\\
+    3CONV64 &+& 1FC256    	 & $92.48 \pm 2.01$ 	 & $92.72 \pm 0.38$\\
+    3CONV256 &+& 1FC256   	 & $91.32 \pm 3.22$ 	 & $91.47 \pm 0.51$\\
+    3CONV512 &+& 1FC256   	 & $90.96 \pm 5.13$ 	 & $92.40 \pm 0.70$\\
+    3CONV1024 &+& 1FC256  	 & $92.87 \pm 2.33$ 	 & $\mathbf{93.40 \pm 0.37}$\\
+   \end{tabular}
+   \caption{complexity}
+ \end{table}
+
+- batch-size
+
+\begin{table}[!htbp]
+  \centering
+   \begin{tabular}{lrr}
+   batchsize                  & No imputation         & Pre imputation             \\[0.2cm]
+   \hline \\[-0.2cm]
+    16  	 & $91.92 \pm 1.50$ 	 & $92.16 \pm 2.75$\\
+    32  	 & $\mathbf{91.61 \pm 1.99}$ 	 & $\mathbf{93.74 \pm 0.03}$\\
+    64  	 & $90.88 \pm 2.63$ 	 & $92.30 \pm 2.89$\\
+    128  	 & $91.54 \pm 2.99$ 	 & $91.52 \pm 1.67$\\
+   \end{tabular}
+   \caption{batchsize 3CONV64+1FC256}
+ \end{table}
 
 - imputation vs no imputation
 
+\pagebreak
 \subsection{AJ-RNN}
 - model overview
 
@@ -99,4 +178,22 @@ The performance of each tree is then summarized in Table \ref{tab:rfresults}, wh
 
 \subsection{Results}
 
-- table with accuracy
+\begin{table}[!htbp]
+  \centering
+    \begin{tabular}{lrrr}
+    Model                       & Overall Accuracy             \\[0.2cm] 
+    \hline \\[-0.2cm]
+    RF      & $91.03 \pm 0.42$
+    \end{tabular}
+  \caption{Overall accuracy of the models with pre imputed missing values} 
+\end{table}
+
+\begin{table}[!htbp]
+  \centering
+    \begin{tabular}{lrrr}
+    Model                       & Overall Accuracy             \\[0.2cm] 
+    \hline \\[-0.2cm]
+    RF  & $89.72 \pm 0.84$
+    \end{tabular}
+  \caption{Overall accuracy of the models with missing values} 
+\end{table}
