@@ -136,10 +136,6 @@ To train the network Adam optimization was used with the standard parameter valu
 We used a batch size of 32, and a maximum number of epochs set to 20, with an early stopping mechanism with a patience of zero on the validation loss. 
 
 
-
-- filter size
--- guidance
-
 \subsubsection{Experimental results}
 
 In this section, we report the results of our experiments evaluating the performance of the TempCNN model on satellite image time series data.
@@ -168,8 +164,8 @@ As shown in Table \ref{tab:temCNNdepth}, the highest accuracy is achieved with t
    Model&&                  & No imputation         & Pre imputation             \\[0.2cm]
    \hline \\[-0.2cm]
     1CONV256 &+& 1FC64   	 & $90.01 \pm 0.97$ 	 & $90.80 \pm 0.65$\\
-    2CONV128 &+& 1FC128  	 & $\mathbf{93.50 \pm 1.81}$ 	 & $\mathbf{92.97 \pm 2.05}$\\
-    3CONV64 &+& 1FC256   	 & $93.45 \pm 1.36$ 	 & $91.29 \pm 1.18$\\
+    2CONV128 &+& 1FC128    & $93.05 \pm 1.26$ 	 & $91.29 \pm 1.18$\\
+    3CONV64 &+& 1FC256  	 & $\mathbf{93.50 \pm 1.31}$ 	 & $\mathbf{92.97 \pm 1.25}$\\
     4CONV32 &+& 1FC512   	 & $91.89 \pm 2.10$ 	 & $88.94 \pm 1.34$\\
     5CONV16 &+& 1FC1024  	 & $90.66 \pm 1.21$ 	 & $86.54 \pm 2.00$\\
     6CONV8 &+& 1FC2048   	 & $86.74 \pm 3.71$ 	 & $87.95 \pm 2.22$\\
@@ -210,24 +206,48 @@ The architectures differ in the number of parameters, and we vary the width of t
    \label{tab:temCNNwidth}
  \end{table}
 
+\begin{paragraph}{Batch size}
+% TODO review
+The batch size refers to the number of training examples used in one iteration of gradient descent.
+A larger batch size can lead to faster training, but it may also lead to a less accurate model.
+\end{paragraph}
 
-
-
- 
-- batch-size
+We then tried to find the optimal batch size for training the TempCNN model.
+We tried four different batch sizes: 16, 32, 64, and 128. 
+Table \ref{tab:temCNNbatchsize} shows that the batch size affects the training time, but not the overall accuracy, as all values are comparable.
 
 \begin{table}[!htbp]
   \centering
-   \begin{tabular}{lrr}
-   batchsize                  & No imputation         & Pre imputation             \\[0.2cm]
+   \begin{tabular}{rlll}
+   Batch size                 & Train time  & No imputation         & Pre imputation             \\[0.2cm]
    \hline \\[-0.2cm]
-    16  	 & $91.92 \pm 1.50$ 	 & $92.16 \pm 2.75$\\
-    32  	 & $\mathbf{91.61 \pm 1.99}$ 	 & $\mathbf{93.74 \pm 0.03}$\\
-    64  	 & $90.88 \pm 2.63$ 	 & $92.30 \pm 2.89$\\
-    128  	 & $91.54 \pm 2.99$ 	 & $91.52 \pm 1.67$\\
+    16        & 52min  	 & $91.92 \pm 1.50$ 	 & $92.16 \pm 2.75$\\
+    32        & 42min  	 & $\mathbf{91.61 \pm 1.99}$ 	 & $\mathbf{93.74 \pm 0.03}$\\
+    64        & 26min  	 & $90.88 \pm 1.63$ 	 & $92.30 \pm 0.89$\\
+    128       & 20min  	 & $91.54 \pm 1.69$ 	 & $91.52 \pm 1.67$\\
    \end{tabular}
-   \caption{batchsize 3CONV64+1FC256}
+   \caption{Influence of batch size on training time and classification accuracy.}
+   \label{tab:temCNNbatchsize}
  \end{table}
+ 
+\begin{paragraph}{Pooling layers}
+% TODO: pooling layers 
+Two types of pooling have received most of the attention in the literature in computer vision:
+1) the local max-pooling [75], and 2) the global average pooling [76]. For time series, global average
+pooling seems to have been more successful [9,37]. We want to see here if these previous results can be
+generalized for time series classification.
+\end{paragraph}
+
+% TODO talk about filter sizes
+
+% TODO review
+Figure 9 displays the OA values as a function of reach. Each curve represents a different
+configuration: local max-pooling (MP) in blue, local max-pooling and global average pooling
+(MP + GAP) in orange, local average pooling (AP) in yellow, local and global average pooling
+(AP + GAP) in purple, and global average pooling (GAP) in green. The horizontal red dashed
+line corresponds to the OA values obtained without pooling layers in the previous experiment.
+
+% TODO generate image form table
 
  \begin{table}[!htbp]
   \centering
@@ -268,7 +288,10 @@ The architectures differ in the number of parameters, and we vary the width of t
    \end{tabular}
    \caption{pooling}
  \end{table}
- 
+
+% TODO review table
+
+% TODO review architecture 
 
 \pagebreak
 \subsection{AJ-RNN}
