@@ -163,12 +163,12 @@ As shown in Table \ref{tab:temCNNdepth}, the highest accuracy is achieved with t
    \begin{tabular}{rclrr}
    Model&&                  & No imputation         & Pre imputation             \\[0.2cm]
    \hline \\[-0.2cm]
-    1CONV256 &+& 1FC64   	 & $90.01 \pm 0.97$ 	 & $90.80 \pm 0.65$\\
-    2CONV128 &+& 1FC128    & $93.05 \pm 1.26$ 	 & $91.29 \pm 1.18$\\
-    3CONV64 &+& 1FC256  	 & $\mathbf{93.50 \pm 1.31}$ 	 & $\mathbf{92.97 \pm 1.25}$\\
-    4CONV32 &+& 1FC512   	 & $91.89 \pm 2.10$ 	 & $88.94 \pm 1.34$\\
-    5CONV16 &+& 1FC1024  	 & $90.66 \pm 1.21$ 	 & $86.54 \pm 2.00$\\
-    6CONV8 &+& 1FC2048   	 & $86.74 \pm 3.71$ 	 & $87.95 \pm 2.22$\\
+   1CONV256 &+& 1FC64   	 & $91.39 \pm 0.74$ 	 & $91.12 \pm 0.57$\\
+   2CONV128 &+& 1FC128  	 & $93.32 \pm 1.11$ 	 & $91.32 \pm 1.28$\\
+   3CONV64 &+& 1FC256   	 & $\mathbf{93.57 \pm 0.84}$ 	 & $\mathbf{92.93 \pm 1.50}$\\
+   4CONV32 &+& 1FC512   	 & $92.33 \pm 1.32$ 	 & $90.45 \pm 1.98$\\
+   5CONV16 &+& 1FC1024  	 & $91.20 \pm 0.94$ 	 & $88.20 \pm 2.95$\\
+   6CONV8 &+& 1FC2048   	 & $87.83 \pm 2.89$ 	 & $88.58 \pm 2.90$\\
    \end{tabular}
    \caption{Influence of depth on classification accuracy.}
    \label{tab:temCNNdepth}
@@ -181,48 +181,54 @@ However, a network that is too wide may be prone to overfitting, where it memori
 Therefore, finding the optimal width is critical for achieving the best performance on the test data.
 \end{paragraph}
 
-% TODO wainting for results with 2CONV
 To evaluate the impact of width on model performance, we experimented with seven CNN architectures.
 Each architecture includes three convolutional layers, one dense layer with 256 neurons, and a Softmax layer, as illustrated in Figure \ref{tab:temCNNwidth}.
 The architectures differ in the number of parameters, and we vary the width of the convolutional layers from 16 to 1024 neurons.
 
-% describe table below
-% - we need something samll because we have a small dataset with few labels
-
-% TODO table may change
  \begin{table}[!htbp]
   \centering
    \begin{tabular}{rclrr}
    Model&&                  & No imputation         & Pre imputation             \\[0.2cm]
    \hline \\[-0.2cm]
-    3CONV16 &+& 1FC256    	 & $92.64 \pm 0.01$ 	 & $91.69 \pm 0.12$\\
-    3CONV32 &+& 1FC256    	 & $\mathbf{93.88 \pm 0.76}$ 	 & $91.78 \pm 0.53$\\
-    3CONV64 &+& 1FC256    	 & $92.48 \pm 2.01$ 	 & $92.72 \pm 0.38$\\
-    3CONV256 &+& 1FC256   	 & $91.32 \pm 3.22$ 	 & $91.47 \pm 0.51$\\
-    3CONV512 &+& 1FC256   	 & $90.96 \pm 5.13$ 	 & $92.40 \pm 0.70$\\
-    3CONV1024 &+& 1FC256  	 & $92.87 \pm 2.33$ 	 & $\mathbf{93.40 \pm 0.37}$\\
+   3CONV16 &+& 1FC256    	 & $92.44 \pm 0.83$ 	 & $91.62 \pm 0.41$\\
+   3CONV32 &+& 1FC256    	 & $92.52 \pm 0.68$ 	 & $92.16 \pm 0.68$\\
+   3CONV64 &+& 1FC256    	 & $92.45 \pm 0.89$ 	 & $\mathbf{93.47 \pm 0.63}$\\
+   3CONV128 &+& 1FC256   	 & $92.26 \pm 1.84$ 	 & $92.13 \pm 1.35$\\
+   3CONV256 &+& 1FC256   	 & $91.66 \pm 1.96$ 	 & $92.04 \pm 1.67$\\
+   3CONV512 &+& 1FC256   	 & $91.97 \pm 1.23$ 	 & $92.75 \pm 1.73$\\
+   3CONV1024 &+& 1FC256  	 & $\mathbf{92.76 \pm 1.46}$ 	 & $93.39 \pm 1.54$\\
    \end{tabular}
    \caption{Influence of width on classification accuracy.}
    \label{tab:temCNNwidth}
  \end{table}
 
+The results reported in Table \ref{tab:temCNNwidth} show that the architecture is remarkably robust, even when there is considerable variation in the number of neurons. This is illustrated by the fact that the overall accuracy shows a difference of only 1.7\% between the model with lower parameters and the one with higher parameters when using pre-imputed data, while the difference is only 0.32\% when there is no imputation for missing values.
+Although the standard deviation increases with the number of parameters, the architecture consistently achieves high accuracy rates, indicating that it is capable of maintaining good performance even with a larger number of neurons.
+
+We opted to utilize the model with three convolutional layers, each with 64 neurons, and one dense layer comprising 256 neurons for the upcoming experiments because it offers a favorable balance between bias and variance. This choice was made with consideration to the size of our training dataset, which comprises 80,000 samples.
+
 \begin{paragraph}{Batch size}
-% TODO review
-The batch size refers to the number of training examples used in one iteration of gradient descent.
-A larger batch size can lead to faster training, but it may also lead to a less accurate model.
+In machine learning, batch size refers to the number of training examples used in an iteration of gradient descent.
+The batch size plays a crucial role in determining the efficiency and accuracy of the training process.
+A larger batch size can result in faster training because the algorithm can process more examples in each iteration.
+However, using a larger batch size can also lead to a less accurate model because it can cause the optimization algorithm to converge to a suboptimal solution.
+On the other hand, using a smaller batch size may result in slower training, but may help the algorithm converge to a better solution. 
+Thus, choosing an appropriate batch size is an important consideration in machine learning.
 \end{paragraph}
 
-We then tried to find the optimal batch size for training the TempCNN model.
-We tried four different batch sizes: 16, 32, 64, and 128. 
-Table \ref{tab:temCNNbatchsize} shows that the batch size affects the training time, but not the overall accuracy, as all values are comparable.
+We conducted experiments to determine the optimal batch size for training the TempCNN model.
+Specifically, we tested four different batch sizes: 16, 32, 64, and 128.
+Our analysis, as presented in Table \ref{tab:temCNNbatchsize}, shows that batch size has a noticeable impact on training time; larger batch sizes result in faster training times.
+However, we observed that the batch size does not have a significant effect on the overall accuracy of the TempCNN model.
+In fact, we found that the accuracy values for all four batch sizes are comparable, indicating that selecting an appropriate batch size is not a critical factor in achieving high accuracy for this model.
 
 \begin{table}[!htbp]
   \centering
    \begin{tabular}{rlll}
    Batch size                 & Train time  & No imputation         & Pre imputation             \\[0.2cm]
    \hline \\[-0.2cm]
-    16        & 52min  	 & $91.92 \pm 1.50$ 	 & $92.16 \pm 2.75$\\
-    32        & 42min  	 & $\mathbf{91.61 \pm 1.99}$ 	 & $\mathbf{93.74 \pm 0.03}$\\
+    16        & 52min  	 & $91.92 \pm 1.50$ 	 & $92.16 \pm 1.75$\\
+    32        & 42min  	 & $\mathbf{91.61 \pm 1.19}$ 	 & $\mathbf{93.74 \pm 0.03}$\\
     64        & 26min  	 & $90.88 \pm 1.63$ 	 & $92.30 \pm 0.89$\\
     128       & 20min  	 & $91.54 \pm 1.69$ 	 & $91.52 \pm 1.67$\\
    \end{tabular}
@@ -231,65 +237,42 @@ Table \ref{tab:temCNNbatchsize} shows that the batch size affects the training t
  \end{table}
  
 \begin{paragraph}{Pooling layers}
-% TODO: pooling layers 
-Two types of pooling have received most of the attention in the literature in computer vision:
-1) the local max-pooling [75], and 2) the global average pooling [76]. For time series, global average
-pooling seems to have been more successful [9,37]. We want to see here if these previous results can be
-generalized for time series classification.
+Pooling is a common technique used in deep learning for dimensionality reduction and feature extraction.
+In the context of computer vision, the two most popular types of pooling are local max-pooling \cite{Ren2015Faster} and global average pooling \cite{He2016Deep}.
+Local max-pooling takes the maximum value of a small subregion of a feature map, while global average pooling takes the average of all feature map values.
+However, for time series data, global average pooling has been shown to be more effective in previous studies \cite{rs10020236,fawaz2018deep}.
+In this work, we investigate whether these findings can be generalized to time series classification tasks. 
+Specifically, we will compare the performance of the TempCNN model using both local max-pooling and global average pooling to determine which pooling method is most effective for our specific application.
 \end{paragraph}
 
-% TODO talk about filter sizes
+\begin{paragraph}{Filter size}
+Filter Size is an important Hyperparameter in Convolutional Neural Networks (CNNs)
+The filter size, also known as the kernel size, determines the receptive field of the convolutional layer and influences the network's ability to capture spatial features in the input.
+A larger filter size allows the network to capture more complex patterns and details, but at the cost of increased computation and potential overfitting.
+Conversely, a smaller filter size reduces computation and may improve the network's ability to generalize to new data, but at the risk of losing important features.
+Therefore, the filter size should be chosen based on the complexity of the task and the size of the input data.
+\end{paragraph}
+
 
 % TODO review
-Figure 9 displays the OA values as a function of reach. Each curve represents a different
-configuration: local max-pooling (MP) in blue, local max-pooling and global average pooling
-(MP + GAP) in orange, local average pooling (AP) in yellow, local and global average pooling
-(AP + GAP) in purple, and global average pooling (GAP) in green. The horizontal red dashed
-line corresponds to the OA values obtained without pooling layers in the previous experiment.
+Figure \ref{tab:tempCNNPooling} displays the OA values as a function of filter size. 
+Each bar represents a different configuration: local max-pooling (MP), local max-pooling and global average pooling (MP + GAP), local average pooling (AP), local and global average pooling (AP + GAP), and global average pooling (GAP). 
+The horizontal magenta dashedline corresponds to the OA values obtained without pooling layers in the previous experiment.
 
-% TODO generate image form table
 
- \begin{table}[!htbp]
+\begin{figure}[!htbp]
   \centering
-   \begin{tabular}{lrr}
-   Model                  & No imputation         & Pre imputation             \\[0.2cm]
-   \hline \\[-0.2cm]
-    
-  
-    3CONV64C + 1FC256 + GAP + f33  	 & $91.45 \pm 0.86$ 	 & $90.01 \pm 0.81$\\
-    3CONV64C + 1FC256 + GAP + f17  	 & $90.43 \pm 3.00$ 	 & $90.10 \pm 4.35$\\
-    3CONV64C + 1FC256 + GAP + f9  	 & $90.09 \pm 1.62$ 	 & $90.22 \pm 0.25$\\
-    3CONV64C + 1FC256 + GAP + f5  	 & $91.41 \pm 0.12$ 	 & $88.13 \pm 5.74$\\
-    3CONV64C + 1FC256 + GAP + f3  	 & $89.61 \pm 3.55$ 	 & $91.10 \pm 0.08$
-    \\[0.2cm] \hline \\[-0.2cm]
-    3CONV2MP + 1FC256 + f33 + 17 + 9  	 & $92.10 \pm 1.87$ 	 & $89.73 \pm 2.23$\\
-    3CONV2MP + 1FC256 + f17 + 9 + 5  	 & $89.35 \pm 0.55$ 	 & $89.11 \pm 3.84$\\
-    3CONV2MP + 1FC256 + f9 + 5 + 3  	 & $91.23 \pm 4.56$ 	 & $91.33 \pm 1.52$\\
-    3CONV2MP + 1FC256 + f5 + 3 + 1,  	 & $91.71 \pm 3.48$ 	 & $93.07 \pm 0.87$\\
-    3CONV2MP + 1FC256 + f3 + 1 + 1,  	 & $93.10 \pm 3.08$ 	 & $91.45 \pm 0.06$
-    \\[0.2cm] \hline \\[-0.2cm]
-    3CONV2AP + 1FC256 + f33 + 17 + 9  	 & $90.41 \pm 2.94$ 	 & $91.45 \pm 1.15$\\
-    3CONV2AP + 1FC256 + f17 + 9 + 5  	 & $93.61 \pm 0.23$ 	 & $92.78 \pm 1.51$\\
-    3CONV2AP + 1FC256 + f9 + 5 + 3  	 & $91.56 \pm 0.81$ 	 & $86.86 \pm 8.06$\\
-    3CONV2AP + 1FC256 + f5 + 3 + 1,  	 & $92.72 \pm 0.34$ 	 & $92.23 \pm 2.47$\\
-    3CONV2AP + 1FC256 + f3 + 1 + 1,  	 & $93.71 \pm 0.61$ 	 & $92.74 \pm 1.26$
-    \\[0.2cm] \hline \\[-0.2cm]
-    3CONV2MP + 1FC256 + GAP + f33 + 17 + 9  	 & $91.10 \pm 1.39$ 	 & $90.75 \pm 0.55$\\
-    3CONV2MP + 1FC256 + GAP + f17 + 9 + 5  	 & $91.20 \pm 1.38$ 	 & $91.05 \pm 0.56$\\
-    3CONV2MP + 1FC256 + GAP + f9 + 5 + 3  	 & $90.15 \pm 1.41$ 	 & $92.37 \pm 0.65$\\
-    3CONV2MP + 1FC256 + GAP + f5 + 3 + 1,  	 & $91.90 \pm 0.45$ 	 & $89.69 \pm 2.57$\\
-    3CONV2MP + 1FC256 + GAP + f3 + 1 + 1,  	 & $90.76 \pm 3.19$ 	 & $89.32 \pm 2.65$
-    \\[0.2cm] \hline \\[-0.2cm]
-    3CONV2AP + 1FC256 + GAP + f33 + 17 + 9  	 & $86.05 \pm 5.55$ 	 & $91.16 \pm 0.47$\\
-    3CONV2AP + 1FC256 + GAP + f17 + 9 + 5  	 & $89.74 \pm 2.89$ 	 & $91.74 \pm 2.30$\\
-    3CONV2AP + 1FC256 + GAP + f9 + 5 + 3  	 & $91.35 \pm 0.53$ 	 & $92.49 \pm 0.36$\\
-    3CONV2AP + 1FC256 + GAP + f5 + 3 + 1,  	 & $90.17 \pm 1.79$ 	 & $91.64 \pm 2.40$\\
-    3CONV2AP + 1FC256 + GAP + f3 + 1 + 1  	 & $90.59 \pm 3.77$ 	 & $90.61 \pm 1.05$\\
-   \end{tabular}
-   \caption{pooling}
- \end{table}
+  \includegraphics[width=0.7\textwidth]{tempCNNPooling.png}
+  \caption{Overall Accuracy as a Function of Filter Size for Different Pooling Methods: Local max-pooling (MP) in orange, local max-pooling and global average pooling (MP + GAP) in red, local average pooling (AP) in green, local and global average pooling (AP + GAP) in purple, and global average pooling (GAP) in blue.}
+  \label{tab:tempCNNPooling}
+\end{figure}
 
-% TODO review table
+Figure \ref{tab:tempCNNPooling} shows that the use of pooling layers performs poorly: the OA results are almost always
+below the one obtained without pooling layers (magenta dashed line). 
+
+% TODO ? Let us describe in more details thedifferent findings for both global and local pooling layers.
+
+
 
 % TODO review architecture 
 
