@@ -25,7 +25,8 @@ brief overview of the experiments/models
     TempCNN & $93.74 \pm 0.03$\\
     L-TAE   & $93.58 \pm 1.29$
     \end{tabular}
-  \caption{Overall accuracy of the best models with pre imputed missing values} 
+  \caption{Overall accuracy of the best models with pre imputed missing values}
+  \label{tab:ALLresultsImputed} 
 \end{table}
 
 \begin{table}[!htbp]
@@ -39,4 +40,16 @@ brief overview of the experiments/models
     L-TAE   & $93.65 \pm 1.30$
     \end{tabular}
   \caption{Overall accuracy of the best models without imputation of missing values} 
+  \label{tab:ALLresultsNoImputed}
 \end{table}
+
+\subsubsection{Imputation of missing values}
+
+The inclusion of missing data can often be a challenge in machine learning tasks, as missing values can have a significant impact on the performance of the model.
+In the first scenario, we addressed this issue by imputing the missing values prior to training the models. 
+This allowed us to utilize all available data in the training process, leading to potentially improved performance.
+
+In the second scenario, we did not impute the missing values, which meant that the training process was carried out using only the available non-missing data.
+This scenario can be particularly useful in cases where imputation may introduce bias or distort the underlying patterns in the data.
+
+Overall, the results reported in Tables \ref{tab:ALLresultsImputed} and \ref{tab:ALLresultsNoImputed} demonstrate that the inclusion of missing data through imputation did not significantly impact the performance of the models.
