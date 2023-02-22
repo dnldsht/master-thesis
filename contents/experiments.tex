@@ -164,8 +164,8 @@ As shown in Table \ref{tab:temCNNdepth}, the highest accuracy is achieved with t
    Model&&                  & No imputation         & Pre imputation             \\[0.2cm]
    \hline \\[-0.2cm]
    1CONV256 &+& 1FC64   	 & $91.39 \pm 0.74$ 	 & $91.12 \pm 0.57$\\
-   2CONV128 &+& 1FC128  	 & $93.32 \pm 1.11$ 	 & $91.32 \pm 1.28$\\
-   3CONV64 &+& 1FC256   	 & $\mathbf{93.57 \pm 0.84}$ 	 & $\mathbf{92.93 \pm 1.50}$\\
+   2CONV128 &+& 1FC128  	 & $91.32 \pm 1.11$ 	 & $91.32 \pm 1.28$\\
+   3CONV64 &+& 1FC256   	 & $\mathbf{92.57 \pm 0.84}$ 	 & $\mathbf{92.93 \pm 1.50}$\\
    4CONV32 &+& 1FC512   	 & $92.33 \pm 1.32$ 	 & $90.45 \pm 1.98$\\
    5CONV16 &+& 1FC1024  	 & $91.20 \pm 0.94$ 	 & $88.20 \pm 2.95$\\
    6CONV8 &+& 1FC2048   	 & $87.83 \pm 2.89$ 	 & $88.58 \pm 2.90$\\
@@ -317,15 +317,15 @@ The increasing accessibility and precision of Earth observation satellite data o
 
 \begin{table}[ht]
   \centering
-  \begin{tabular}{l p{13cm}}
-     \hline
-     Param & Description\\ \hline 
+  \begin{tabular}{l p{12cm}}   
+     Param & Description \\[0.2cm] 
+     \hline \\[-0.2cm]  
      E & size of the embeddings ($E$), if input vectors are of a different size, a linear layer is used to project them d\_model-dimensional space \\
      H & Number of attention heads  \\
      K & Dimension of the key and query vectors  \\
-     mlp & Number of neurons in the layers of MLP \\
-     \hline
-  \end{tabular}\\
+     MLP & Number of neurons in the layers of MLP \\
+  \end{tabular}
+  \caption{Params of L-TAE model}
   \label{tab:LTAEconfig}
 \end{table} 
 
@@ -334,7 +334,7 @@ The increasing accessibility and precision of Earth observation satellite data o
 \begin{table}[ht]
   \centering
   \begin{tabular}{cccclrr} 
-     Params & E & H & K & mlp & No imputation & Pre imputation\\[0.2cm] 
+     Params & E & H & K & MLP & No imputation & Pre imputation\\[0.2cm] 
      \hline \\[-0.2cm] 
      43k & 	128 & 	8 & 	8 & 	128 & 	$93.37 \pm 1.65$ & 	$93.08 \pm 1.16$\\ 
      68k & 	128 & 	16 & 	8 & 	128 - 128 & 	$93.43 \pm 1.37$ & 	$93.39 \pm 1.16$\\ 
@@ -355,9 +355,10 @@ The increasing accessibility and precision of Earth observation satellite data o
     Model                       & Overall Accuracy             \\[0.2cm] 
     \hline \\[-0.2cm]
     RF      & $91.03 \pm 0.42$\\
+    TempCNN & $93.74 \pm 0.03$\\
     L-TAE   & $93.58 \pm 1.29$
     \end{tabular}
-  \caption{Overall accuracy of the models with pre imputed missing values} 
+  \caption{Overall accuracy of the best models with pre imputed missing values} 
 \end{table}
 
 \begin{table}[!htbp]
@@ -366,7 +367,8 @@ The increasing accessibility and precision of Earth observation satellite data o
     Model                       & Overall Accuracy             \\[0.2cm] 
     \hline \\[-0.2cm]
     RF      & $89.72 \pm 0.84$\\
+    TempCNN & $92.57 \pm 0.84$\\
     L-TAE   & $93.65 \pm 1.30$
     \end{tabular}
-  \caption{Overall accuracy of the models with missing values} 
+  \caption{Overall accuracy of the best models without imputation of missing values} 
 \end{table}
