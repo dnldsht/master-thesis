@@ -1,0 +1,66 @@
+\subsection{Random forest}
+% https://www.tensorflow.org/decision_forests
+TensorFlow Decision Forests (TF-DF) is the library used to train and evaluate the random forest model.
+
+% (https://www.stat.berkeley.edu/~breiman/randomforest2001.pdf)
+A Random Forest is a collection of deep CART decision trees trained independently and without pruning.
+Each tree is trained on a random subset of the original training dataset (sampled with replacement).
+The algorithm is unique in that it is robust to overfitting, even in extreme cases e.g. when there are more features than training examples.
+It is probably the most well-known of the Decision Forest training algorithms.
+
+\subsubsection{Features}
+We need to adjust the dataset because the Random Forest model does not accept time series or multivariate data as input.
+
+\begin{figure}[!htbp]
+  \begin{subfigure}{.5\textwidth}
+    \centering
+    \[
+      \begin{blockarray}{ccccc}
+        & b_0 & b_1 & \dots & b_{15} \\
+        \begin{block}{c|cccc|}
+          t_0 & 0.2 & 1.6 & \dots & 1.7  \\
+          t_1 & 1.3 & 1.8 & \dots & 1.8 \\
+          \vdots & \vdots & \vdots &  & \vdots   \\
+          t_{53} & 0.6 & 0.4 & \dots & 1.3 \\
+        \end{block}
+      \end{blockarray}
+    \]
+    \caption{One observation in a 2-dim array}
+    \label{fig:figtrans1}
+  \end{subfigure}%
+  \begin{subfigure}{.5\textwidth}
+    \centering
+    \[
+      \begin{blockarray}{cc}
+      \begin{block}{c|c|}
+        t_0::b_0 & 0.2 \\
+        t_0::b_1 & 1.6 \\
+        \vdots & \vdots \\
+        t_{53}::b_{15} & 1.3 \\
+      \end{block}
+      \end{blockarray}
+    \]
+    \caption{Forged features for Random forest}
+    \label{fig:figtrans2}
+  \end{subfigure}
+  \caption{Transformation of one observation from a 2-dim array to a 1-dim array}
+  \label{fig:figtrans}
+\end{figure}
+
+As shown in Figure \ref{fig:figtrans1}, each sample is initially represented by a 2-dimensional array of size (54, 16), where 16 bands capture the pixel's characteristics and 54 time steps reflect its progression. 
+However, through the transformation process, the representation is transformed into a more 1-dimensional array of size (864, 1) as depicted in Figure \ref{fig:figtrans2}. 
+
+The model's training utilizes the new representation of the data, composed of 864 derived features, to generate 300 trees.
+The performance of each tree is then summarized in Table \ref{tab:rfresults}, which displays the number of nodes, the number of features utilized, and the overall accuracy
+
+\begin{table}[!htbp]
+  \centering
+    \begin{tabular}{lrrr}
+    Model                       & Nodes   & Used features & Overall Accuracy             \\[0.2cm] 
+    \hline \\[-0.2cm]
+    Imputed missing values      & 523,636  & 753          & $91.03 \pm 0.42$\\
+    Not imputed missing values  & 519,932  & 718          & $89.72 \pm 0.84$
+    \end{tabular}
+  \caption{Random forest results}
+  \label{tab:rfresults}
+\end{table}
