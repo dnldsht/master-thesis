@@ -1,6 +1,6 @@
-\section{Background}
+\chapter{Background}
 
-\subsection{Time series}
+\section{Time series}
 % TODO add hearth observation example 
 A time series is a sequence of observations taken at regular intervals of time.
 These observations can be numerical values, categorical variables, or even text.
@@ -26,7 +26,7 @@ In transportation, time series data can be used to analyze traffic patterns and 
 % Time dependence: The value of the observation at time t is dependent on the values of the observations at previous time steps.
 % Stationarity: A time series is considered stationary if its statistical properties, such as mean and variance, do not change over time.
 % One of the main challenges in working with time series data is the presence of missing values. This can occur due to various reasons such as sensor failures, data transmission errors, or data cleaning processes. The presence of missing values can make it difficult to perform tasks such as classification and prediction on time series data.
-\subsubsection{Univariate and Multivariate}
+\subsection{Univariate and Multivariate}
 
 In addition to the concept of a time series, it's also important to understand the difference between univariate and multivariate time series.
 \begin{figure}[!htbp]
@@ -43,14 +43,14 @@ On the other hand, in multivariate time series, the focus is on understanding th
 %Techniques such as vector autoregression (VAR) and principal component analysis (PCA) can be used to analyze the relationships between the variables. Additionally, multivariate time series can also be used for tasks such as classification and anomaly detection.
 It's important to note that, the choice of model and the methods used to analyze the data will depend on the type of time series data you are working with. Univariate and multivariate time series require different approach and techniques to be analyzed.
 
-\subsubsection{Spatio-temporal autocorrelation}
+\subsection{Spatio-temporal autocorrelation}
 Spatio-temporal autocorrelation refers to the correlation between observations that are close in both space and time. It is a common phenomenon in many natural and social phenomena, such as weather patterns, crime rates, and population density.
 
 Spatio-temporal autocorrelation can be of two types: positive and negative. Positive spatio-temporal autocorrelation occurs when similar values tend to cluster together in both space and time. For example, in weather patterns, regions with high temperatures tend to be near other regions with high temperatures, and this pattern tends to persist over time. Negative spatio-temporal autocorrelation occurs when dissimilar values tend to cluster together in both space and time.
 
 Spatio-temporal autocorrelation is important to consider when analyzing spatio-temporal data, such as time series data with a spatial component. Ignoring spatio-temporal autocorrelation can lead to biased and unreliable results.
 
-\subsection{Ensemble learning}
+\section{Ensemble learning}
 Ensemble learning is a technique in machine learning where multiple models are combined to create a more powerful model. The idea behind ensemble learning is that by combining the predictions of multiple models, the ensemble model can reduce the variance and bias of the individual models, leading to improved performance on unseen data.
 
 There are several popular ensemble learning methods, including:
@@ -66,7 +66,7 @@ There are several popular ensemble learning methods, including:
 Ensemble learning can be applied to a wide range of machine learning tasks, including classification, regression, and anomaly detection. It has been shown to improve performance on a wide range of datasets and is often used in practice to improve the performance of machine learning models.
 
 
-\subsubsection{Random forests}
+\subsection{Random forests}
 
 Random forests are an ensemble learning method used for classification and regression tasks. The name "random forest" comes from the fact that it is a collection of decision trees, where each tree is "trained" on a random subset of the data, and the final predictions are made by combining the predictions of all the trees.
 
@@ -86,7 +86,7 @@ In summary, Random Forests are a combination of decision trees, where each tree 
 
 
 
-\subsection{Deep learning}
+\section{Deep learning}
 Deep learning is a subfield of machine learning that utilizes deep neural networks, which are neural networks with multiple hidden layers, to learn from the data.
 These models are capable of learning abstract features from the data and making predictions based on those features, making them particularly useful for tasks such as image and speech recognition, natural language processing, and anomaly detection.
 
@@ -106,7 +106,7 @@ The ability of deep neural networks to learn abstract features has led to signif
 In summary, deep learning is a subfield of machine learning that utilizes deep neural networks, which are neural networks with multiple hidden layers, to model complex patterns in data.
 These models are trained using large amounts of data and powerful computational resources to minimize the error between predictions and true values and have led to significant advancements in various fields.
 
-\subsubsection{Multilayer perceptrons}
+\subsection{Multilayer perceptrons}
 
 Multilayer perceptrons (MLPs) are a popular class of feedforward artificial neural networks that are composed of multiple layers of artificial neurons.
 These networks are also known as fully connected networks due to the fact that each neuron in one layer is connected to all neurons in the following layer.
@@ -142,7 +142,7 @@ Activation functions are utilized to introduce non-linearity into the network.
 
 
 
-\subsubsection{Convolutional neural networks}
+\subsection{Convolutional neural networks}
 Convolutional Neural Networks (CNNs) are a class of deep neural networks that are specifically designed to process data that has a grid-like structure, such as images.
 CNNs are composed of multiple layers, including convolutional layers, pooling layers, and fully connected layers.
 
@@ -195,7 +195,7 @@ CNNs have been successful in a wide range of image classification tasks and have
 They have also been applied to other domains, such as video analysis and natural language processing.
 CNNs are able to learn spatially hierarchical representations of the data and learn translations-invariant representations of the data.
 
-\subsubsection{Temporal convolutional neural networks}
+\subsection{Temporal convolutional neural networks}
 
 Temporal Convolutional Networks (TCNs) are a variation of CNNs that are designed to process sequential data, such as time series or videos.
 They are similar to traditional CNNs in that they use convolutional layers to extract features from the input data, but they also incorporate temporal information by using dilated convolutions.
@@ -215,7 +215,7 @@ They incorporate temporal information by using dilated convolutions and causal c
 TCNs have been used in a variety of tasks and have been shown to be effective in capturing temporal dependencies and have achieved state-of-the-art performance on benchmarks.
 
 
-\subsubsection{Recurrent neural networks}
+\subsection{Recurrent neural networks}
 
 Recurrent Neural Networks (RNNs) are a type of neural network that are designed to process sequential data, such as time series or natural language.
 They are called "recurrent" because they have a feedback loop that allows information to flow from one step of the sequence to the next.
@@ -253,7 +253,7 @@ They have a feedback loop that allows information to flow from one step of the s
 However, traditional RNNs suffer from the vanishing gradient problem, which makes it difficult to train RNNs on long sequences.
 To overcome this problem, variants of RNNs such as Long Short-Term Memory (LSTM) and Gated Recurrent Unit (GRU) have been developed. Both LSTMs and GRUs have been shown to be effective in solving a wide range of problems related to sequential data and have been applied to other areas as well.
 
-\subsubsection{Generative adversarial networks}
+\subsection{Generative adversarial networks}
 Generative Adversarial Networks (GANs) are a type of neural network architecture that is used for unsupervised learning.
 They consist of two main components: a generator network and a discriminator network.
 The generator network is trained to generate new data samples that are similar to a given training dataset, while the discriminator network is trained to distinguish between the generated samples and the real samples from the training dataset.
@@ -286,7 +286,7 @@ GANs have many advantages, such as the ability to generate high-quality images, 
 Conditional GANs are a variant of GANs where both the generator and the discriminator are conditioned on some additional input, such as a class label or an image, allowing the model to generate new samples that are conditioned on a specific class or attributes.
 They have been used in a wide range of applications and have been applied to other areas such as natural language processing, speech synthesis, and 3D object generation.
 
-\subsubsection{Attention is all you need}
+\subsection{Attention is all you need}
 
 The "Attention is All You Need" (AIAYN) model, also known as the Transformer, is a neural network architecture that was introduced in 2017 by Google researchers.
 It is a type of encoder-decoder model that is primarily used for natural language processing tasks such as language translation, text summarization, and question answering.

@@ -1,4 +1,4 @@
-\documentclass{article}
+\documentclass{report}
 \usepackage[utf8]{inputenc}
 
 % language
@@ -13,8 +13,21 @@
 \usepackage{amsmath}
 \usepackage{blkarray}
 \usepackage{parskip}
+\usepackage[colorlinks=true, allcolors=black]{hyperref}
 \usepackage{url}
 \input{commands/keywords}
+
+\usepackage{ragged2e}
+\justifying
+
+\usepackage{fancyhdr}
+
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\rightmark}
+\rhead{\textbf{\thepage}}
+\fancyfoot{}
+\setlength{\headheight}{15pt}
 
 
 \begin{document}
