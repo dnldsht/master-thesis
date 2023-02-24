@@ -1,4 +1,4 @@
-\subsection{L-TAE}
+\section{L-TAE}
 %The increasing accessibility and precision of Earth observation satellite data offers considerable opportunities for industrial and state actors alike. 
 %This calls however for efficient methods able to process time-series on a global scale.
 The paper "Lightweight Temporal Self-Attention for Classifying Satellite Image Time Series" \cite{LTAE} was written by Vivien Sainte Fare Garnot, and Loic Landrieu, and published in 2020.
@@ -9,7 +9,7 @@ In their proposed network, the channels of the temporal inputs are distributed a
 
 Overall, the paper presents a novel method for classifying satellite image time series, utilizing a lightweight variant of temporal self-attention and outperforming other state-of-the-art approaches.
 
-\subsubsection{Multi-Headed Self-Attention}
+\subsection{Multi-Headed Self-Attention}
 
 The original version of self-attention, which was initially developed for text translation as described in \cite{vaswani}, involves three main steps.
 Firstly, for each position "t" in the input sequence, a triplet of key-query-value is computed, denoted as $k^{(t)}$, $q^{(t)}$, and $v^{(t)}$, respectively, by applying a shared linear layer to the input $e^{(t)}$.
@@ -20,79 +20,75 @@ To enable each head to specialize in detecting certain characteristics of the fe
 This approach is used by Rußwurm et al. \cite{russwurm2019self} to embed sequences of satellite observations by max-pooling the resulting sequence of outputs in the temporal dimension.
 
 Garnot et al. \cite{garnot2020satellite} introduce a modified self-attention scheme called the Temporal Attention Encoder (TAE).
-Firstly, they propose using the input embeddings as values (i.e., $v(t) = e(t)$) directly, which takes advantage of the end-to-end training of the image embedding functions along with the TAE.
-They also define a single master query ˆq for each sequence, which is computed from the temporal average of the queries.
-The master query is compared to the sequence of keys to produce a single attention mask of dimension "T", which is used to weight the temporal mean of values into a single feature vector.
+Firstly, they propose using the input embeddings as values (i.e., $v^{(t)} = e^{(t)}$) directly, which takes advantage of the end-to-end training of the image embedding functions along with the TAE.
+They also define a single master query $\hat{q}$ for each sequence, which is computed from the temporal average of the queries.
+The master query is compared to the sequence of keys to produce a single attention mask of dimension $T$, which is used to weight the temporal mean of values into a single feature vector.
 
 
 
-\subsubsection{Model}
-% TODO review
-We build on this effort to adapt multi-headed self-attention to the task of sequence embedding. Our focus is on efficiency, both in terms of parameter count
-and computational load.
+\subsection{Model}
+Their work is an extension of previous efforts in adapting multi-headed self-attention for sequence embedding.
+The primary objective is to optimize efficiency, specifically with regards to parameter count and computational load.
 
 \begin{figure}[!htbp]
   \centering
   \includegraphics[width=1\textwidth]{LTAE}
   \caption{Light Temporal Attention Encoder  (L-TAE) module processing an input sequence e of $T$ vectors of
   size $E$, with $H = 3$ heads and keys of size $K$. The channels of the input embeddings
-  are distributed among heads. Each head uses a learnt query $q_h$, while a linear layer
+  are distributed among heads. Each head uses a learnt query $\hat{q_h}$, while a linear layer
   $FC_h$ maps inputs to keys. The outputs of all heads are concatenated into a vector with
   the same size as the input embeddings, regardless of the number of heads \cite{LTAE}}
-  \label{tab:LTAErchitecture}
+  \label{fig:LTAErchitecture}
 \end{figure}
 
-\begin{paragraph}{Channel Grouping} we propose to split the E channels of the input elements
-into H groups of size E0 = E/H with H being the number of heads1
-, in the
-manner of Wu et al. [14]. We denote by e(t) h
-the groups of input channels for the
-h-th group of the t-th element of the input sequence (1).
-We encode the number of days elapsed since the beginning of the sequence
-into an E0 -dimensional positional vector p of characteristic scale $t$ = 1000 (2).
-In order for each head to access this information, p is duplicated and added to
-each channel group. Each head operates in parallel on its corresponding group
-of channels, thus accelerating the costly computation of keys and queries. This
-also allows for each head to specialize alongside its channel group, and avoid
-redundant operations between heads.
+\begin{paragraph}{Channel Grouping} 
+The proposal is to divide the $E$ channels of the input elements into $H$ groups of size $E' = E/H$ following the approach of Wu et al. \cite{wu2018group}, where $H$ refers to the number of heads. The groups of input channels for the $h$-th group of the t-th element of the input sequence (\ref{eq:LTAE1}) are denoted by $e^{(t)}_h$.
+
+To encode the number of days elapsed since the beginning of the sequence, an $E'$-dimensional positional vector $p$ with a characteristic scale $\tau = 1000$ is used (\ref{eq:LTAE2}).
+To enable each head to access this information, the vector $p$ is replicated and added to every channel group.
+This approach allows each head to work in parallel on its corresponding group of channels, reducing the computational expense of calculating keys and queries. Additionally, it allows each head to specialize alongside its channel group and avoid redundant operations between heads.
 \end{paragraph} 
 
 \begin{paragraph}{Query-as-Parameter} 
-We define the K-dimensional master query qh of each head
-h as a model parameter instead of the results of a linear layer. The immediate
-benefit is a further reduction of the number of parameters, while the lack of
-flexibility is compensated by the larger number of available heads.
+The K-dimensional master query $q_h$ of each head $h$ is defined as a model parameter instead of the results of a linear layer.
+This approach has the immediate advantage of reducing the number of parameters required.
+Although this method lacks flexibility, it is compensated by the greater number of heads available.
 \end{paragraph} 
 
 \begin{paragraph}{Attention Masks}
-Attention Masks: As a result, only the keys are obtained with a learned linear
-layer (3), while values are bypassed (v(t) = e(t)
-), and the queries are model
-parameters. The attention masks ah  [0, 1]T of each head h are defined as the
-scaled softmax of the dot-product between the keys and the master query (4).
-The outputs oh of each heads are defined as the sum in the temporal dimension
-of the corresponding inputs weighted by the attention mask ah (5). Finally,
-the heads outputs are concatenated into a vector of size E and processed by a
-multi-layer perceptron MLP to the desired size (6). In Figure 1, we represent a
-schematic representation of our network. The different steps of the L-TAE can
-also be condensed by the following operations, for h = 1 · · · H and t = 1 · · · T:
+The approach involves using a learned linear layer (\ref{eq:LTAE3}) solely for obtaining the keys, bypassing the values $(v^{(t)} = e^{(t)})$, and employing model parameters for the queries.
+For each head $h$, the attention masks $a_h \in [0, 1]^T$ are obtained by scaling the softmax of the dot product between the keys and the master query (\ref{eq:LTAE4}).
+The outputs $o_h$ of each head are determined by summing the corresponding inputs weighted by the attention mask $a_h$ along the temporal dimension (\ref{eq:LTAE5}).
+Following this step, the outputs of each head are concatenated to form a vector of size $E$, which is then processed through a multi-layer perceptron MLP to achieve the desired size (\ref{eq:LTAE6}).
+
+A schematic representation of the network is provided in Figure \ref{fig:LTAErchitecture}.
+In summary, the various steps of the L-TAE method can be summarized by the following operations for $h = 1...H$ and $t = 1...T$:
+
+\begin{align}
+  e^{(t)}_h &= e^{(t)}[(h-1) E'...hE']                                  \label{eq:LTAE1}\\
+  [p^{(t)}] &= sin(day(t)/\tau^{\frac{i}{E'}})                          \label{eq:LTAE2}\\
+  k^{(t)}_h &= FC_h(e^{(t)}_h + p^{(t)})                                \label{eq:LTAE3}\\
+  a_h       &= softmax \Bigr(\frac{1}{\sqrt{K}} \Bigr[[q_h \cdot k^{(t)}_h\Bigr]^T_{t=1}\Bigr) \label{eq:LTAE4}\\
+  o_h       &= \sum_{t=1}^{T} a_h[t] (e^{(t)}_h + p^{(t)})              \label{eq:LTAE5}\\
+  o         &= MLP([o_1,...,o_H]).                                      \label{eq:LTAE6}
+\end{align}
+
 \end{paragraph}
 
-\begin{table}[ht]
-  \centering
-  \begin{tabular}{l p{12cm}}   
-     Param & Description \\[0.2cm] 
-     \hline \\[-0.2cm]  
-     E & size of the embeddings ($E$), if input vectors are of a different size, a linear layer is used to project them d\_model-dimensional space \\
-     H & Number of attention heads  \\
-     K & Dimension of the key and query vectors  \\
-     MLP & Number of neurons in the layers of MLP \\
-  \end{tabular}
-  \caption{Params of L-TAE model}
-  \label{tab:LTAEconfig}
-\end{table} 
+\begin{paragraph}{ Spatio-temporal classifier}
+The L-TAE temporal encoder is designed to be trained together with a spatial encoding module and a decoder module in an end-to-end manner (\ref{eq:LTAE7}).
+  
+The spatial encoder $S$ is responsible for mapping a sequence of raw inputs $X^{(t)}$ to a sequence of learned features $e^{(t)}$, computed independently at each position of the sequence.
+On the other hand, the decoder $D$ is responsible for mapping the output $o$ of the L-TAE to a target vector $y$, which can be class logits in the case of a classification task.
+\end{paragraph}
 
-\subsubsection{Data preparation}
+\begin{equation}
+  \label{eq:LTAE7}
+  \Bigr[X^{(t)}\Bigr]^T_{t=1} \quad \xrightarrow{S} \quad \Bigr[e^{(t)}\Bigr]^T_{t=1} \quad \xrightarrow{L\mbox{--}TAE} \quad o \quad \xrightarrow{D} \quad y
+\end{equation}
+
+
+\subsection{Data preparation}
 %- splits\\
 
 As described in Section \ref{sec:tempCNNDataPreparation}, we partitioned the dataset into three subsets: training (60\%), validation (20\%), and test (20\%). 
@@ -110,7 +106,25 @@ The DE was designed to be computationally efficient, allowing for faster trainin
 % - DenseEncoder\\
 % -- tanh
 
-\subsubsection{Experimental results}
+\subsection{Experimental results}
+
+After adapting the L-TAE model to our dataset, we trained it by adjusting the hyper-parameters to find the optimal configuration, guided by the results of their research.
+
+\begin{table}[ht]
+  \centering
+  \begin{tabular}{l p{12cm}}   
+     Param & Description \\[0.2cm] 
+     \hline \\[-0.2cm]  
+     E & size of the embeddings ($E$), if input vectors are of a different size, a linear layer is used to project them d\_model-dimensional space \\
+     H & Number of attention heads  \\
+     K & Dimension of the key and query vectors  \\
+     MLP & Number of neurons in the layers of MLP \\
+  \end{tabular}
+  \caption{Hyper-parameters of L-TAE model}
+  \label{tab:LTAEconfig}
+\end{table} 
+
+% TODO
 
 Table \ref{tab:LTAEresults} presents the performance results of the L-TAE architecture with different configurations of the following hyper-parameters: number of heads H, dimension of keys K, and number of channels E in the input sequence.
 All the results were obtained through a 4-fold cross-validation scheme.
