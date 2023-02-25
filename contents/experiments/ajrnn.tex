@@ -98,16 +98,44 @@ learning rate = 0.001, batch size = 256, G-epochs = 1
 \end{table}
 
 
-
-
-
-
-
-
 - learnig rate\\
 - batch size \\
 - G-epochs
 
+\pagebreak
 \subsection{Light AJ-RNN}
 - model overview\\
 - baseline
+
+\begin{table}[!htbp]
+  \centering
+  \begin{tabular}{cccr} 
+      Batch size & Learnig rate & Dropout & Overall Accuracy\\[0.2cm] 
+      \hline \\[-0.2cm]
+      256 & 0.0 & 1e-03 & $75.14 \pm 6.85$\\
+      256 & 0.5 & 1e-03 & $78.48 \pm 0.00$\\[0.05cm] \hline \\[-0.25cm]
+
+      256 & 0.0 & 1e-04 & $87.25 \pm 1.20$\\
+      256 & 0.5 & 1e-04 & $82.60 \pm 2.17$\\
+      256 & 0.8 & 1e-04 & $87.29 \pm 1.08$\\[0.05cm] \hline \\[-0.25cm]
+
+      256 & 0.0 & 1e-05 & $83.29 \pm 2.85$\\
+      256 & 0.0 & 1e-06 & $85.59 \pm 0.00$\\[0.05cm] \hline \\[-0.25cm]
+
+      256 & 0.0 & 1e-07 & $81.72 \pm 3.32$\\
+      256 & 0.5 & 1e-07 & $81.76 \pm 3.21$\\[0.05cm] \hline \\[-0.25cm]
+
+      32  & 0.5 & 1e-03 & $30.85 \pm 0.00$\\[0.05cm] \hline \\[-0.25cm]
+
+      32  & 0.0 & 1e-04 & $33.55 \pm 2.42$\\
+      32  & 0.5 & 1e-04 & $32.33 \pm 1.33$\\[0.05cm] \hline \\[-0.25cm]
+
+      32  & 0.0 & 1e-05 & $44.23 \pm 12.02$\\[0.05cm] \hline \\[-0.25cm]
+      32  & 0.0 & 1e-06 & $54.32 \pm 13.73$\\[0.05cm] \hline \\[-0.25cm]
+      32  & 0.0 & 1e-07 & $52.98 \pm 15.22$\\[0.05cm] \hline \\[-0.25cm]
+      32  & 0.0 & 1e-08 & $55.80 \pm 11.27$\\
+      32  & 0.5 & 1e-08 & $52.32 \pm 11.36$\\
+  \end{tabular}
+  \caption{Overall accuracy with different configurations for Batch size, Learning rate and Dropout}
+  \label{tab:AJRNNBatchSizeResults}
+\end{table}
