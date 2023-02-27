@@ -1,7 +1,7 @@
 \section{L-TAE}
 %The increasing accessibility and precision of Earth observation satellite data offers considerable opportunities for industrial and state actors alike. 
 %This calls however for efficient methods able to process time-series on a global scale.
-The paper "Lightweight Temporal Self-Attention for Classifying Satellite Image Time Series" \cite{LTAE} was written by Vivien Sainte Fare Garnot, and Loic Landrieu, and published in 2020.
+The paper ``Lightweight Temporal Self-Attention for Classifying Satellite Image Time Series" \cite{LTAE} was written by Vivien Sainte Fare Garnot, and Loic Landrieu, and published in 2020.
 
 The authors introduce a new deep learning model for classifying satellite image time series, which utilizes a modified version of the Temporal Attention Encoder.
 
@@ -122,9 +122,30 @@ After adapting the L-TAE model to our dataset, we trained it by adjusting the hy
   \end{tabular}
   \caption{Hyper-parameters of L-TAE model}
   \label{tab:LTAEconfig}
-\end{table} 
+\end{table}
 
-% TODO
+In the following, we have described the findings of the authors on the impact of the different hyperparameters on the performance of the model.
+
+\begin{paragraph} {Number of heads} 
+It appears that the performance is only marginally impacted by the number of heads. 
+Their hypothesis is that an increase in the number of heads ($H$) can be advantageous, but a reduction in group size ($E'$) can be detrimental.
+\end{paragraph}
+
+\begin{paragraph} {Dimension of keys}
+The experiments indicate that smaller key dimensions, as opposed to the typical values used in NLP or for the TAE ($K = 32$), lead to better performance on the problem.
+The L-TAE can achieve comparable performance to the TAE with only 2-dimensional keys.
+\end{paragraph}
+
+\begin{paragraph} {Dimension of Input}
+The expected outcome of having larger input embeddings is an increase in performance, as it corresponds to a more comprehensive representation.
+Nevertheless, on the dataset being considered, the benefits of increasing the number of parameters are diminishing.
+\end{paragraph}
+
+\begin{paragraph} {Query-as-Parameter}
+To evaluate the impact of the design choices, a variation of the network is trained using the same master-query scheme as the TAE.
+The larger linear layer that results increases the model's size to a total of 170k parameters.
+The observation that the resulting mIoU is only 49.7 suggests that the query-as-parameter scheme is advantageous not only in terms of compactness but also for achieving better performance.
+\end{paragraph}
 
 Table \ref{tab:LTAEresults} presents the performance results of the L-TAE architecture with different configurations of the following hyper-parameters: number of heads H, dimension of keys K, and number of channels E in the input sequence.
 All the results were obtained through a 4-fold cross-validation scheme.
@@ -145,4 +166,5 @@ The performance metrics were measured for two different scenarios: one where mis
   \label{tab:LTAEresults}
 \end{table}
 
-Overall, the results reported in Table \ref{tab:LTAEresults} demonstrate the effectiveness of the L-TAE architecture in accurately classifying the input data even with a lower number of parameters. The inclusion of missing data through imputation did not significantly impact the performance of the model, suggesting that the L-TAE architecture is robust to the presence of missing values.
+Overall, the results reported in Table \ref{tab:LTAEresults} demonstrate the effectiveness of the L-TAE architecture in accurately classifying the input data even with a lower number of parameters. 
+The inclusion of missing data through imputation did not significantly impact the performance of the model, suggesting that the L-TAE architecture is robust to the presence of missing values.
