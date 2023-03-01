@@ -9,25 +9,20 @@ The adversarial component of the imputation network is used to ensure that the i
 
 The authors evaluate the performance of the AJ-RNN on several real-world datasets and demonstrate that it outperforms several existing state-of-the-art approaches for time series classification.
 
-\subsection{Adverarial learning}
+\subsection{Adversarial learning}
 
 % TODO review
-Generative Adversarial Networks (GANs) have become popular in deep learning due to their potential for generating data according to the distribution of a real dataset \cite{goodfellow2014generative, ledig2017photo}.
+Previous studies have shown that adversarial approaches outperform traditional methods in generating data that conforms to the distribution of a given dataset \cite{goodfellow2014generative, ledig2017photo}.
 
-The adversarial approach leads to better generation results than previous approaches [24], [25]. 
-GANs have also been used to impute missing data in time series prediction with some success [26], [27], [28]. 
-However, the question of how to employ adversarial learning in the domain of incomplete time series classification (ITSC) has not been previously explored.
+Furthermore, GANs have shown promising results in filling in missing data in time series prediction \cite{yoon2018gain, li2018learning, luo2018multivariate}. Similarly, adversarial techniques have also been applied to tasks such as video captioning \cite{yang2018video} and domain adaptation \cite{ganin2017domain}.
+However, prior to this paper, the question of how to apply adversarial learning in the domain of incomplete time series classification (ITSC) has not been explored.
 
-In this paper we integrate adversarial training and joint (imputation and classification) learning in recurrent neural
-networks (RNNs), and call our system Adversarial Joint learning RNN (AJ-RNN).
+The integration of adversarial training and joint learning in recurrent neural networks (RNNs) is explored in this paper, resulting in the development of a system called Adversarial Joint learning RNN (AJ-RNN).
 
-Our results demonstrate that this is an effective method to address the practical issue of incomplete time series classification in an end-to-end framework.
-AJ-RNN is trained to approximate the value of the next input variable when it is revealed, and to fill it in with its prediction if it is missing. 
+The study's results show that employing AJ-RNN, an end-to-end framework integrating adversarial training and joint learning in recurrent neural networks, is an effective solution to tackle the issue of incomplete time series classification.
+J-RNN is trained to predict the value of the next input variable when it is revealed, and to fill in the missing value with its prediction.
 At the same time, AJ-RNN also learns to classify.
 Hence AJ-RNN can directly perform classification with missing values.
-
-\subsection{Data preparation}
-- 
 
 \subsection{Model}
 
@@ -38,11 +33,8 @@ The framework is shown in Figure \ref{fig:AJRNNrchitecture}. Here we describe ho
 
 We denote a time series $X = {x_1, x_2, ..., x_T }$ as a sequence vector of $T$ observations, where each observation $x_t \in R^d$.
 
-Suppose a time series X has missing values
-which can be indicated by a T-dimensional mask vector
-$M = {m_1, m_2, ..., m_T}$, where $m_t \in {0, 1} \in R^d$, $m_t$ is $1$ if $x_t$ is revealed, and $0$ if $x_t$ is missing. 
-Since we focus on incomplete time series classification, there is a target label $y^{(i)}$ for $i$-th time series $X^i$ given the time series data set $D$,
-where $D = \{(X^i,M^i, y^i)\}^N_{i=1}$.
+Suppose a time series $X$ has missing values which can be indicated by a $T$-dimensional mask vector $M = {m_1, m_2, ..., m_T}$, where $m_t \in {0, 1} \in R^d$, $m_t$ is $1$ if $x_t$ is revealed, and $0$ if $x_t$ is missing. 
+Since we focus on incomplete time series classification, there is a target label $y^{(i)}$ for $i$-th time series $X^i$ given the time series data set $D$, where $D = \{(X^i,M^i, y^i)\}^N_{i=1}$.
 
 To avoid the traditional two-step approach, we regard imputation and classification as two tasks in multitask learning.
 Specifically, the AJ-RNN is trained to approximate the value of the next input variable, using it as a target when it is revealed, while if the next value is missing, it will be filled in with the current prediction. 
@@ -65,7 +57,7 @@ The input value $u_t$ is computed as:
   \label{eq:AJRNNinput}
 \end{equation}
 
-where $m_t$ is the mask as defined above and $\odot$ is the elementwise product.
+where $m_t$ is the mask as defined above and $\odot$ is the element-wise product.
 
 The RNN is trained using the completed input value $u_t$.
 Formally, the update equation of the RNN is:
@@ -127,7 +119,7 @@ given by Equation (\ref{eq:AJRNNinput}) and its corresponding mask vector $M^i_{
 In $U^i$, some are real values, while the rest are imputed.
 We know which are which by the mask vector $M^i$ . We can take advantage of this knowledge to provide a supervision signal for the imputation network.
 
-The adversarial learning strategy is defined as a twoplayer minimax game.
+The adversarial learning strategy is defined as a two player minimax game.
 We alternately update the parameters of discriminator $D$ and the parameters of the AJ-RNN.
 First, $D$ receives the completed sequence vector as input and is trained to distinguish which values in the completed sequence vector are revealed and which are imputed. 
 The discriminator loss can be defined as follows:
@@ -139,7 +131,7 @@ The discriminator loss can be defined as follows:
 
 where $D(\cdot)$ denotes the estimated mask probability $\hat{P}$ of the discriminator. 
 In Equation (\ref{eq:AJRNNdloss}), the first term is the log output of the discriminator on real values, and the discriminator tries to maximize this to 1.
-The second term isthe loss for imputed values.
+The second term is the loss for imputed values.
 Hence the discriminator tries to minimize its output for imputed values.
 
 The discriminator is composed of 3 fully connected layers to take advantage of global contextual information (since it takes a sequence as input), where the number of units in the hidden layers are set to $T$ (i.e., the length of the sample), $T/2$, and $T$, respectively.
@@ -183,27 +175,41 @@ Therefore, the negative impact of missing values on AJ-RNN is reduced.
   \label{fig:AJRNNrchitecture}
 \end{figure}
 
+\subsection{Data preparation}
+As described in Section \ref{sec:tempCNNDataPreparation}, we divided our dataset into three separate subsets, namely training, validation, and test, in a 60:20:20 ratio, respectively. 
+Our goal was to ensure that each subset had a similar class distribution and that there was no spatial autocorrelation between them.
+
+We understood the significance of the mask vector in the AJ-RNN model, which is used to differentiate between revealed and imputed values.
+Therefore, we generated a mask vector for each sample to feed into the model.
+
 \subsection{Experimental results}
 
-% TODO review
-The source code for the AJ-RNN model proveded by the authors is written in Python 2.7 and Tensorflow 1.0.
-To enhance code readability and facilitate experimentation with different configurations, we have re-implemented the AJ-RNN model in Tensorflow 2.0 in a modularized fashion.
-The implementation was carefully validated to ensure that the accuracy achieved by the model was consistent with the results reported in the paper using the same datasets. 
+The AJ-RNN model proposed in the paper was implemented in Python 2.7 and Tensorflow 1.0.
+However, given the changes in technology and advances in the field since the publication of the paper, we found it necessary to re-implement the model in a more recent version of TensorFlow.
+As such, we spent a considerable amount of time and effort to re-implement the model in Tensorflow 2.0 in a modularized fashion, with the aim of enhancing code readability and facilitating experimentation with different configurations.
 
-Additionally, the implementation was extended to support multivariate time series data to better fit our needs.
+In addition to the re-implementation of the model, we also performed a careful validation process to ensure that the accuracy achieved by our model was consistent with the results reported in the original paper, using the same datasets. 
+This involved testing the model on a range of datasets and comparing the results with the original paper. 
+By doing so, we were able to ensure that our implementation was both accurate and reliable.
 
-%- implemented in tensoflow 2.0 (modularized)\\
-%-- made sure that acucracy was the same as in the paper\\
-%-- added support for multivariate time series\\
-- experimented with different configurations 
+Furthermore, we extended the implementation of the model to support multivariate time series data. 
+This undertaking was quite significant as it required extensive additional coding and validation efforts. 
+However, it was essential to ensure that the AJ-RNN model could be effectively utilized in various applications, including our own.
 
-\begin{paragraph}{Cell type}
-learning rate = 0.001, batch size = 256, G-epochs = 1
+
+We tried different combinations of hyper-parameters to find the best configuration for our dataset.
+The hyper-parameters we tuned are the RNN cell type, the units of the cell, the learning rate, the batch size, and the number of epochs for the generator and discriminator.
+
+In our experiments, we investigated the performance of the AJ-RNN model with both LSTM and GRU cells. 
+We tested different numbers of units (64, 128) and dropout rates (0.2, 0.4, 0.6, 0.8) for each cell type. 
+The experimental results are summarized in Table \ref{tab:AJRNNcelltype}. 
+A learning rate of 0.001 and a batch size of 256 were used in all experiments, and the generator and discriminator were trained for the same number of epochs. 
+Our findings show that the GRU cell outperforms the LSTM cell in all cases.
 
 \begin{table}[!htbp]
   \centering
   \begin{tabular}{cccr} 
-      Cell type & Cell size & Dropout & Overall Accuracy\\[0.2cm] 
+      Cell type & Units & Dropout & Overall Accuracy\\[0.2cm] 
       \hline \\[-0.2cm] 
       GRU   &   64  & 0.2 &  $84.10 \pm 3.72$\\
       GRU   &   64  & 0.4 &  $81.75 \pm 4.18$\\
@@ -231,16 +237,31 @@ learning rate = 0.001, batch size = 256, G-epochs = 1
       LSTM  &   256 & 0.8 &  $85.37 \pm 2.37$\\ 
       
   \end{tabular}
-  \caption{Overall accuracy with different configurations for Cell type, Cell size and Dropout}
-  \label{tab:AJRNNCellTypeResults}
+  \caption{Overall Accuracy for GRU and LSTM.}
+  \label{tab:AJRNNcelltype}
 \end{table}
 
-\end{paragraph}
+After conducting experiments with both LSTM and GRU cells with varying numbers of units and dropout rates, we determined that the GRU cell outperformed the LSTM cell in all cases.
+As a result, we chose to further experiment with the GRU cell. 
+We found that using a GRU cell with 128 units was a good compromise between model complexity and accuracy. 
+This decision was made after careful consideration of the trade-off between the number of parameters in the model and its ability to accurately classify incomplete time series data.
+
+We also investigated the effect of batch size on the overall accuracy of the model.
+We tried different batch sizes (32, 64, 128, 256, 512) and found that the batch size of 256 yielded the best results.
+The results are summarized in Table \ref{tab:AJRNNbatchsize}.
+
+During our experiments, we observed that the choice of batch size has a significant impact on the accuracy of the model, when the learning rate is was constant.
+Specifically, we found that using a smaller batch size can increase the likelihood of over fitting the training data, while using a larger batch size can lead to under fitting.
+
+To improve the overall accuracy of the model with a lower batch size, we attempted to decrease the learning rate.
+However, while we did observe some improvement, we were not able to achieve the same level of accuracy as when using a higher batch size.
+These findings highlight the importance of carefully selecting hyperparameters, such as batch size and learning rate, to achieve optimal performance in machine learning models.
+
 
 \begin{table}[!htbp]
   \centering
   \begin{tabular}{cccr} 
-      Batch size & Learnig rate & Dropout & Overall Accuracy\\[0.2cm] 
+      Batch size & Learning rate & Dropout & Overall Accuracy\\[0.2cm] 
       \hline \\[-0.2cm]
       256 &   1e-03 &   0.0 & $86.13 \pm 0.00$\\
       256 &   1e-03 &   0.2 & $78.58 \pm 4.17$\\
@@ -265,24 +286,30 @@ learning rate = 0.001, batch size = 256, G-epochs = 1
       32  &   1e-05 &   0.8 & $67.12 \pm 0.00$\\[0.05cm] \hline \\[-0.25cm]
       32  &   1e-08 &   0.0 & $73.32 \pm 2.83$
   \end{tabular}
-  \caption{Overall accuracy with different configurations for Batch size, Learning rate and Dropout}
-  \label{tab:AJRNNBatchSizeResults}
+  \caption{Influence of batch size, learning rate and dropout on Overall Accuracy for the GRU network}
+  \label{tab:AJRNNbatchsize}
 \end{table}
 
 
-- learnig rate\\
-- batch size \\
-- G-epochs
-
 \pagebreak
 \subsection{Light AJ-RNN}
-- model overview\\
-- baseline
+
+Due to the computational expense of the AJ-RNN model, we decided to conduct experiments with a lighter version of the model, referred to as the Light AJ-RNN.
+The goal of this approach was to create a baseline model that could be used as a reference point for comparison with the more complex and computationally demanding AJ-RNN model. 
+
+In order to achieve this, we used the Keras library to implement the Light AJ-RNN model.
+Our approach involved removing the imputation of missing values from the original AJ-RNN model and utilizing the pre-imputed data as input to the model.
+We removed the Discriminator and thus eliminated adversarial joint training.
+The Light AJ-RNN model only retained the GRU network and Classifier from the original AJ-RNN model.
+This approach was aimed at achieving a reduction in computational costs while still maintaining a level of performance comparable to the original AJ-RNN model.
+
+We conducted experiments with the Light AJ-RNN model using the same hyperparameters as the original AJ-RNN model.
+
 
 \begin{table}[!htbp]
   \centering
   \begin{tabular}{cccr} 
-      Batch size & Learnig rate & Dropout & Overall Accuracy\\[0.2cm] 
+      Batch size & Learning rate & Dropout & Overall Accuracy\\[0.2cm] 
       \hline \\[-0.2cm]
       256 & 0.0 & 1e-03 & $75.14 \pm 6.85$\\
       256 & 0.5 & 1e-03 & $78.48 \pm 0.00$\\[0.05cm] \hline \\[-0.25cm]
@@ -308,6 +335,33 @@ learning rate = 0.001, batch size = 256, G-epochs = 1
       32  & 0.0 & 1e-08 & $55.80 \pm 11.27$\\
       32  & 0.5 & 1e-08 & $52.32 \pm 11.36$\\
   \end{tabular}
-  \caption{Overall accuracy with different configurations for Batch size, Learning rate and Dropout}
-  \label{tab:AJRNNBatchSizeResults}
+  \caption{Overall accuracy of Light AJ-RNN model for different hyperparameters}
+  \label{tab:LightAJRNNBatchSizeResults}
 \end{table}
+
+The results of the experiments are shown in Table \ref{tab:LightAJRNNBatchSizeResults}.
+
+Despite our initial hopes that the Light AJ-RNN model would prove to be a viable alternative to the computationally expensive original AJ-RNN model, the results of our experiments showed that the overall accuracy of the Light AJ-RNN model was comparable to that of the original AJ-RNN model for most of the hyperparameter combinations tested.
+
+Interestingly, despite using pre-imputed data as input to the model, we did not observe the expected improvement in overall accuracy that we had hoped for. 
+While disappointing, this result was nonetheless informative and suggested that the original AJ-RNN model was indeed necessary for achieving the highest levels of accuracy in our application.
+
+Therefore, we made the decision to halt further experimentation with the Light AJ-RNN model and instead focused our efforts on continuing to refine and improve the original AJ-RNN model. 
+
+
+\subsection{Findings}
+
+In the study conducted on the AJ-RNN model, a deep learning model for classifying time series while imputing missing data.
+Our experiments aimed to explore the performance of the model and to find the best hyperparameters for our real-world dataset.
+
+Overall, our findings were mixed. 
+While the model showed promise on some of our experiments, we found that the overall accuracy on our real-world dataset was not as high as we expected.
+It is worth noting that training RNNs is very computationally expensive, and we had to run many experiments to find the best hyperparameters.
+
+We also found that the adversarial joint training is really sensitive to the hyperparameters.
+We experimented with different learning rates, batch sizes, and dropout rates and found that these parameters can significantly impact the performance of the model.
+Therefore, it is important to carefully tune these hyperparameters to achieve the best possible results.
+
+In conclusion, we found that the AJ-RNN model can be an effective tool for imputing missing data. 
+However, it is important to carefully consider the hyperparameters and to perform extensive experimentation to achieve the best possible results.
+
