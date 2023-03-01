@@ -28,28 +28,35 @@ Hence AJ-RNN can directly perform classification with missing values.
 
 % TODO rephrase
 
-In this section, we present our model, the Adversarial Joint learning Recurrent Neural Network (AJ-RNN), to address the issue of time series classification with missing values.
-The framework is shown in Figure \ref{fig:AJRNNrchitecture}. Here we describe how adversarial and joint learning strategies are integrated into an RNN.
+The following section presents the Adversarial Joint learning Recurrent Neural Network (AJ-RNN) as a solution for time series classification with missing values. 
+The architecture of the model is illustrated in Figure \ref{fig:AJRNNrchitecture}. 
 
-We denote a time series $X = {x_1, x_2, ..., x_T }$ as a sequence vector of $T$ observations, where each observation $x_t \in R^d$.
+Here we describe how adversarial and joint learning strategies are integrated into an RNN.
 
-Suppose a time series $X$ has missing values which can be indicated by a $T$-dimensional mask vector $M = {m_1, m_2, ..., m_T}$, where $m_t \in {0, 1} \in R^d$, $m_t$ is $1$ if $x_t$ is revealed, and $0$ if $x_t$ is missing. 
-Since we focus on incomplete time series classification, there is a target label $y^{(i)}$ for $i$-th time series $X^i$ given the time series data set $D$, where $D = \{(X^i,M^i, y^i)\}^N_{i=1}$.
 
-To avoid the traditional two-step approach, we regard imputation and classification as two tasks in multitask learning.
-Specifically, the AJ-RNN is trained to approximate the value of the next input variable, using it as a target when it is revealed, while if the next value is missing, it will be filled in with the current prediction. 
+The time series $X$ is represented as a sequence vector of $T$ observations, denoted by $X = \{x_1, x_2, ..., x_T \}$. Each observation $x_t \in R^d$ is a $d$-dimensional vector.
+
+Assume that a time series $X$ has missing values which are represented by a $T$-dimensional mask vector $M = \{m_1, m_2, ..., m_T\}$.
+The elements $m_t$ of the mask vector are binary values indicating the presence or absence of the corresponding element $x_t$ in the time series, where $m_t$ takes the value of $1$ if $x_t$ is revealed and $0$ if $x_t$ is missing.
+
+Each time series $X^i$ in the dataset $D$ is associated with a target label $y^{(i)}$, and a mask vector $M^i$, where $D = {(X^i,M^i, y^i)}^N_{i=1}$.
+
+To avoid the traditional two-step approach, imputation and classification are regarded as two tasks in multitask learning.
+
+The AJ-RNN is trained to approximate the value of the next input variable and use it as a target when it is revealed.
+If the next value is missing, it is filled in with the current prediction.
 At the same time, the AJ-RNN is trained to perform the classification task.
 
-We solve the missing value problem by two processes: approximation and imputation. 
-As seen in Fig. \ref{fig:AJRNNrchitecture}, two kinds of links enable AJ-RNN to directly model time series in the presence of missing values: dashed blue links (for approximation) and solid blue links (for imputation). 
-We train $\hat{x_t}$ to approximate the next value $x_t$ when it is revealed using the last hidden states $h_{t-1}$ as follows:
+The missing value problem is addressed through two processes, namely approximation and imputation.
+As shown in Figure \ref{fig:AJRNNrchitecture}, two kinds of links enable AJ-RNN to directly model time series in the presence of missing values: dashed blue links (for approximation) and solid blue links (for imputation). 
+The system is trained to approximate the next value $x_t$ using the last hidden state $h_{t-1}$ as follows:
 
 \begin{equation}
   \hat{x_t} = W_{imp} h_{t-1} + b_z
 \end{equation}
 
 where $W_{imp} \in R^{n \times  m}$ is a learned regression matrix and $b_z$ is a bias term. 
-Since $\hat{x_t}$ is trained to approximate the next value $x_t$, it can be used to impute it when missing. 
+As $\hat{x_t}$ is trained to approximate the next value $x_t$, it can be employed for imputing it when it is missing.
 The input value $u_t$ is computed as:
 
 \begin{equation}
@@ -59,8 +66,8 @@ The input value $u_t$ is computed as:
 
 where $m_t$ is the mask as defined above and $\odot$ is the element-wise product.
 
-The RNN is trained using the completed input value $u_t$.
-Formally, the update equation of the RNN is:
+The completed input value $u_t$ is used to train the RNN.
+The update equation of the RNN is:
 
 \begin{equation}
   h_t = F_{RNN} (h_{t-1}, u_t; W)
@@ -68,16 +75,22 @@ Formally, the update equation of the RNN is:
 
 Where $h_t$ represents the hidden unit vector at time $t$, $W$ encapsulates the input-to-hidden and hidden-to-hidden parameters, and $F_{RNN}$ represents the update function of the particular RNN variant.
 
-Finally, the last hidden state of the RNN, $h_T$ , is fed into the classifier to obtain the probability distribution over each category label using a softmax:
+To obtain the probability distribution over each category label, a softmax is applied to the output of the classifier, which takes the last hidden state of the RNN, $h_T$, as input.
+
 \begin{equation}
-  P(\hat{y_j}|h_T ) = \frac{exp(W^T_j  h_T )}{\sum_{l=1}^K exp(W^T_j  h_T )}
+  P(\hat{y_j}|h_T ) = \frac{exp(W^T_j  h_T )}{\sum_{l=1}^K exp(W^T_l  h_T )}
   \label{eq:AJRNNsoftmax}
 \end{equation}
 
 where $K$ is the number of class labels and $\{W_l\}^K_{l=1}$ are the class-specific weights of the softmax layer.
-The classifier can use more complicated networks depending on the task.
-We use this simple classifier because our main goal is to demonstrate mitigation of the exploding bias problem and report on the results achieved.
+More complex networks can be used for the classifier based on the specific task at hand. However, in this study, a simple classifier is used.
+% TODO include ?
+%to mainly demonstrate the mitigation of the exploding bias problem and to report the achieved results.
 % For fairness, we use this approach for all methods, ours and the methods we implemented for comparison.
+
+% TODO review
+
+% During joint learning, imputation and classification are two tasks to be performed. Let $D$ be the time series dataset and let the superscript $i$ denote the $i$-th sample in the dataset. The imputation task produces an imputation sequence vector $\hat{X^i} = { \hat{x}^i_2, ..., \hat{x}^i_T }$ for the $i$-th time series sample. This vector is composed of two parts: approximation values (represented by orange units in Fig. \ref{fig:AJRNNrchitecture}) and imputation values (represented by purple units in Fig. \ref{fig:AJRNNrchitecture}). The imputation loss is calculated on the approximation values for all time series samples:
 
 There are two tasks during the joint learning process, namely, imputation and classification. 
 Let the superscript $i$ denote the $i$-th sample of the time series data set $D$.
@@ -250,14 +263,6 @@ We also investigated the effect of batch size on the overall accuracy of the mod
 We tried different batch sizes (32, 64, 128, 256, 512) and found that the batch size of 256 yielded the best results.
 The results are summarized in Table \ref{tab:AJRNNbatchsize}.
 
-During our experiments, we observed that the choice of batch size has a significant impact on the accuracy of the model, when the learning rate is was constant.
-Specifically, we found that using a smaller batch size can increase the likelihood of over fitting the training data, while using a larger batch size can lead to under fitting.
-
-To improve the overall accuracy of the model with a lower batch size, we attempted to decrease the learning rate.
-However, while we did observe some improvement, we were not able to achieve the same level of accuracy as when using a higher batch size.
-These findings highlight the importance of carefully selecting hyperparameters, such as batch size and learning rate, to achieve optimal performance in machine learning models.
-
-
 \begin{table}[!htbp]
   \centering
   \begin{tabular}{cccr} 
@@ -289,6 +294,35 @@ These findings highlight the importance of carefully selecting hyperparameters, 
   \caption{Influence of batch size, learning rate and dropout on Overall Accuracy for the GRU network}
   \label{tab:AJRNNbatchsize}
 \end{table}
+
+During our experiments, we observed that the choice of batch size has a significant impact on the accuracy of the model, when the learning rate is was constant.
+Specifically, we found that using a smaller batch size can increase the likelihood of over fitting the training data, while using a larger batch size can lead to under fitting.
+
+To improve the overall accuracy of the model with a lower batch size, we attempted to decrease the learning rate.
+However, while we did observe some improvement, we were not able to achieve the same level of accuracy as when using a higher batch size.
+These findings highlight the importance of carefully selecting hyperparameters, such as batch size and learning rate, to achieve optimal performance in machine learning models.
+
+% TODO intro on G epochs
+
+TODO intro on G epochs
+
+\begin{table}[!htbp]
+  \centering
+  \begin{tabular}{cccr} 
+      Batch size & G epochs & Overall Accuracy\\[0.2cm] 
+      \hline \\[-0.2cm]
+      256 &   1 &  $81.73 \pm 0.00$\\
+      256 &   2 &  $72.58 \pm 4.17$\\
+      256 &   5 &  $68.05 \pm 4.39$\\
+      32  &   1 &  $67.45 \pm 4.42$\\
+      32  &   2 &  $27.21 \pm 6.00$\\
+      32  &   5 &  $17.07 \pm 1.05$\\
+  \end{tabular}
+  \caption{Influence of G epochs for the GRU network}
+  \label{tab:AJRNNGepochs}
+\end{table}
+
+TODO Resume G epochs results
 
 
 \pagebreak
