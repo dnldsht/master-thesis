@@ -44,7 +44,7 @@ For each feature, both percentile values are extracted from all the time-stamp v
 The baseline architecture of TempCNN used for the experiments as shown in Figure \ref{tab:temCNNArchitecture} consists of three convolutional layers (64 units), one dense layer (256 units) and one softmax layer.
 In the experimental section we will investigate the width (i.e. number of units) of the convolutional layers and the depth (i.e. number of convolutional layers) of the network.
 
-\begin{figure}[!htbp]
+\begin{figure}[H]
   \centering
   \includegraphics[width=1\textwidth]{tempCNN}
   \caption{Proposed temporal Convolutional Neural Network (TempCNN). The network input is a
@@ -88,7 +88,7 @@ Additionally, each architecture includes one dense layer with a number of units 
 In each experiment, we train the model twice: first using the dataset with pre-imputed missing values, and then using a modified dataset where any missing values are replaced with zeros.
 As shown in Table \ref{tab:temCNNdepth}, the highest accuracy is achieved with two or three convolutional layers.
 
-\begin{table}[!htbp]
+\begin{table}[H]
   \centering
    \begin{tabular}{rclrr}
    Model&&                  & No imputation         & Pre imputation             \\[0.2cm]
@@ -115,7 +115,7 @@ To evaluate the impact of width on model performance, we experimented with seven
 Each architecture includes three convolutional layers, one dense layer with 256 neurons, and a Softmax layer, as illustrated in Figure \ref{tab:temCNNwidth}.
 The architectures differ in the number of parameters, and we vary the width of the convolutional layers from 16 to 1024 neurons.
 
- \begin{table}[!htbp]
+ \begin{table}[H]
   \centering
    \begin{tabular}{rclrr}
    Model&&                  & No imputation         & Pre imputation             \\[0.2cm]
@@ -152,7 +152,7 @@ Our analysis, as presented in Table \ref{tab:temCNNbatchsize}, shows that batch 
 However, we observed that the batch size does not have a significant effect on the overall accuracy of the TempCNN model.
 In fact, we found that the accuracy values for all four batch sizes are comparable, indicating that selecting an appropriate batch size is not a critical factor in achieving high accuracy for this model.
 
-\begin{table}[!htbp]
+\begin{table}[H]
   \centering
    \begin{tabular}{rlll}
    Batch size                 & Train time  & No imputation         & Pre imputation             \\[0.2cm]
@@ -190,7 +190,7 @@ Each bar represents a different configuration: local max-pooling (MP), local max
 The horizontal magenta dashedline corresponds to the OA values obtained without pooling layers in the previous experiment.
 
 
-\begin{figure}[!htbp]
+\begin{figure}[H]
   \centering
   \includegraphics[width=0.7\textwidth]{tempCNNPooling.png}
   \caption{Overall Accuracy as a Function of Filter Size for Different Pooling Methods: Local max-pooling (MP) in orange, local max-pooling and global average pooling (MP + GAP) in red, local average pooling (AP) in green, local and global average pooling (AP + GAP) in purple, and global average pooling (GAP) in blue.}

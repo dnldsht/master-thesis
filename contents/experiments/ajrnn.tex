@@ -90,14 +90,11 @@ More complex networks can be used for the classifier based on the specific task 
 
 % TODO review
 
-% During joint learning, imputation and classification are two tasks to be performed. Let $D$ be the time series dataset and let the superscript $i$ denote the $i$-th sample in the dataset. The imputation task produces an imputation sequence vector $\hat{X^i} = { \hat{x}^i_2, ..., \hat{x}^i_T }$ for the $i$-th time series sample. This vector is composed of two parts: approximation values (represented by orange units in Fig. \ref{fig:AJRNNrchitecture}) and imputation values (represented by purple units in Fig. \ref{fig:AJRNNrchitecture}). The imputation loss is calculated on the approximation values for all time series samples:
 
-There are two tasks during the joint learning process, namely, imputation and classification. 
-Let the superscript $i$ denote the $i$-th sample of the time series data set $D$.
-For the imputation task, we can obtain the imputation sequence vector $\hat{X^i} = \{ \hat{x}^i_2, ..., \hat{x}^i_T \}$ 
-of the $i$-th time series sample which can be divided into two parts, approximation values
-(orange units in Fig. \ref{fig:AJRNNrchitecture}) and imputation ones (purple units
-in Fig. \ref{fig:AJRNNrchitecture}). 
+During joint learning, imputation and classification tasks are performed. 
+Let $D$ be the time series dataset and let the superscript $i$ denote the $i$-th sample in the dataset.
+The imputation task produces an imputation sequence vector $\hat{X^i} = { \hat{x}^i_2, ..., \hat{x}^i_T }$ for the $i$-th time series sample.
+This vector is composed of two parts: approximation values (represented by orange units in Fig. \ref{fig:AJRNNrchitecture}) and imputation values (represented by purple units in Fig. \ref{fig:AJRNNrchitecture}).  
 The imputation loss of all time series samples is calculated on the approximation values as follows:
 
 \begin{equation}
@@ -105,36 +102,38 @@ The imputation loss of all time series samples is calculated on the approximatio
   \label{eq:AJRNNimploss}
 \end{equation}
 
-where $N$ is the number of samples in the data set.
-Equation (\ref{eq:AJRNNimploss}) is the mean squared error loss between the approximation and the revealed values.
-$ M^i_{2:T}$ masks off the imputation values from the imputation loss since there is no ground truth for the missing values.
+where $N$ represents the number of samples in the dataset.
+Equation (\ref{eq:AJRNNimploss}) measures the mean squared error loss between the approximation and the revealed values.
+The mask $M^i_{2:T}$ is used to ignore the imputation values in the loss calculation, as there is no ground truth available for these missing values.
 
-For the classification task, we obtain the predicted probability distribution $\hat{y}^i$ of $i$-th time series sample given by
-Equation (\ref{eq:AJRNNsoftmax}), the loss of all samples of a time series can be calculated as follows:
+
+The loss for the classification task can be calculated as follows. 
+Let $y^i$ be the true label of the $i$-th time series sample and $\hat{y}^i$ be the predicted probability distribution given by Equation (\ref{eq:AJRNNsoftmax}).
 
 \begin{equation}
   \mathcal{L}_{cls}(y, \hat{y}) = - \frac{1}{N} \sum_{i=1}^N \sum_{j=1}^K 1\{ y^i = j\} \log\hat{y}^i 
   \label{eq:AJRNNclsloss}
 \end{equation}
 
-where $K$ is the number of class labels. Equation (\ref{eq:AJRNNclsloss}) is the softmax cross entropy loss of the predicted label and the true label.
+where $K$ represents the number of class labels. 
+Equation (\ref{eq:AJRNNclsloss}) is the softmax cross entropy loss of the predicted label and the true label.
 
-This end-to-end framework inevitably suffers from the negative impact (error propagation from imputation to classification) of missing values because the imputed values will contain some amount of error simply due to the fact that they are predictions.
-This error can be quickly amplified as it is fed into the RNN, resulting in the exploding bias problem.
+The end-to-end framework is susceptible to the negative impact of missing values, which can propagate errors from the imputation task to the classification task.
+The imputed values are predictions and are prone to errors, which can quickly amplify as they are fed into the RNN, leading to the problem of exploding bias.
 
-Here, we introduce a discriminator $D$ to reduce the negative impact of missing values. 
-The discriminator $D$ distinguishes whether each value in the completed vector is real or imputed, rather than identifying the entire completed vector. 
-In this way, the discriminator $D$ can provide direct supervision to the imputed values.
+Here, a discriminator $D$ is introduced to alleviate the negative impact of missing values.  
+Unlike the traditional approach that identifies the entire completed vector, the discriminator $D$ distinguishes whether each value in the completed vector is real or imputed.
+This direct supervision of the imputed values by the discriminator $D$ can help reduce the error propagation from imputation to classification.
 
-Specifically, for the $i$-th time series training sample, there is a completed sequence vector $U^i = \{u^i_2 , ..., u^i_T\}$
-given by Equation (\ref{eq:AJRNNinput}) and its corresponding mask vector $M^i_{2:T} = \{m^i_2, ..., m^i_T \}$.
+Specifically, for each training sample $i$ in the time series dataset, there exists a completed sequence vector $U^i = {u^i_2 , ..., u^i_T}$ obtained through Equation (\ref{eq:AJRNNinput}), along with its corresponding mask vector $M^i_{2:T} = {m^i_2, ..., m^i_T }$.
 
 In $U^i$, some are real values, while the rest are imputed.
-We know which are which by the mask vector $M^i$ . We can take advantage of this knowledge to provide a supervision signal for the imputation network.
+We know which are which by the mask vector $M^i$.
+We can take advantage of this knowledge to provide a supervision signal for the imputation network.
 
-The adversarial learning strategy is defined as a two player minimax game.
-We alternately update the parameters of discriminator $D$ and the parameters of the AJ-RNN.
-First, $D$ receives the completed sequence vector as input and is trained to distinguish which values in the completed sequence vector are revealed and which are imputed. 
+The adversarial learning strategy involves two players in a minimax game: the discriminator $D$ and the AJ-RNN \footnote{RNN and Classifier}.
+The parameters of both models are updated alternately.
+Initially, the discriminator $D$ takes the completed sequence vector as input and is trained to distinguish between the revealed and imputed values in the vector.
 The discriminator loss can be defined as follows:
 
 \begin{align}
@@ -142,15 +141,19 @@ The discriminator loss can be defined as follows:
                         & = - \frac{1}{N} \sum_{i=1}^N \left[ M^i_{2:T} \odot \log(D(U^i)) + (1 - M^i_{2:T}) \odot \log(1-D(U^i)) \right]
 \end{align}
 
-where $D(\cdot)$ denotes the estimated mask probability $\hat{P}$ of the discriminator. 
+Here, the function $D(\cdot)$ takes in the completed sequence vector as input and outputs the estimated mask probability $\hat{P}$ of the discriminator.
+ 
 In Equation (\ref{eq:AJRNNdloss}), the first term is the log output of the discriminator on real values, and the discriminator tries to maximize this to 1.
 The second term is the loss for imputed values.
 Hence the discriminator tries to minimize its output for imputed values.
 
-The discriminator is composed of 3 fully connected layers to take advantage of global contextual information (since it takes a sequence as input), where the number of units in the hidden layers are set to $T$ (i.e., the length of the sample), $T/2$, and $T$, respectively.
-We use tanh as the activation function of each layer except for the output layer where we use the sigmoid activation function to get the estimated real/fake probability.
+The discriminator is designed as a neural network composed of three fully connected layers to leverage global contextual information from the input sequence.
+The first hidden layer has $T$ units, which is equal to the length of the input sequence, the second hidden layer has $T/2$ units, and the third hidden layer has $T$ units. 
+The activation function used in each layer is the hyperbolic tangent (tanh) except for the output layer, where the sigmoid activation function is used to obtain the estimated probability of each value being real or fake.
 
-The RNN is thus supervised to make the distribution of predicted values is closer to the revealed ones by fooling the discriminator $D$. 
+The goal of the RNN is to minimize the difference between the distribution of predicted values and the distribution of revealed ones by deceiving the discriminator $D$. 
+This provides a supervisory signal to the imputation network to produce better imputed values. 
+
 The adversarial loss of the RNN can be defined as follows:
 
 \begin{equation}
@@ -161,8 +164,8 @@ The adversarial loss of the RNN can be defined as follows:
 Hence the AJ-RNN tries to maximize the discriminator output for imputed values.
 This provides a supervisory signal for each imputed value in the completed sequence vector, which can reduce the bias introduced by the imputation operation and thus alleviate the exploding bias problem.
 Note that we can also feed the whole imputation vector $\hat{X}^i$ into the discriminator, providing supervision for both the approximated and imputed values. 
-In our experiments, we found that the results obtained by these two methods are similar. 
-Hence, considering computational efficiency, we adopted Equation (\ref{eq:AJRNNadvloss}) as the adversarial loss.
+However, in practice, using only the imputed values is more computationally efficient and yields similar results as using both approximated and imputed values. 
+Hence, considering computational efficiency, Equation (\ref{eq:AJRNNadvloss}) was we adopted as the adversarial loss.
 
 Finally, the overall training loss of AJ-RNN is defined as follows:
 
@@ -171,20 +174,17 @@ Finally, the overall training loss of AJ-RNN is defined as follows:
   \label{eq:AJRNNloss}
 \end{equation}
 
-where $\lambda_d$ is hyper-parameter. This forms an end-to-end
-training framework for incomplete time series classification.
+where $\lambda_d$ is hyper-parameter. 
+This forms an end-to-end training framework for incomplete time series classification.
 
 AJ-RNN combines the merits of joint learning and adversarial learning.
 The discriminator $D$ is trained with the revealed values and the mask vector effectively provides supervision on each imputed value. 
 Therefore, the negative impact of missing values on AJ-RNN is reduced.
 
-\begin{figure}[ht]
+\begin{figure}[H]
   \centering
   \includegraphics[width=1\textwidth]{ajrnn}
-  \caption{The proposed AJ-RNN framework. We use green units to denote revealed inputs, yellow for the output of approximated values, purple for
-  the imputed values and a red “X” for missing inputs. Dashed links are for approximation training and solid ones are for imputation. The discriminator
-  receives a completed vector composed of revealed and imputed values as input, which provides a one-to-one supervisory signal for imputed values
-  $\hat{x_3}$ and $\hat{x_4}$. \cite{ajrnn}}
+  \caption{The figure shows the proposed AJ-RNN framework. The green units represent revealed inputs, yellow for the output of approximated values, purple for the imputed values, and a red "X" for missing inputs. The dashed links represent the approximation training, while the solid links represent imputation. The discriminator receives a completed vector composed of revealed and imputed values as input, which provides a one-to-one supervisory signal for imputed values $\hat{x_3}$ and $\hat{x_4}$.}
   \label{fig:AJRNNrchitecture}
 \end{figure}
 
@@ -219,7 +219,7 @@ The experimental results are summarized in Table \ref{tab:AJRNNcelltype}.
 A learning rate of 0.001 and a batch size of 256 were used in all experiments, and the generator and discriminator were trained for the same number of epochs. 
 Our findings show that the GRU cell outperforms the LSTM cell in all cases.
 
-\begin{table}[!htbp]
+\begin{table}[H]
   \centering
   \begin{tabular}{cccr} 
       Cell type & Units & Dropout & Overall Accuracy\\[0.2cm] 
@@ -263,7 +263,7 @@ We also investigated the effect of batch size on the overall accuracy of the mod
 We tried different batch sizes (32, 64, 128, 256, 512) and found that the batch size of 256 yielded the best results.
 The results are summarized in Table \ref{tab:AJRNNbatchsize}.
 
-\begin{table}[!htbp]
+\begin{table}[H]
   \centering
   \begin{tabular}{cccr} 
       Batch size & Learning rate & Dropout & Overall Accuracy\\[0.2cm] 
@@ -306,7 +306,7 @@ These findings highlight the importance of carefully selecting hyperparameters, 
 
 TODO intro on G epochs
 
-\begin{table}[!htbp]
+\begin{table}[H]
   \centering
   \begin{tabular}{cccr} 
       Batch size & G epochs & Overall Accuracy\\[0.2cm] 
@@ -340,7 +340,7 @@ This approach was aimed at achieving a reduction in computational costs while st
 We conducted experiments with the Light AJ-RNN model using the same hyperparameters as the original AJ-RNN model.
 
 
-\begin{table}[!htbp]
+\begin{table}[H]
   \centering
   \begin{tabular}{cccr} 
       Batch size & Learning rate & Dropout & Overall Accuracy\\[0.2cm] 

@@ -11,7 +11,7 @@ It is probably the most well-known of the Decision Forest training algorithms.
 \subsection{Features}
 We need to adjust the dataset because the Random Forest model does not accept time series or multivariate data as input.
 
-\begin{figure}[!htbp]
+\begin{figure}[H]
   \begin{subfigure}{.5\textwidth}
     \centering
     \[
@@ -53,7 +53,7 @@ However, through the transformation process, the representation is transformed i
 The model's training utilizes the new representation of the data, composed of 864 derived features, to generate 300 trees.
 The performance of each tree is then summarized in Table \ref{tab:rfresults}, which displays the number of nodes, the number of features utilized, and the overall accuracy
 
-\begin{table}[!htbp]
+\begin{table}[H]
   \centering
     \begin{tabular}{lrrr}
     Model                       & Nodes   & Used features & Overall Accuracy             \\[0.2cm] 
