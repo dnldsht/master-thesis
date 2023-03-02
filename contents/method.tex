@@ -64,22 +64,62 @@ By implementing both methods, we were able to compare the performance of the mod
 
 
 \section{Weights and Biases}
-% TODO: talk about wandb
 
-In order to keep track of the experiments, we used Weights and Biases\cite{wandb} (wandb) to log the configuration and the results of the experiments.
-This was very useful to compare the results of the different models. It also helped to keep the models reproducible and to fine-tune the hyperparameters of the models.
+Weights and Biases (W\&B) \cite{wandb} is a machine learning experiment tracking platform that allows users to log and compare the results of different experiments. 
+In our research, we used W\&B to keep track of the experiments and to compare the results of the different models.
+
+W\&B provides an intuitive interface to track experiments, enabling users to easily organize and compare results from different runs.
+It also provides useful features such as visualization tools, automatic logging of metrics and hyperparameters, and integration with popular machine learning frameworks like TensorFlow and PyTorch.
+
+We used W\&B to log metrics and hyperparameters such as accuracy, learning rate, batch size, and many more. 
+This allowed us to easily compare the results of the different models and to identify which hyperparameters had the most significant impact on performance.
+
+In addition to logging metrics and hyperparameters, W\&B also allowed us to visualize the results in various ways. 
+We used the platform's dashboard to plot and compare the different metrics across experiments.
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.9\textwidth]{wandb1}
-  \caption{Example of parallel coordinates plot in wandb}
+  \includegraphics[width=0.4\textwidth]{wandb1}
+  \includegraphics[width=0.4\textwidth]{wandb2}
+  \caption{W\&B panels showing parallel coordinates plot of hyperparameters and metrics on the left, and parameter importance plot on the right.}
 \end{figure}
 
+
+With the aim of facilitating hyperparameter tuning, W\&B provides a powerful tool called Sweeps.
+This feature allows for an efficient and automated search of the hyperparameter space, enabling the user to define a range of values for each hyperparameter and W\&B takes care of the rest.
+You can add multiple agents to run the Sweeps in parallel, which can significantly reduce the time required to complete the search.
+Additionally, the results obtained from the Sweeps can be easily visualized and compared, providing valuable insights into the impact of the different hyperparameters on the performance of the model.
+
 \begin{figure}[H]
-  \centering
-  \includegraphics[width=0.9\textwidth]{wandb2}
-  \caption{Example of Parameter importance panel in wandb}
+\begin{lstlisting}[language=yaml]
+method: random
+metric:
+  goal: maximize
+  name: epoch/val_accuracy
+parameters:
+  G_epoch:
+    value: 1
+  batch_size:
+    value: 32
+
+  # ... more hyperparameters
+
+  hidden_size:
+    value: 128
+  learning_rate:
+    values:
+      - 1e-05
+      - 1e-06
+      - 1e-07
+      - 1e-08
+      - 1e-09
+program: train.py
+\end{lstlisting}
+\caption{Example of Sweep configuration}
 \end{figure}
+
+Overall, W\&B proved to be an essential tool for our project, enabling us to keep track of the experiments and to compare the results of the different models. 
+Its intuitive interface and powerful visualization tools made it easy to use and allowed us to quickly gain insights into the performance of the models.
 
 
 
