@@ -1,10 +1,5 @@
 \chapter{Background}
 
-- softmax cross entropy loss\\
-- mean squared error\\
-- sigmoid\\
-- tanh
-
 \section{Time series}
 % TODO add hearth observation example 
 A time series is a sequence of observations taken at regular intervals of time.
@@ -49,7 +44,7 @@ On the other hand, in multivariate time series, the focus is on understanding th
 It's important to note that, the choice of model and the methods used to analyze the data will depend on the type of time series data you are working with. Univariate and multivariate time series require different approach and techniques to be analyzed.
 
 \subsection{Spatio-temporal autocorrelation}
-Spatio-temporal autocorrelation refers to the correlation between observations that are close in both space and time. It is a common phenomenon in many natural and social phenomena, such as weather patterns, crime rates, and population density.
+Spatio-temporal autocorrelation \cite{doi:10.1080/10095020.2019.1643609} refers to the correlation between observations that are close in both space and time. It is a common phenomenon in many natural and social phenomena, such as weather patterns, crime rates, and population density.
 
 Spatio-temporal autocorrelation can be of two types: positive and negative. Positive spatio-temporal autocorrelation occurs when similar values tend to cluster together in both space and time. For example, in weather patterns, regions with high temperatures tend to be near other regions with high temperatures, and this pattern tends to persist over time. Negative spatio-temporal autocorrelation occurs when dissimilar values tend to cluster together in both space and time.
 
@@ -268,6 +263,19 @@ The convolutional layer is the core component of a CNN.
 It applies a set of learnable filters to the input data, which are used to extract features from the data.
 These filters are convolved with the input data, resulting in a set of feature maps.
 These feature maps are then passed on to the next layer for further processing.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{conv1}
+  \caption{Schematic illustration of a convolutional operation. The convolutional kernel shifts over the source layer, filling the pixels in the destination layer. \cite{convolutional:operation}}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{conv2}
+  \caption{Convolving a 3×3 kernel over a 5×5 input using half padding
+  and unit strides (i.e., i=5, k=3, s=1 and p=1) \cite{arxiv.1603.07285}}
+\end{figure}
 
 Pooling layers are used to reduce the dimensionality of the feature maps and extract the most important features to increase the robustness of the network.
 Max pooling and average pooling are two types of pooling layers that are commonly used. 
