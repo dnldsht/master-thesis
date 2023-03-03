@@ -111,9 +111,62 @@ The ability of deep neural networks to learn abstract features has led to signif
 In summary, deep learning is a subfield of machine learning that utilizes deep neural networks, which are neural networks with multiple hidden layers, to model complex patterns in data.
 These models are trained using large amounts of data and powerful computational resources to minimize the error between predictions and true values and have led to significant advancements in various fields.
 
+
+\subsection{Perceptron}
+
+The perceptron \cite{rosenblatt1958perceptron} is a type of artificial neural network that was first introduced in the 1950s by Frank Rosenblatt.
+It was designed to replicate the functioning of a single neuron in the brain, with the ability to learn from data and make decisions based on that learning.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.6\textwidth]{perceptron}
+  \caption{Perceptron Diagram \cite{Bhattacharyya}}
+\end{figure}
+
+The perceptron consists of one or more input nodes, a single output node, a bias value, and a set of weights that determine the strength of the connections between the input nodes and the output node.
+The input nodes receive the input data and the weights are adjusted during training in order to make the output node produce the desired output for a given input.
+
+The perceptron uses an activation function to determine the output of the output node. 
+The activation function can be any function that maps the input to an output, but some of the most commonly used activation functions include the step function, ReLU, sigmoid, and tanh.
+
+The perceptron can be used for binary classification problems, where the output node produces a 0 or 1 depending on the input.
+It can also be used for regression problems, where the output node produces a continuous value. 
+While the perceptron is a relatively simple neural network architecture, it has played an important role in the development of more complex neural networks and deep learning models.
+
+\subsection{Activation functions}
+
+The ReLU (Rectified Linear Unit) function, denoted as $\text{ReLU}(x)$, is defined as:
+
+\begin{equation}
+  \text{ReLU}(x) = \begin{cases}
+    0 & \text{if } x < 0 \\
+    x & \text{if } x \geq 0
+  \end{cases}
+\end{equation}
+
+It allows for efficient computation and addresses the vanishing gradient problem. 
+ReLU is commonly used in image classification tasks.
+
+The tanh (hyperbolic tangent) function, denoted as $\tanh(x)$, is defined as:
+\begin{equation}
+  \tanh(x) = \frac{\exp(x) - \exp(-x)}{\exp(x) + \exp(-x)}
+\end{equation}
+
+It is nonlinear and produces a smooth gradient, which can improve training performance. 
+tanh is commonly used in recurrent neural networks for natural language processing tasks.
+
+The sigmoid function, denoted as $\sigma(x)$, is defined as:
+
+\begin{equation}
+  \sigma(x) = \frac{1}{1 + \exp(-x)}
+\end{equation}
+
+It is a commonly used activation function in binary classification tasks because it produces a probability-like output.
+Sigmoid functions can also be used in deep learning models for tasks such as object detection and speech recognition.
+
 \subsection{Multilayer perceptrons}
 
-Multilayer perceptrons (MLPs) \cite{aggarwal2018neural, goodfellow2016deep} are a popular class of feedforward artificial neural networks that are composed of multiple layers of artificial neurons.
+Multi-layer perceptrons (MLPs) \cite{aggarwal2018neural, goodfellow2016deep} are neural networks that consist of one or more layers of perceptrons. 
 These networks are also known as fully connected networks due to the fact that each neuron in one layer is connected to all neurons in the following layer.
 
 \begin{figure}[H]
@@ -122,28 +175,80 @@ These networks are also known as fully connected networks due to the fact that e
   \caption{Multilayer Perceptron (MLP) Diagram \cite{uc}}
 \end{figure}
 
-% TODO explain more?
-The perceptron is a single layer neural network that was first introduced by Frank Rosenblatt in 1957. 
-It comprises of a single layer of artificial neurons, commonly referred to as perceptrons, which take in input and produce output. A perceptron is a linear classifier that separates the input data into two classes by using a linear decision boundary.
+The hidden layers in an MLP allow for non-linear transformations of the input data, which can help capture complex patterns in the data that would be difficult to capture with a single perceptron. 
+Each hidden layer applies a linear transformation to the inputs, followed by a non-linear activation function before passing the output to the next layer.
 
-% TODO explain more?
-\paragraph{Backpropagation} is the primary method used to train a multilayer perceptron. It is a supervised learning technique that utilizes the gradient descent optimization algorithm to adjust the weights of the network in order to minimize the error between the predicted output and the true output. The error is calculated using a loss function and is then propagated backwards through the network, adjusting the weights to reduce the error.
+MLPs can be used for a variety of tasks, including classification, regression, and sequence prediction. 
+They have been successfully applied in areas such as image recognition, natural language processing, and speech recognition. MLPs can also be used as a building block for more complex neural networks, such as convolutional neural networks (CNNs) and recurrent neural networks (RNNs).
 
-\paragraph {The learning rate} is a hyperparameter that controls the step size of the gradient descent optimization algorithm. It determines the extent to which the weights of the network should be adjusted in response to the error. A high learning rate results in larger weight adjustments, while a low learning rate results in smaller weight adjustments.
+MLPs are trained using a process called backpropagation, which involves computing the gradient of the loss function with respect to the weights of the network, and using this gradient to update the weights through an optimization algorithm, such as stochastic gradient descent (SGD). 
+The training process involves iterating over the training data multiple times, adjusting the weights of the network after each iteration, until the network's performance on a validation set stops improving or a maximum number of epochs is reached.
 
-\paragraph {Overfitting} is a prevalent issue in neural networks and occurs when a model is trained too well on the training data, leading to poor performance on new, unseen data. To mitigate overfitting, techniques such as regularization and dropout can be employed.
 
-\paragraph {Regularization} is a technique that adds a penalty term to the loss function, aimed at discourages the model from fitting to the noise in the training data. Common regularization methods include L1 and L2 regularization.
+\subsection{Backpropagation}
 
-\paragraph {Dropout} is a technique that randomly drops out neurons during the training process, which helps to prevent overfitting by ensuring that no single neuron can have too much influence on the final predictions.
+Backpropagation is a popular method for training neural networks.
+It is a supervised learning algorithm that uses a form of gradient descent optimization to minimize the error between the predicted output and the true output.
+The backpropagation algorithm starts by making a forward pass through the network, computing the output of each neuron layer by layer until the final output is produced.
 
-% TODO explain why
-\paragraph{Activation functions} are utilized to introduce non-linearity into the network. They are applied to the output of each neuron before it is passed on to the next layer. Common activation functions include sigmoid, ReLU, and tanh.
+Then, the error between the predicted output and the true output is calculated using a loss function.
+This error is then propagated back through the network, starting from the output layer and moving backwards.
+The weights of each neuron in the network are updated in the direction that reduces the error the most. 
+This process is repeated multiple times until the error is minimized or until a predefined stopping criterion is met.
 
-In conclusion, Multilayer perceptrons (MLPs) are a popular class of feedforward artificial neural networks that are composed of multiple layers of artificial neurons.
-The primary method used to train MLPs is backpropagation, which utilizes the gradient descent optimization algorithm to adjust the weights of the network.
-To avoid overfitting, techniques such as regularization and dropout can be employed.
-Activation functions are utilized to introduce non-linearity into the network.
+The backpropagation algorithm requires the use of a differentiable activation function, as the error needs to be propagated through the network in order to update the weights.
+The choice of activation function can have a significant impact on the performance of the network, and it is often a subject of experimentation and tuning.
+
+\subsection{Loss functions}
+
+Loss functions are used in machine learning to measure the difference between the predicted output and the actual output. 
+The objective of a machine learning algorithm is to minimize the loss function in order to improve the model's performance.
+
+There are different types of loss functions, each suited for different types of problems. For example, mean squared error (MSE) is commonly used in regression problems, where the goal is to predict a continuous output variable.
+
+\begin{equation}
+  \text{MSE} = \frac{1}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2
+\end{equation}
+
+Cross-entropy loss is used in classification problems, where the output variable is discrete.
+
+\begin{equation}
+  \text{Cross-entropy loss} = - \frac{1}{n} \sum_{i=1}^{n} y_i \log(\hat{y}_i)
+\end{equation}
+
+The choice of loss function is critical in the training process of a neural network, as it can affect the performance of the model. 
+It is important to choose a loss function that is appropriate for the problem at hand, and that will enable the model to optimize its parameters effectively.
+
+\subsection{Batch training}
+Batch training is a technique used to train neural networks using batches of samples instead of processing the entire dataset at once. 
+During training, the data is divided into small batches and the model is updated after each batch is processed. 
+This process helps to prevent overfitting and allows for more efficient use of computational resources.
+
+In batch training, the number of iterations over the entire dataset is typically referred to as an epoch. 
+A single epoch consists of processing each batch in the training dataset once. 
+After one epoch, the model has seen each training sample once and has made weight updates based on the average loss across all the batches in that epoch.
+Multiple epochs are often used to further refine the model's weights and biases.
+
+The number of epochs used during training can impact the performance of the model
+Training for too few epochs may result in underfitting, where the model has not learned enough from the data. 
+On the other hand, training for too many epochs may result in overfitting, where the model has learned the training data too well and is not able to generalize to new data. 
+Choosing the optimal number of epochs is typically done through trial and error or using early stopping techniques.
+
+\subsection{Learning rate}
+The learning rate is a hyperparameter that controls the step size of the gradient descent optimization algorithm.
+It determines the extent to which the weights of the network should be adjusted in response to the error.
+A high learning rate results in larger weight adjustments, while a low learning rate results in smaller weight adjustments.
+
+\subsection{Overfitting}
+Overfitting is a common problem in machine learning, where a model is trained to fit the training data too well, resulting in poor performance on new, unseen data.
+
+Regularization is a technique used to prevent overfitting by adding a penalty term to the loss function.
+This penalty term discourages the model from assigning too much importance to any one feature, and instead encourages it to find simpler, more generalizable solutions.
+There are different types of regularization techniques, including L1 and L2 regularization, which respectively add the absolute values and squared values of the weights to the penalty term.
+
+Dropout is another regularization technique that randomly drops out a certain percentage of the neurons in a layer during training. 
+This forces the remaining neurons to learn more robust features and prevents over-reliance on any one neuron. 
+Dropout has been shown to be an effective technique for reducing overfitting in deep neural networks.
 
 
 
