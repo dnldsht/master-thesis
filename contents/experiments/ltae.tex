@@ -112,7 +112,7 @@ After adapting the L-TAE model to our dataset, we trained it by adjusting the hy
 
 \begin{table}[ht]
   \centering
-  \begin{tabular}{l p{12cm}}   
+  \begin{tabular}{l p{10cm}}   
      Param & Description \\[0.2cm] 
      \hline \\[-0.2cm]  
      E & size of the embeddings ($E$), if input vectors are of a different size, a linear layer is used to project them d\_model-dimensional space \\
@@ -151,16 +151,16 @@ Table \ref{tab:LTAEresults} presents the performance results of the L-TAE archit
 All the results were obtained through a 4-fold cross-validation scheme.
 The performance metrics were measured for two different scenarios: one where missing values were imputed and one where missing values were not imputed.
 
-\begin{table}[ht]
+\begin{table}[H]
   \centering
   \begin{tabular}{cccclrr} 
      Params & E & H & K & MLP & No imputation & Pre imputation\\[0.2cm] 
      \hline \\[-0.2cm] 
      43k & 	128 & 	8 & 	8 & 	128 & 	$93.37 \pm 1.65$ & 	$93.08 \pm 1.16$\\ 
-     68k & 	128 & 	16 & 	8 & 	128 - 128 & 	$93.43 \pm 1.37$ & 	$93.39 \pm 1.16$\\ 
-     123k & 	256 & 	16 & 	8 & 	256 - 128 & 	$93.15 \pm 1.72$ & 	$93.44 \pm 1.22$\\ 
-     299k & 	512 & 	32 & 	8 & 	512 - 128 & 	$\mathbf{93.65 \pm 1.30}$ & 	$93.40 \pm 1.16$\\ 
-     749k & 	1024 & 	32 & 	8 & 	1024 - 256 - 128 & 	$92.91 \pm 1.90$ & 	$\mathbf{93.58 \pm 1.29}$\\ 
+     68k & 	128 & 	16 & 	8 & 	128-128 & 	$93.43 \pm 1.37$ & 	$93.39 \pm 1.16$\\ 
+     123k & 	256 & 	16 & 	8 & 	256-128 & 	$93.15 \pm 1.72$ & 	$93.44 \pm 1.22$\\ 
+     299k & 	512 & 	32 & 	8 & 	512-128 & 	$\mathbf{93.65 \pm 1.30}$ & 	$93.40 \pm 1.16$\\ 
+     749k & 	1024 & 	32 & 	8 & 	1024-256-128 & 	$92.91 \pm 1.90$ & 	$\mathbf{93.58 \pm 1.29}$\\ 
   \end{tabular}
   \caption{Results of the L-TAE model with different parameters}
   \label{tab:LTAEresults}
