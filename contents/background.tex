@@ -258,7 +258,6 @@ CNNs are composed of multiple layers, including convolutional layers, pooling la
   \caption{Convolutional Neural Network (CNN) Diagram: A visual representation of a deep learning architecture consisting of layers of convolutional, pooling and fully connected layers. \cite{shah}}
 \end{figure}
 
-% TODO explain better
 The convolutional layer is the core component of a CNN.
 It applies a set of learnable filters to the input data, which are used to extract features from the data.
 These filters are convolved with the input data, resulting in a set of feature maps.
@@ -286,11 +285,16 @@ Max pooling and average pooling are two types of pooling layers that are commonl
   \caption{Visualization of max and average pooling layers \cite{boehmke}}
 \end{figure}
 
-Max pooling selects the maximum value from a small region of the input data. This operation is used to capture the most important feature in the region, such as the strongest edge or the highest intensity value. Max pooling is often used in image recognition tasks, as it is able to extract the most salient features from the input image, such as edges and textures.
+Max pooling selects the maximum value from a small region of the input data.
+This operation is used to capture the most important feature in the region, such as the strongest edge or the highest intensity value.
+Max pooling is often used in image recognition tasks, as it is able to extract the most salient features from the input image, such as edges and textures.
 
-Average pooling, on the other hand, takes the average value from a small region of the input data. This operation is used to reduce noise and smooth out small variations in the input data. Average pooling is often used in tasks such as image segmentation, as it is able to extract more subtle features from the input image, such as shapes and textures.
+Average pooling, on the other hand, takes the average value from a small region of the input data. 
+This operation is used to reduce noise and smooth out small variations in the input data. 
+Average pooling is often used in tasks such as image segmentation, as it is able to extract more subtle features from the input image, such as shapes and textures.
 
-They both have different advantages and they are used in different tasks. Many CNNs use both max and average pooling in different layers.
+They both have different advantages and they are used in different tasks.
+Many CNNs use both max and average pooling in different layers.
 
 
 Fully connected layers are used to classify the features extracted by the convolutional layers.
@@ -322,6 +326,12 @@ Dilated convolutions are similar to standard convolutions, but they have a dilat
 This allows TCNs to increase the receptive field of the network without increasing the number of parameters.
 The result is that TCNs can capture long-term dependencies in the input data.
 
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.7\textwidth]{temporalConvolution}
+  \caption{Convolution of a time series (blue) with the positive gradient filter [-1 -1 0 1 1] (black).The result (red) takes high positive values when the signal sharply increases, and conversely\cite{tempCNN}}
+\end{figure}
+
 TCNs also use a causal convolution, which means that the output of the network only depends on the past inputs.
 This is important in tasks such as prediction, where the future cannot be influenced by the current output.
 
@@ -341,6 +351,12 @@ They are called "recurrent" because they have a feedback loop that allows inform
 RNNs have a hidden state, which is a vector that contains information about the past inputs.
 At each time step, the input is combined with the hidden state to produce a new hidden state and an output.
 The hidden state is then used as input for the next time step.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.7\textwidth]{RNN_Unrolled}
+  \caption{An unrolled representation of a Recurrent Neural Network (RNN) showing how it processes input sequences by feeding the output of the previous time step as an additional input to the current time step. This allows the RNN to capture the temporal dependencies and learn patterns in sequential data.\cite{RNN:Unrolled}}
+\end{figure}
 
 One of the main limitations of traditional RNNs is the vanishing gradient problem, which occurs when the gradients of the parameters tend to decrease exponentially with the number of time steps.
 This makes it difficult to train RNNs on long sequences.
