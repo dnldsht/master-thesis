@@ -32,7 +32,7 @@ In addition to the concept of a time series, it's also important to understand t
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.6\textwidth]{multivariate}
-  \caption{Example of Multivariate timeserie \cite{mltech}}
+  \caption{Example of Multivariate timeseries \cite{mltech}}
 \end{figure}
 
 \paragraph{Univariate time series:} This type of time series includes observations of a single variable, such as stock prices or temperature. The main focus is on understanding the patterns and trends in the single variable over time.
@@ -394,7 +394,7 @@ The generator network is trained to generate new data samples that are similar t
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.7\textwidth]{gan}
+  \includegraphics[width=0.8\textwidth]{gan}
   \caption{Overview of GAN structure \cite{googledevelopers}}
 \end{figure}
 
@@ -406,10 +406,10 @@ One of the main advantages of GANs is that they can be used to generate high-qua
 They have been used in a wide range of applications, including image synthesis, image-to-image translation, style transfer, and video prediction. 
 GANs have also been applied to other areas such as natural language processing, speech synthesis, and 3D object generation.
 
-There are many variations of GANs, such as Wasserstein GANs, which use the Wasserstein distance to measure the difference between the generated samples and the real samples, and Cycle GANs, which are used for image-to-image translation.
+There are many variations of GANs, such as Wasserstein GANs \cite{arxiv.1701.07875}, which use the Wasserstein distance to measure the difference between the generated samples and the real samples, and Cycle GANs \cite{CycleGAN2017}, which are used for image-to-image translation.
 There are also GANs that use different architectures, such as convolutional GANs and recurrent GANs.
 
-Conditional GANs, also known as cGANs, are a variant of GANs where both the generator and the discriminator are conditioned on some additional input, such as a class label or an image.
+Conditional GANs \cite{arxiv.1411.1784}, also known as cGANs, are a variant of GANs where both the generator and the discriminator are conditioned on some additional input, such as a class label or an image.
 This allows the model to generate new samples that are conditioned on a specific class or attributes.
 For example, it can generate images of a specific object or in a specific style.
 
@@ -451,10 +451,4 @@ The Transformer architecture consists of an encoder and a decoder, which are bot
 The attention mechanism used in the Transformer is a type of dot-product attention, which calculates the similarity between different parts of the input.
 One of the key advantages of the Transformer is its ability to handle input sequences of variable length, which is important for natural language processing tasks where the length of the input can vary greatly. 
 Additionally, the Transformer can be parallelized, which allows it to be trained and run on multiple GPUs or TPUs, leading to faster training times.
-
-bib
-Time series:
-
-\cite{Hyndman2018} "Forecasting: principles and practice" by Rob J Hyndman and George Athanasopoulos
-\cite{Shumway2017} "Time Series Analysis and Its Applications: With R Examples" by Robert H. Shumway and David S. Stoffer
 
