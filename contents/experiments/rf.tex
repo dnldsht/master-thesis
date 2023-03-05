@@ -7,7 +7,7 @@ Each tree is trained on a random subset of the original training dataset (sample
 The algorithm is unique in that it is robust to overfitting, even in extreme cases e.g. when there are more features than training examples.
 It is probably the most well-known of the Decision Forest training algorithms.
 
-\subsection{Features}
+\subsection{Data preparation}
 We need to adjust the dataset because the Random Forest model does not accept time series or multivariate data as input.
 
 \begin{figure}[H]
@@ -39,7 +39,7 @@ We need to adjust the dataset because the Random Forest model does not accept ti
       \end{block}
       \end{blockarray}
     \]
-    \caption{Forged features for Random forest}
+    \caption{One observation in a 1-dim array}
     \label{fig:figtrans2}
   \end{subfigure}
   \caption{Transformation of one observation from a 2-dim array to a 1-dim array}
@@ -47,7 +47,7 @@ We need to adjust the dataset because the Random Forest model does not accept ti
 \end{figure}
 
 As shown in Figure \ref{fig:figtrans1}, each sample is initially represented by a 2-dimensional array of size (54, 16), where 16 bands capture the pixel's characteristics and 54 time steps reflect its progression. 
-However, through the transformation process, the representation is transformed into a more 1-dimensional array of size (864, 1) as depicted in Figure \ref{fig:figtrans2}. 
+However, through the transformation process, the representation is transformed into a 1-dimensional array of size (864, 1) as depicted in Figure \ref{fig:figtrans2}. 
 
 The model's training utilizes the new representation of the data, composed of 864 derived features, to generate 300 trees.
 Table \ref{tab:rfresults} presents the results of the Random Forest model trained with and without pre-imputed missing values. 
