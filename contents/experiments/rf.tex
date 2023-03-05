@@ -50,15 +50,16 @@ As shown in Figure \ref{fig:figtrans1}, each sample is initially represented by 
 However, through the transformation process, the representation is transformed into a more 1-dimensional array of size (864, 1) as depicted in Figure \ref{fig:figtrans2}. 
 
 The model's training utilizes the new representation of the data, composed of 864 derived features, to generate 300 trees.
-The performance of each tree is then summarized in Table \ref{tab:rfresults}, which displays the number of nodes, the number of features utilized, and the overall accuracy
+Table \ref{tab:rfresults} presents the results of the Random Forest model trained with and without pre-imputed missing values. 
+The table includes the number of nodes, number of utilized features, and Overall Accuracy for each case.
 
 \begin{table}[H]
   \centering
     \begin{tabular}{lrrr}
-    Model                       & Nodes   & Used features & Overall Accuracy             \\[0.2cm] 
+    Case                       & Nodes   & Used features & Overall Accuracy             \\[0.2cm] 
     \hline \\[-0.2cm]
-    Imputed missing values      & 523,636  & 753          & $91.03 \pm 0.42$\\
-    Not imputed missing values  & 519,932  & 718          & $89.72 \pm 0.84$
+    Pre imputation      & 523,636  & 753          & $91.03 \pm 0.42$\\
+    No imputation  & 519,932  & 718          & $89.72 \pm 0.84$
     \end{tabular}
   \caption{Random forest results}
   \label{tab:rfresults}
