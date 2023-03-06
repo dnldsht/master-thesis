@@ -54,6 +54,17 @@ Specifically, L-TAE achieved an accuracy of 93.58\% and 93.65\% on the imputed a
 while TempCNN achieved an accuracy of 93.74\% and 92.57\%. RF and AJ-RNN both achieved lower accuracies. 
 These results suggest that deep learning models such as TempCNN and L-TAE may be more suitable for modeling satellite image time series data.
 
+\begin{figure}[H]
+  \centering
+  \includegraphics[height=5.14cm,width=0.47\textwidth]{cfTempCNN}
+  \includegraphics[width=0.52\textwidth]{cfLTAE}
+  \caption{Confusion matrices for the TempCNN model (left) and L-TAE model (right) on the test dataset. The y-axis represents the true labels, and the x-axis represents the predicted labels.}
+\end{figure}
+
+Based on the confusion matrices, both TempCNN and L-TAE models seem to have difficulty distinguishing between the Orchard and Crop classes, as indicated by the high number of misclassifications between these two classes.
+This could be due to the fact that these two classes may share similar temporal patterns in the time series data, making it harder for the models to differentiate between them. 
+It may be worth exploring additional features or data sources to improve the performance of the models in distinguishing between these two classes.
+
 \subsection{Imputation of missing values}
 
 The inclusion of missing data can often be a challenge in machine learning tasks, as missing values can have a significant impact on the performance of the model.
