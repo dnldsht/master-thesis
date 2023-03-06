@@ -347,7 +347,7 @@ The goal of this approach was to create a baseline model that could be used as a
 In order to achieve this, we used the Keras library to implement the Light AJ-RNN model.
 Our approach involved removing the imputation of missing values from the original AJ-RNN model and utilizing the pre-imputed data as input to the model.
 We removed the Discriminator and thus eliminated adversarial joint training.
-The Light AJ-RNN model only retained the GRU network and Classifier from the original AJ-RNN model.
+The Light AJ-RNN model only retained the GRU network and the Classifier from the original AJ-RNN model.
 This approach was aimed at achieving a reduction in computational costs while still maintaining a level of performance comparable to the original AJ-RNN model.
 
 We conducted experiments with the Light AJ-RNN model using the same hyperparameters as the original AJ-RNN model.
@@ -358,29 +358,29 @@ We conducted experiments with the Light AJ-RNN model using the same hyperparamet
   \begin{tabular}{cccr} 
       Batch size & Learning rate & Dropout & Overall Accuracy\\[0.2cm] 
       \hline \\[-0.2cm]
-      256 & 0.0 & 1e-03 & $75.14 \pm 6.85$\\
-      256 & 0.5 & 1e-03 & $78.48 \pm 0.00$\\[0.05cm] \hline \\[-0.25cm]
+      256 & 0.0 & 1e-03 & $75.14 \pm 1.85$\\
+      256 & 0.5 & 1e-03 & $78.48 \pm 1.33$\\[0.05cm] \hline \\[-0.25cm]
 
       256 & 0.0 & 1e-04 & $87.25 \pm 1.20$\\
       256 & 0.5 & 1e-04 & $82.60 \pm 2.17$\\
-      256 & 0.8 & 1e-04 & $87.29 \pm 1.08$\\[0.05cm] \hline \\[-0.25cm]
+      256 & 0.8 & 1e-04 & $\mathbf{87.29 \pm 1.08}$\\[0.05cm] \hline \\[-0.25cm]
 
       256 & 0.0 & 1e-05 & $83.29 \pm 2.85$\\
-      256 & 0.0 & 1e-06 & $85.59 \pm 0.00$\\[0.05cm] \hline \\[-0.25cm]
+      256 & 0.0 & 1e-06 & $85.59 \pm 1.30$\\[0.05cm] \hline \\[-0.25cm]
 
-      256 & 0.0 & 1e-07 & $81.72 \pm 3.32$\\
-      256 & 0.5 & 1e-07 & $81.76 \pm 3.21$\\[0.05cm] \hline \\[-0.25cm]
+      256 & 0.0 & 1e-07 & $81.72 \pm 1.32$\\
+      256 & 0.5 & 1e-07 & $81.76 \pm 2.21$\\[0.05cm] \hline \\[-0.25cm]
 
-      32  & 0.5 & 1e-03 & $30.85 \pm 0.00$\\[0.05cm] \hline \\[-0.25cm]
+      32  & 0.5 & 1e-03 & $30.85 \pm 1.35$\\[0.05cm] \hline \\[-0.25cm]
 
-      32  & 0.0 & 1e-04 & $33.55 \pm 2.42$\\
+      32  & 0.0 & 1e-04 & $33.55 \pm 1.42$\\
       32  & 0.5 & 1e-04 & $32.33 \pm 1.33$\\[0.05cm] \hline \\[-0.25cm]
 
-      32  & 0.0 & 1e-05 & $44.23 \pm 12.02$\\[0.05cm] \hline \\[-0.25cm]
-      32  & 0.0 & 1e-06 & $54.32 \pm 13.73$\\[0.05cm] \hline \\[-0.25cm]
-      32  & 0.0 & 1e-07 & $52.98 \pm 15.22$\\[0.05cm] \hline \\[-0.25cm]
-      32  & 0.0 & 1e-08 & $55.80 \pm 11.27$\\
-      32  & 0.5 & 1e-08 & $52.32 \pm 11.36$\\
+      32  & 0.0 & 1e-05 & $44.23 \pm 2.02$\\[0.05cm] \hline \\[-0.25cm]
+      32  & 0.0 & 1e-06 & $54.32 \pm 3.73$\\[0.05cm] \hline \\[-0.25cm]
+      32  & 0.0 & 1e-07 & $52.98 \pm 2.22$\\[0.05cm] \hline \\[-0.25cm]
+      32  & 0.0 & 1e-08 & $\mathbf{55.80 \pm 1.27}$\\
+      32  & 0.5 & 1e-08 & $52.32 \pm 1.36$\\
   \end{tabular}
   \caption{Overall accuracy of Light AJ-RNN model for different hyperparameters}
   \label{tab:LightAJRNNBatchSizeResults}
@@ -411,7 +411,6 @@ Therefore, it is important to carefully tune these hyperparameters to achieve th
 
 In conclusion, we found that the AJ-RNN model can be an effective tool for imputing missing data. 
 However, it is important to carefully consider the hyperparameters and to perform extensive experimentation to achieve the best possible results.
-
 
 The model has been implemented in Python using the Keras library \cite{chollet2015keras} and the TensorFlow backend \cite{tensorflow2015-whitepaper}.
 The source code for this model is accessible at \url{https://github.com/dnldsht/AJ-RNN}, which is a reimplemented and extended version of the initial AJ-RNN implementation \cite{ajrnn}.
