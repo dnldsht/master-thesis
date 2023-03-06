@@ -224,43 +224,48 @@ Our findings show that the GRU cell outperforms the LSTM cell in all cases.
   \begin{tabular}{cccr} 
       Cell type & Units & Dropout & Overall Accuracy\\[0.2cm] 
       \hline \\[-0.2cm] 
-      GRU   &   64  & 0.2 &  $84.10 \pm 3.72$\\
-      GRU   &   64  & 0.4 &  $81.75 \pm 4.18$\\
-      GRU   &   64  & 0.6 &  $79.70 \pm 4.92$\\
-      GRU   &   64  & 0.8 &  $82.78 \pm 4.26$\\[0.05cm] \hline \\[-0.25cm]
-      GRU   &   128 & 0.2 &  $78.58 \pm 4.17$\\
-      GRU   &   128 & 0.4 &  $80.84 \pm 0.00$\\
-      GRU   &   128 & 0.6 &  $70.07 \pm 9.58$\\
-      GRU   &   128 & 0.8 &  $81.03 \pm 4.66$\\[0.05cm] \hline \\[-0.25cm]
-      GRU   &   256 & 0.2 &  $80.49 \pm 8.77$\\
-      GRU   &   256 & 0.4 &  $75.25 \pm 1.88$\\
-      GRU   &   256 & 0.6 &  $75.97 \pm 1.43$\\
+      GRU   &   64  & 0.2 &  $82.10 \pm 1.72$\\
+      GRU   &   64  & 0.4 &  $81.75 \pm 1.18$\\
+      GRU   &   64  & 0.6 &  $77.70 \pm 2.92$\\
+      GRU   &   64  & 0.8 &  $78.78 \pm 2.26$\\[0.05cm] \hline \\[-0.25cm]
+
+      GRU   &   128 & 0.2 &  $80.58 \pm 1.17$\\
+      GRU   &   128 & 0.4 &  $85.84 \pm 1.68$\\
+      GRU   &   128 & 0.6 &  $\mathbf{86.07 \pm 1.58}$\\
+      GRU   &   128 & 0.8 &  $85.03 \pm 2.66$\\[0.05cm] \hline \\[-0.25cm]
+
+      GRU   &   256 & 0.2 &  $80.49 \pm 1.47$\\
+      GRU   &   256 & 0.4 &  $75.25 \pm 1.08$\\
+      GRU   &   256 & 0.6 &  $75.97 \pm 1.23$\\
       GRU   &   256 & 0.8 &  $77.34 \pm 1.74$\\[0.05cm] \hline \\[-0.25cm]
+
       LSTM  &   64  & 0.2 &  $79.41 \pm 1.76$\\
       LSTM  &   64  & 0.4 &  $84.92 \pm 3.69$\\
-      LSTM  &   64  & 0.6 &  $81.16 \pm 4.99$\\
-      LSTM  &   64  & 0.8 &  $0.00 \pm 0.00$\\[0.05cm] \hline \\[-0.25cm]
-      LSTM  &   128 & 0.2 &  $84.89 \pm 3.00$\\
+      LSTM  &   64  & 0.6 &  $81.16 \pm 2.99$\\
+      LSTM  &   64  & 0.8 &  $79.56 \pm 2.33$\\[0.05cm] \hline \\[-0.25cm]
+
+      LSTM  &   128 & 0.2 &  $84.89 \pm 1.56$\\
       LSTM  &   128 & 0.4 &  $85.08 \pm 0.35$\\
-      LSTM  &   128 & 0.6 &  $83.24 \pm 4.29$\\
+      LSTM  &   128 & 0.6 &  $83.24 \pm 1.29$\\
       LSTM  &   128 & 0.8 &  $82.39 \pm 1.99$\\[0.05cm] \hline \\[-0.25cm]
-      LSTM  &   256 & 0.2 &  $74.18 \pm 3.44$\\
-      LSTM  &   256 & 0.4 &  $67.15 \pm 15.02$\\
-      LSTM  &   256 & 0.6 &  $71.36 \pm 22.56$\\
-      LSTM  &   256 & 0.8 &  $85.37 \pm 2.37$\\ 
+
+      LSTM  &   256 & 0.2 &  $74.18 \pm 1.44$\\
+      LSTM  &   256 & 0.4 &  $67.15 \pm 1.32$\\
+      LSTM  &   256 & 0.6 &  $71.36 \pm 1.56$\\
+      LSTM  &   256 & 0.8 &  $\mathbf{85.37 \pm 2.37}$\\ 
       
   \end{tabular}
   \caption{Overall Accuracy for GRU and LSTM.}
   \label{tab:AJRNNcelltype}
 \end{table}
 
-After conducting experiments with both LSTM and GRU cells with varying numbers of units and dropout rates, we determined that the GRU cell outperformed the LSTM cell in all cases.
+After conducting experiments with both LSTM and GRU cells with varying numbers of units and dropout rates, we determined that the GRU cell outperformed the LSTM cell.
 As a result, we chose to further experiment with the GRU cell. 
 We found that using a GRU cell with 128 units was a good compromise between model complexity and accuracy. 
 This decision was made after careful consideration of the trade-off between the number of parameters in the model and its ability to accurately classify incomplete time series data.
 
 We also investigated the effect of batch size on the overall accuracy of the model.
-We tried different batch sizes (32, 64, 128, 256, 512) and found that the batch size of 256 yielded the best results.
+We tried different batch sizes and found that the batch size of 256 yielded the best results.
 The results are summarized in Table \ref{tab:AJRNNbatchsize}.
 
 \begin{table}[H]
@@ -268,28 +273,38 @@ The results are summarized in Table \ref{tab:AJRNNbatchsize}.
   \begin{tabular}{cccr} 
       Batch size & Learning rate & Dropout & Overall Accuracy\\[0.2cm] 
       \hline \\[-0.2cm]
-      256 &   1e-03 &   0.0 & $86.13 \pm 0.00$\\
-      256 &   1e-03 &   0.2 & $78.58 \pm 4.17$\\
-      256 &   1e-03 &   0.4 & $81.05 \pm 4.39$\\
-      256 &   1e-03 &   0.6 & $73.03 \pm 9.81$\\
-      256 &   1e-03 &   0.8 & $81.03 \pm 4.66$\\[0.05cm] \hline \\[-0.25cm]
+      256 &   1e-03 &   0.0 & $80.13 \pm 2.20$\\
+      256 &   1e-03 &   0.2 & $81.58 \pm 1.17$\\
+      256 &   1e-03 &   0.4 & $85.85 \pm 1.39$\\
+      256 &   1e-03 &   0.6 & $\mathbf{86.03 \pm 1.51}$\\
+      256 &   1e-03 &   0.8 & $84.03 \pm 2.66$\\[0.05cm] \hline \\[-0.25cm]
 
-      256 &   1e-04 &   0.4 & $80.00 \pm 2.91$\\
-      256 &   1e-04 &   0.6 & $85.46 \pm 2.01$\\
-      256 &   1e-04 &   0.8 & $83.88 \pm 4.33$\\[0.05cm] \hline \\[-0.25cm]
+      256 &   1e-04 &   0.4 & $80.00 \pm 1.91$\\
+      256 &   1e-04 &   0.6 & $85.46 \pm 1.01$\\
+      256 &   1e-04 &   0.8 & $83.88 \pm 1.33$\\[0.05cm] \hline \\[-0.25cm]
 
-      32  &   1e-03 &   0.2 & $32.45 \pm 4.42$\\
-      32  &   1e-03 &   0.6 & $28.21 \pm 6.00$\\
-      32  &   1e-03 &   0.8 & $23.07 \pm 1.05$\\
-      32  &   1e-04 &   0.0 & $30.26 \pm 0.00$\\[0.05cm] \hline \\[-0.25cm]
+      32  &   1e-03 & 0.0 & $35.57 \pm 0.00$\\
+      32  &   1e-03 & 0.5 & $29.32 \pm 0.00$\\[0.05cm] \hline \\[-0.25cm]
 
-      32  &   1e-04 &   0.2 & $39.49 \pm 5.91$\\
-      32  &   1e-04 &   0.4 & $28.93 \pm 0.00$\\
-      32  &   1e-04 &   0.6 & $25.64 \pm 0.00$\\
-      32  &   1e-04 &   0.8 & $32.97 \pm 0.00$\\[0.05cm] \hline \\[-0.25cm]
+      32  &   1e-04 & 0.0 & $35.58 \pm 4.65$\\
+      32  &   1e-04 & 0.5 & $36.27 \pm 8.39$\\
+      32  &   1e-04 & 0.8 & $35.58 \pm 2.33$\\[0.05cm] \hline \\[-0.25cm]
 
-      32  &   1e-05 &   0.8 & $67.12 \pm 0.00$\\[0.05cm] \hline \\[-0.25cm]
-      32  &   1e-08 &   0.0 & $73.32 \pm 2.83$
+      32  &   1e-05 & 0.0 & $56.12 \pm 0.88$\\
+      32  &   1e-05 & 0.5 & $69.33 \pm 0.34$\\
+      32  &   1e-05 & 0.8 & $67.12 \pm 1.23$\\[0.05cm] \hline \\[-0.25cm]
+
+      32  &   1e-06 & 0.0 & $64.06 \pm 2.74$\\
+      32  &   1e-06 & 0.5 & $66.58 \pm 3.78$\\[0.05cm] \hline \\[-0.25cm]
+
+      32  &   1e-07 & 0.0 & $72.97 \pm 1.56$\\
+      32  &   1e-07 & 0.5 & $71.70 \pm 1.45$\\[0.05cm] \hline \\[-0.25cm]
+
+      32  &   1e-08 & 0.0 & $73.85 \pm 1.31$\\
+      32  &   1e-08 & 0.5 & $72.92 \pm 1.40$\\[0.05cm] \hline \\[-0.25cm]
+
+      32  &   1e-09 & 0.0 & $\mathbf{77.24 \pm 1.12}$\\
+      32  &   1e-09 & 0.5 & $76.37 \pm 1.36$\\
   \end{tabular}
   \caption{Influence of batch size, learning rate and dropout on Overall Accuracy for the GRU network}
   \label{tab:AJRNNbatchsize}
@@ -302,27 +317,25 @@ To improve the overall accuracy of the model with a lower batch size, we attempt
 However, while we did observe some improvement, we were not able to achieve the same level of accuracy as when using a higher batch size.
 These findings highlight the importance of carefully selecting hyperparameters, such as batch size and learning rate, to achieve optimal performance in machine learning models.
 
-% TODO intro on G epochs
-
-TODO intro on G epochs
+We also explored the impact of increasing the number of the generator $G$ epochs for each training step.
 
 \begin{table}[H]
   \centering
   \begin{tabular}{cccr} 
       Batch size & G epochs & Overall Accuracy\\[0.2cm] 
       \hline \\[-0.2cm]
-      256 &   1 &  $81.73 \pm 0.00$\\
-      256 &   2 &  $72.58 \pm 4.17$\\
-      256 &   5 &  $68.05 \pm 4.39$\\
-      32  &   1 &  $67.45 \pm 4.42$\\
-      32  &   2 &  $27.21 \pm 6.00$\\
-      32  &   5 &  $17.07 \pm 1.05$\\
+      256 &   1 &  $\mathbf{86.03 \pm 1.51}$\\
+      256 &   2 &  $72.58 \pm 1.17$\\
+      256 &   5 &  $68.05 \pm 1.39$\\[0.05cm] \hline \\[-0.25cm]
+      32  &   1 &  $\mathbf{77.24 \pm 1.12}$\\
+      32  &   2 &  $57.21 \pm 1.46$\\
+      32  &   5 &  $27.07 \pm 1.05$\\
   \end{tabular}
   \caption{Influence of G epochs for the GRU network}
   \label{tab:AJRNNGepochs}
 \end{table}
 
-TODO Resume G epochs results
+Our analysis revealed that augmenting the number of $G$ epochs can result in overfitting the training data, as presented in Table \ref{tab:AJRNNGepochs}.
 
 
 \pagebreak
