@@ -1,6 +1,4 @@
 \section{L-TAE}
-%The increasing accessibility and precision of Earth observation satellite data offers considerable opportunities for industrial and state actors alike. 
-%This calls however for efficient methods able to process time-series on a global scale.
 The paper ``Lightweight Temporal Self-Attention for Classifying Satellite Image Time Series" \cite{LTAE} was written by Vivien Sainte Fare Garnot, and Loic Landrieu, and published in 2020.
 
 The authors introduce a new deep learning model for classifying satellite image time series, which utilizes a modified version of the Temporal Attention Encoder.
@@ -12,11 +10,11 @@ Overall, the paper presents a novel method for classifying satellite image time 
 \subsection{Multi-Headed Self-Attention}
 
 The original version of self-attention, which was initially developed for text translation as described in \cite{vaswani}, involves three main steps.
-Firstly, for each position "t" in the input sequence, a triplet of key-query-value is computed, denoted as $k^{(t)}$, $q^{(t)}$, and $v^{(t)}$, respectively, by applying a shared linear layer to the input $e^{(t)}$.
+Firstly, for each position $t$ in the input sequence, a triplet of key-query-value is computed, denoted as $k^{(t)}$, $q^{(t)}$, and $v^{(t)}$, respectively, by applying a shared linear layer to the input $e^{(t)}$.
 Secondly, attention masks are calculated, representing the compatibility (dot-product) between the queries and the keys of previous elements in the sequence. 
 Lastly, an output is assigned to each position in the sequence, which is the sum of previous values weighted by the corresponding attention mask.
 
-To enable each head to specialize in detecting certain characteristics of the feature vectors, the self-attention process is performed in parallel for "H" sets of independent parameters or heads, and the outputs are concatenated.
+To enable each head to specialize in detecting certain characteristics of the feature vectors, the self-attention process is performed in parallel for $H$ sets of independent parameters or heads, and the outputs are concatenated.
 This approach is used by Rußwurm et al. \cite{russwurm2019self} to embed sequences of satellite observations by max-pooling the resulting sequence of outputs in the temporal dimension.
 
 Garnot et al. \cite{garnot2020satellite} introduce a modified self-attention scheme called the Temporal Attention Encoder (TAE).
@@ -75,7 +73,7 @@ In summary, the various steps of the L-TAE method can be summarized by the follo
 
 \end{paragraph}
 
-\begin{paragraph}{ Spatio-temporal classifier}
+\begin{paragraph}{Spatio-temporal classifier}
 The L-TAE temporal encoder is designed to be trained together with a spatial encoding module and a decoder module in an end-to-end manner (\ref{eq:LTAE7}).
   
 The spatial encoder $S$ is responsible for mapping a sequence of raw inputs $X^{(t)}$ to a sequence of learned features $e^{(t)}$, computed independently at each position of the sequence.
@@ -89,7 +87,6 @@ On the other hand, the decoder $D$ is responsible for mapping the output $o$ of 
 
 
 \subsection{Data preparation}
-%- splits\\
 
 As described in Section \ref{sec:tempCNNDataPreparation}, we partitioned the dataset into three subsets: training (60\%), validation (20\%), and test (20\%). 
 To ensure that each set had a similar class distribution and to avoid spatial autocorrelation, we took necessary precautions.

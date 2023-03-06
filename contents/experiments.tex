@@ -1,6 +1,12 @@
 \chapter{Experiments}
-% TODO
-brief overview of the experiments/models
+In this section, we present an overview of the models and experiments performed in our study. We evaluated four models: Random Forest (RF), Adversarial Joint-Learning Recurrent Neural Network (AJ-RNN), Temporal Convolutional Neural Network (TempCNN), and Lightweight Temporal Self-Attention Encoder (L-TAE).
+
+For each model, we provide a description of its architecture.
+We also compare the original authors' findings on the hyperparameters configurations with our own observations.
+In addition, we discuss any adaptations or modifications made to the original model architecture to better fit our specific problem.
+
+Our experiments were conducted on two datasets: one with pre-imputed missing values and the other without imputation. 
+We compare the performance of each model on both datasets and examine any differences in their performance.
 
 \input{contents/experiments/rf}
 \pagebreak
@@ -11,9 +17,9 @@ brief overview of the experiments/models
 \input{contents/experiments/ltae}
 \pagebreak
 
-% terminate the experiments section
-
 \section{Comparing results}
+
+In this section, we compare the performance of the different models on both the imputed and non-imputed datasets.
 
 \begin{table}[H]
   \centering
@@ -42,6 +48,11 @@ brief overview of the experiments/models
   \caption{Overall accuracy of the best models without imputation of missing values} 
   \label{tab:ALLresultsNoImputed}
 \end{table}
+
+Overall, our experiments show that TempCNN and L-TAE outperformed the other models on both datasets.
+Specifically, L-TAE achieved an accuracy of 93.58\% and 93.65\% on the imputed and non-imputed datasets, respectively, 
+while TempCNN achieved an accuracy of 93.74\% and 92.57\%. RF and AJ-RNN both achieved lower accuracies. 
+These results suggest that deep learning models such as TempCNN and L-TAE may be more suitable for modeling satellite image time series data.
 
 \subsection{Imputation of missing values}
 
