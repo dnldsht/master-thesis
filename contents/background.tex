@@ -1,7 +1,6 @@
 \chapter{Background}
 
 \section{Time series}
-% TODO add hearth observation example 
 A time series is a sequence of observations taken at regular intervals of time.
 These observations can be numerical values, categorical variables, or even text.
 Time series data is commonly found in a wide range of fields such as finance, economics, healthcare, meteorology, and transportation.
@@ -16,16 +15,7 @@ Time series data is commonly found in a wide range of fields such as finance, ec
 In finance, for example, time series data can be used to analyze stock prices, interest rates, and currency exchange rates.
 In healthcare, time series data can be used to analyze patient vital signs, such as heart rate and blood pressure.
 In transportation, time series data can be used to analyze traffic patterns and traffic flow.
-% TODO add hearth observation example
 
-
-% TODO talk about this too?
-% There are several characteristics that define a time series, including:
-% Regular time intervals: Observations are taken at regular intervals of time, such as every minute, hour, day, or month.
-% Ordering: The observations are ordered in time, meaning that the observation at time t is followed by the observation at time t+1.
-% Time dependence: The value of the observation at time t is dependent on the values of the observations at previous time steps.
-% Stationarity: A time series is considered stationary if its statistical properties, such as mean and variance, do not change over time.
-% One of the main challenges in working with time series data is the presence of missing values. This can occur due to various reasons such as sensor failures, data transmission errors, or data cleaning processes. The presence of missing values can make it difficult to perform tasks such as classification and prediction on time series data.
 \subsection{Univariate and Multivariate}
 
 In addition to the concept of a time series, it's also important to understand the difference between univariate and multivariate time series.
@@ -40,35 +30,55 @@ In addition to the concept of a time series, it's also important to understand t
 
 In univariate time series, the focus is on understanding the patterns and trends of a single variable over time. This can be done by analyzing the data using techniques such as time series decomposition, trend analysis, and forecasting.
 On the other hand, in multivariate time series, the focus is on understanding the relationships and interactions between multiple variables. 
-%Techniques such as vector autoregression (VAR) and principal component analysis (PCA) can be used to analyze the relationships between the variables. Additionally, multivariate time series can also be used for tasks such as classification and anomaly detection.
 It's important to note that, the choice of model and the methods used to analyze the data will depend on the type of time series data you are working with. Univariate and multivariate time series require different approach and techniques to be analyzed.
 
+\subsection{Satellite Image Time Series (SITS)}
+
+Satellite Image Time Series (SITS) refer to a collection of satellite images taken at regular intervals over a particular area of interest. 
+SITS data are obtained by using remote sensing satellites that capture images of the Earth's surface at different wavelengths of the electromagnetic spectrum.
+
+The European Union's Sentinel program is an example of a satellite mission that provides high-quality SITS data with a high revisit time period.
+The Sentinel satellites capture images at various spatial resolutions, ranging from 10 meters to 60 meters, depending on the mission. 
+These images are captured at different time intervals, ranging from a few days to several months, providing a time series of images for a particular area.
+
+To obtain SITS data, multiple images are taken at regular intervals over a specific area of interest. 
+After the images are captured, they go through a pre-processing stage where they are aligned to a consistent coordinate system. 
+This step ensures that every pixel in the time series corresponds to the same location on the Earth's surface, enabling accurate analysis and comparison of the data.
+
 \subsection{Spatio-temporal autocorrelation}
-Spatio-temporal autocorrelation \cite{doi:10.1080/10095020.2019.1643609} refers to the correlation between observations that are close in both space and time. It is a common phenomenon in many natural and social phenomena, such as weather patterns, crime rates, and population density.
+Spatio-temporal autocorrelation \cite{doi:10.1080/10095020.2019.1643609} refers to the correlation between observations that are close in both space and time. 
+It is a common phenomenon in many natural and social phenomena, such as weather patterns, crime rates, and population density.
 
-Spatio-temporal autocorrelation can be of two types: positive and negative. Positive spatio-temporal autocorrelation occurs when similar values tend to cluster together in both space and time. For example, in weather patterns, regions with high temperatures tend to be near other regions with high temperatures, and this pattern tends to persist over time. Negative spatio-temporal autocorrelation occurs when dissimilar values tend to cluster together in both space and time.
+Spatio-temporal autocorrelation can be of two types: positive and negative. 
+Positive spatio-temporal autocorrelation occurs when similar values tend to cluster together in both space and time. 
+For example, in weather patterns, regions with high temperatures tend to be near other regions with high temperatures, and this pattern tends to persist over time. 
+Negative spatio-temporal autocorrelation occurs when dissimilar values tend to cluster together in both space and time.
 
-Spatio-temporal autocorrelation is important to consider when analyzing spatio-temporal data, such as time series data with a spatial component. Ignoring spatio-temporal autocorrelation can lead to biased and unreliable results.
+Spatio-temporal autocorrelation is important to consider when analyzing spatio-temporal data, such as time series data with a spatial component.
+Ignoring spatio-temporal autocorrelation can lead to biased and unreliable results.
 
 \section{Ensemble learning}
-Ensemble learning \cite{Ho2009, Sklansky2013} is a technique in machine learning where multiple models are combined to create a more powerful model. The idea behind ensemble learning is that by combining the predictions of multiple models, the ensemble model can reduce the variance and bias of the individual models, leading to improved performance on unseen data.
+Ensemble learning \cite{Ho2009, Sklansky2013} is a technique in machine learning where multiple models are combined to create a more powerful model.
+The idea behind ensemble learning is that by combining the predictions of multiple models, the ensemble model can reduce the variance and bias of the individual models, leading to improved performance on unseen data.
 
 There are several popular ensemble learning methods, including:
 
-\paragraph{Bagging:}This method involves training multiple models independently on different subsets of the data, and then combining their predictions through a majority vote or averaging.
+\paragraph{Bagging} This method involves training multiple models independently on different subsets of the data, and then combining their predictions through a majority vote or averaging.
 
-\paragraph{Boosting:} This method involves training multiple models sequentially, where each model tries to correct the mistakes of the previous model. The final predictions are made by combining the predictions of all the models.
+\paragraph{Boosting} This method involves training multiple models sequentially, where each model tries to correct the mistakes of the previous model. The final predictions are made by combining the predictions of all the models.
 
-\paragraph{Random Forest:} This method is a combination of bagging and decision trees. It involves training multiple decision trees independently on different subsets of the data, and then combining their predictions through a majority vote.
+\paragraph{Random Forest} This method is a combination of bagging and decision trees. It involves training multiple decision trees independently on different subsets of the data, and then combining their predictions through a majority vote.
 
-\paragraph{Stacking:} This method involves training multiple models independently and then using the predictions of these models as input features to train a meta-model.
+\paragraph{Stacking} This method involves training multiple models independently and then using the predictions of these models as input features to train a meta-model.
 
-Ensemble learning can be applied to a wide range of machine learning tasks, including classification, regression, and anomaly detection. It has been shown to improve performance on a wide range of datasets and is often used in practice to improve the performance of machine learning models.
+Ensemble learning can be applied to a wide range of machine learning tasks, including classification, regression, and anomaly detection. 
+It has been shown to improve performance on a wide range of datasets and is often used in practice to improve the performance of machine learning models.
 
 
 \subsection{Random forests}
 
-Random forests \cite{breiman2001random, charles2020random} are an ensemble learning method used for classification and regression tasks. The name "random forest" comes from the fact that it is a collection of decision trees, where each tree is "trained" on a random subset of the data, and the final predictions are made by combining the predictions of all the trees.
+Random forests \cite{breiman2001random, charles2020random} are an ensemble learning method used for classification and regression tasks. 
+The name ``random forest" comes from the fact that it is a collection of decision trees, where each tree is ``trained" on a random subset of the data, and the final predictions are made by combining the predictions of all the trees.
 
 \begin{figure}[H]
   \centering
@@ -76,13 +86,19 @@ Random forests \cite{breiman2001random, charles2020random} are an ensemble learn
   \caption{Visual representation of a decision tree \cite{scikit}}
 \end{figure}
 
-A decision tree is a tree-like model that starts with a single node, called the root node, and splits the data into different subsets based on the values of the input features. Each internal node of the tree represents a test on an input feature, and each leaf node represents a prediction. The tree is built by recursively splitting the data until a stopping criterion is met, such as a maximum tree depth or a minimum number of samples in a leaf node.
+A decision tree is a tree-like model that starts with a single node, called the root node, and splits the data into different subsets based on the values of the input features.
+Each internal node of the tree represents a test on an input feature, and each leaf node represents a prediction.
+The tree is built by recursively splitting the data until a stopping criterion is met, such as a maximum tree depth or a minimum number of samples in a leaf node.
 
-In a random forest, multiple decision trees are trained on different subsets of the data, where the subsets are obtained by randomly sampling the data with replacement, also known as bootstrapping. Each tree is trained on a different subset of the data, and a different subset of the input features is used at each split of the tree. This is known as feature bagging or random subspace method.
+In a random forest, multiple decision trees are trained on different subsets of the data, where the subsets are obtained by randomly sampling the data with replacement, also known as bootstrapping.
+Each tree is trained on a different subset of the data, and a different subset of the input features is used at each split of the tree. 
+This is known as feature bagging or random subspace method.
 
-When making a prediction, a random forest takes the average of the predictions of all the trees for regression problems, and takes a majority vote for classification problems. This combination of multiple decision trees reduces the variance of the individual trees and leads to improved performance on unseen data.
+When making a prediction, a random forest takes the average of the predictions of all the trees for regression problems, and takes a majority vote for classification problems.
+This combination of multiple decision trees reduces the variance of the individual trees and leads to improved performance on unseen data.
 
-In summary, Random Forests are a combination of decision trees, where each tree is trained on a random subset of the data, and the final predictions are made by combining the predictions of all the trees. This combination of multiple decision trees reduces the variance of the individual trees and leads to improved performance on unseen data.
+In summary, Random Forests are a combination of decision trees, where each tree is trained on a random subset of the data, and the final predictions are made by combining the predictions of all the trees.
+This combination of multiple decision trees reduces the variance of the individual trees and leads to improved performance on unseen data.
 
 
 
