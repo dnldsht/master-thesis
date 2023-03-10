@@ -1,9 +1,9 @@
 \chapter{Dataset}
 
 \section{Study Area}
-The study area, with a surface of 100 $ km^2 $, is located in south-eastern France, centered on the city of Balaruc-les-Bains, bordering the Mediterranean Sea. 
-It is a small and densely populated urban area surrounded by agricultural crops, primarily vineyards, and natural vegetation.
-Figure \ref{fig:gtmap} shows the GT map superimposed on the Sentinel-2 image from January 23, 2018.
+The study area, with an area of 100 $km^2$, is located in southeastern France, centered on the city of Balaruc-les-Bains, bordering the Mediterranean Sea. 
+It is a small and densely populated urban area surrounded by agricultural crops, mainly vineyards, and natural vegetation.
+Figure \ref{fig:gtmap} shows the GT map overlaid on the Sentinel-2 image taken on January 2019.
 
 \begin{figure}[H]
   \centering
@@ -16,8 +16,9 @@ Figure \ref{fig:gtmap} shows the GT map superimposed on the Sentinel-2 image fro
 \section{Chronology}
 
 \textit{Satellite Image Time Series:} 
-For the study, a total of 54 Sentinel-2 imagery time series were collected, spanning the year 2019. 
-The images were selected to represent the temporal (annual) evolution of the land covers associated with the study area, and to filter out images that were seriously impacted by cloud phenomena.
+% TODO: rephrase this
+A total of 54 Sentinel-2 image time series covering the year 2019 were collected for the study. 
+The images were selected to represent the temporal (annual) evolution of the land cover associated with the study area and to filter out images that were heavily affected by cloud phenomena.
 The acquisition dates of the Sentinel-2 satellite image time series are shown in Figure \ref{fig:sitsdates}.
 
 \begin{figure}[H]
@@ -34,10 +35,10 @@ The images used in this analysis were obtained from the THEIA pole platform\foot
 
 % TODO: ask dino about the bands
 % TODO: tell what the 16 bands are
-We only considered the 10-m spatial resolution bands, namely Blue, Green, Red, and Near-infrared.
+We considered only the 10-m spatial resolution bands, namely blue, green, red, and near-infrared.
 
-To replace cloudy pixel values, a preprocessing step was performed using linear multi-temporal interpolation based on the available cloud masks (also known as temporal gap-filling\cite{IENCO201911}).
-The study site is located within the Sentinel-2 tile 31TEJ with relative orbit number 8.
+To replace cloudy pixel values, a preprocessing step was performed using multi-temporal linear interpolation based on the available cloud masks (also known as temporal gap-filling\cite{IENCO201911}).
+The study area is located within the Sentinel-2 tile 31TEJ with relative orbit number 8.
 
 The missing ratio in the dataset used for this study is 33.9\%. It is important to note that this missing ratio refers specifically to cloud masks.
 
