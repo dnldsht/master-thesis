@@ -1,32 +1,30 @@
 \section{L-TAE}
-The paper ``Lightweight Temporal Self-Attention for Classifying Satellite Image Time Series" \cite{LTAE} was written by Vivien Sainte Fare Garnot, and Loic Landrieu, and published in 2020.
+The paper ``Lightweight Temporal Self-Attention for Classifying Satellite Image Time Series" \cite{LTAE} was written by Vivien Sainte Fare Garnot and Loic Landrieu and published in 2020.
 
-The authors introduce a new deep learning model for classifying satellite image time series, which utilizes a modified version of the Temporal Attention Encoder.
+The authors present a new deep learning model for classifying satellite image time series using a modified version of the Temporal Attention Encoder.
 
-In their proposed network, the channels of the temporal inputs are distributed among several attention heads that operate in parallel. These heads extract specialized temporal features, which are then concatenated into a single representation. The authors show that their approach achieves superior performance compared to other state-of-the-art time series classification algorithms on an open-access satellite image dataset, while using significantly fewer parameters and reduced computational complexity.
+In their proposed network, the channels of temporal inputs are distributed among several attention heads operating in parallel. These heads extract specialized temporal features, which are then concatenated into a single representation. The authors show that their approach achieves superior performance compared to other state-of-the-art time-series classification algorithms on an open-access satellite image dataset, while using significantly fewer parameters and reducing computational complexity.
 
-Overall, the paper presents a novel method for classifying satellite image time series, utilizing a lightweight variant of temporal self-attention and outperforming other state-of-the-art approaches.
+Overall, the paper presents a novel method for classifying satellite image time series that utilizes a lightweight variant of temporal self-attention and outperforms other state-of-the-art approaches.
 
 \subsection{Multi-Headed Self-Attention}
 
-The original version of self-attention, which was initially developed for text translation as described in \cite{vaswani}, involves three main steps.
-Firstly, for each position $t$ in the input sequence, a triplet of key-query-value is computed, denoted as $k^{(t)}$, $q^{(t)}$, and $v^{(t)}$, respectively, by applying a shared linear layer to the input $e^{(t)}$.
-Secondly, attention masks are calculated, representing the compatibility (dot-product) between the queries and the keys of previous elements in the sequence. 
-Lastly, an output is assigned to each position in the sequence, which is the sum of previous values weighted by the corresponding attention mask.
+The original version of self-attention, originally developed for text translation as described in \cite{vaswani}, involves three main steps.
+First, for each position $t$ in the input sequence, a key-query-value triplet is computed, denoted as $k^{(t)}$, $q^{(t)}$, and $v^{(t)}$, respectively, by applying a shared linear layer to the input $e^{(t)}$.
+Second, attention masks are computed representing the compatibility (dot product) between the queries and the keys of previous elements in the sequence. 
+Finally, an output is assigned to each position in the sequence, which is the sum of the previous values weighted by the corresponding attention mask.
 
-To enable each head to specialize in detecting certain characteristics of the feature vectors, the self-attention process is performed in parallel for $H$ sets of independent parameters or heads, and the outputs are concatenated.
+To allow each head to specialize in detecting specific features of the feature vectors, the self-attention process is performed in parallel for $H$ sets of independent parameters or heads, and the outputs are concatenated.
 This approach is used by Rußwurm et al. \cite{russwurm2019self} to embed sequences of satellite observations by max-pooling the resulting sequence of outputs in the temporal dimension.
 
 Garnot et al. \cite{garnot2020satellite} introduce a modified self-attention scheme called the Temporal Attention Encoder (TAE).
-Firstly, they propose using the input embeddings as values (i.e., $v^{(t)} = e^{(t)}$) directly, which takes advantage of the end-to-end training of the image embedding functions along with the TAE.
+First, they propose to use the input embeddings directly as values (i.e., $v^{(t)} = e^{(t)}$), which takes advantage of the end-to-end training of the image embedding functions along with the TAE.
 They also define a single master query $\hat{q}$ for each sequence, which is computed from the temporal average of the queries.
-The master query is compared to the sequence of keys to produce a single attention mask of dimension $T$, which is used to weight the temporal mean of values into a single feature vector.
-
-
+The master query is compared to the key sequence to generate a single attention mask of dimension $T$, which is used to weight the temporal average of the values into a single feature vector.
 
 \subsection{Model}
-Their work is an extension of previous efforts in adapting multi-headed self-attention for sequence embedding.
-The primary objective is to optimize efficiency, specifically with regards to parameter count and computational load.
+Their work is an extension of previous efforts to adapt multi-head self-attention for sequence embedding.
+The primary goal is to optimize efficiency, especially with respect to the number of parameters and the computational load.
 
 \begin{figure}[H]
   \centering
@@ -88,24 +86,18 @@ On the other hand, the decoder $D$ is responsible for mapping the output $o$ of 
 
 \subsection{Data preparation}
 
-As described in Section \ref{sec:tempCNNDataPreparation}, we partitioned the dataset into three subsets: training (60\%), validation (20\%), and test (20\%). 
-To ensure that each set had a similar class distribution and to avoid spatial autocorrelation, we took necessary precautions.
+As described in Section \ref{sec:tempCNNDataPreparation}, we divided the dataset into three subsets: training (60\%), validation (20\%), and test (20\%). 
+Necessary precautions were taken to ensure that each set had a similar class distribution and to avoid spatial autocorrelation.
 
-The implementation of the model was carried out using PyTorch framework. For the purpose of embedding input images, the Pixel Set Encoder (PSE) was utilized, which has previously been shown to be a suitable technique for satellite image datasets \cite{garnot2020satellite}.
+The model was implemented using the PyTorch framework. For the purpose of embedding the input images, the Pixel Set Encoder (PSE) was used, which has previously been shown to be a suitable technique for satellite image datasets \cite{garnot2020satellite}.
 
-While the PSE method worked well for the original dataset, we developed a new encoder called Dense Encoder (DE) that better suited the needs of our dataset.
+While the PSE method worked well for the original dataset, we developed a new encoder, called the Dense Encoder (DE), that better suited the needs of our dataset.
 The DE is a simple linear neural network that takes a 16-channel image as input and produces a 64-dimensional vector using a hyperbolic tangent (tanh) activation function. 
 The DE was designed to be computationally efficient, allowing for faster training and inference times, while still maintaining strong performance on our specific dataset.
 
-% - dates\\
-% - pytorch implementation\\
-% - PixelSetEncoder\\
-% - DenseEncoder\\
-% -- tanh
-
 \subsection{Experimental results}
 
-After adapting the L-TAE model to our dataset, we trained it by adjusting the hyper-parameters to find the optimal configuration, guided by the results of their research.
+After adapting the L-TAE model to our dataset, we trained it by adjusting the hyperparameters to find the optimal configuration, guided by the results of their research.
 
 \begin{table}[ht]
   \centering
@@ -144,8 +136,8 @@ The larger linear layer that results increases the model's size to a total of 17
 The observation that the resulting mIoU is only 49.7 suggests that the query-as-parameter scheme is advantageous not only in terms of compactness but also for achieving better performance.
 \end{paragraph}
 
-Table \ref{tab:LTAEresults} presents the performance results of the L-TAE architecture with different configurations of the following hyper-parameters: number of heads H, dimension of keys K, and number of channels E in the input sequence.
-All the results were obtained through a 4-fold cross-validation scheme.
+Table \ref{tab:LTAEresults} shows the performance results of the L-TAE architecture with different configurations of the following hyperparameters: number of heads H, dimension of keys K, and number of channels E in the input sequence.
+All results were obtained using a 5-fold cross-validation scheme.
 The performance metrics were measured for two different scenarios: one where missing values were imputed and one where missing values were not imputed.
 
 \begin{table}[H]
@@ -166,6 +158,5 @@ The performance metrics were measured for two different scenarios: one where mis
 Overall, the results reported in Table \ref{tab:LTAEresults} demonstrate the effectiveness of the L-TAE architecture in accurately classifying the input data even with a lower number of parameters. 
 The inclusion of missing data through imputation did not significantly impact the performance of the model, suggesting that the L-TAE architecture is robust to the presence of missing values.
 
-
 The model has been implemented in Python using the PyTorch library \cite{NEURIPS2019_9015}.
-The source code for this model is accessible at \url{https://github.com/dnldsht/lightweight-temporal-attention-pytorch}, which is a forked version of the initial L-TAE implementation \cite{LTAE}.
+The source code for this model is available at \url{https://github.com/dnldsht/lightweight-temporal-attention-pytorch}, which is a forked version of the orginal L-TAE implementation \cite{LTAE}.
