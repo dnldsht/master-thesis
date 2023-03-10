@@ -46,12 +46,12 @@ We need to adjust the dataset because the Random Forest model does not accept ti
   \label{fig:figtrans}
 \end{figure}
 
-As shown in Figure \ref{fig:figtrans1}, each sample is initially represented by a 2-dimensional array of size (54, 16), where 16 bands capture the pixel's characteristics and 54 time steps reflect its progression. 
-However, through the transformation process, the representation is transformed into a 1-dimensional array of size (864, 1) as depicted in Figure \ref{fig:figtrans2}. 
+As shown in Figure \ref{fig:figtrans1}, each sample is initially represented by a 2-dimensional array of size (54, 16), where 16 bands capture the characteristics of the pixel and 54 time steps reflect its evolution. 
+However, the transformation process transforms the representation into a 1-dimensional array of size (864, 1), as shown in Figure \ref{fig:figtrans2}. 
 
-The model's training utilizes the new representation of the data, composed of 864 derived features, to generate 300 trees.
-Table \ref{tab:rfresults} presents the results of the Random Forest model trained with and without pre-imputed missing values. 
-The table includes the number of nodes, number of utilized features, and Overall Accuracy for each case.
+The training of the model uses the new representation of the data, composed of 864 inferred features, to generate 300 trees.
+Table \ref{tab:rfresults} shows the results of the Random Forest model trained with and without pre-imputed missing values. 
+The table includes the number of nodes, the number of features used, and the overall accuracy for each case.
 
 \begin{table}[H]
   \centering
