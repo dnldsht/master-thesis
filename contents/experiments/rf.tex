@@ -1,14 +1,6 @@
 \section{Random forest}
 
-TensorFlow Decision Forests (TF-DF) \cite{TensorFlow:rf} is the library used to train and evaluate the random forest model.
-
-A Random Forest \cite{breiman2001random} is a collection of deep CART decision trees trained independently and without pruning.
-Each tree is trained on a random subset of the original training dataset (sampled with replacement).
-The algorithm is unique in that it is robust to overfitting, even in extreme cases e.g. when there are more features than training examples.
-It is probably the most well-known of the Decision Forest training algorithms.
-
-\subsection{Data preparation}
-We need to adjust the dataset because the Random Forest model does not accept time series or multivariate data as input.
+We need to adjust the dataset because the Random Forest model does not accept time series as input.
 
 \begin{figure}[H]
   \begin{subfigure}{.49\textwidth}
