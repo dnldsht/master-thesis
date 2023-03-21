@@ -33,9 +33,8 @@ The acquisition dates of the Sentinel-2 satellite image time series are shown in
 
 The images used in this analysis were obtained from the THEIA pole platform\footnote{\url{http://theia.cnes.fr}} at level-2A in top of canopy reflectance values and with associated cloud masks.
 
-% TODO: ask dino about the bands
-% TODO: tell what the 16 bands are
-We considered only the 10m and 20m spatial resolution bands. The first 10 bands are in the visible, near infrared, and short wave infrared part of the spectrum, while the last 6 bands are a combination of the first 10 bands.
+We focused solely on utilizing the spatial resolution bands of 10m and 20m.
+The initial ten bands \cite{wiki:sentinel2} of the spectrum consist of the visible, near-infrared, and short-wave infrared ranges (such as red, green, and blue), while the remaining six bands are a fusion of the first ten.
 
 To replace cloudy pixel values, a preprocessing step was performed using multi-temporal linear interpolation based on the available cloud masks (also known as temporal gap-filling\cite{IENCO201911}).
 The study area is located within the Sentinel-2 tile 31TEJ with relative orbit number 8.
