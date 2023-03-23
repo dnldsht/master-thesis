@@ -23,10 +23,11 @@ To ensure a comprehensive and unbiased comparison, the same dataset and evaluati
 Specifically, the dataset of choice was the Satellite Image Time Series (SITS) dataset, which contains a total of 137,606 time series of satellite images covering natural and semi-natural areas. 
 Since the data available for this task is relatively limited, k-fold cross validation with $k=5$ and varying seeds was implemented to ensure that the results were not affected by the partitioning of the dataset.
 Additionally, to ensure a balanced distribution of classes within each fold, the dataset was partitioned into training/validation/test sets with equal representation of each class. 
-To avoid spatial correlation, the same polygon pixels were not placed in the same sets.
+In order to prevent spatial correlation, we avoided placing identical polygon pixels within the same sets. 
+This precaution was taken because disregarding spatio-temporal autocorrelation \cite{doi:10.1080/10095020.2019.1643609} may result in biased and unreliable outcomes.
 
 The distribution of polygons and pixels for each class in the training, validation, and test sets can be observed in Table \ref{tab:dataset-splits}.
-The splitting was done in a ratio of 60:20:20 for the training, validation, and test sets respectively, and no spatial correlation was taken into account during the partitioning process.
+The splitting was done in a ratio of 60:20:20 for the training, validation, and test sets respectively.
 The table provides a comprehensive summary of the number of polygons and pixels for each class in each of the sets.
 
 \begin{table}[H]
