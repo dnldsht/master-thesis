@@ -33,8 +33,29 @@ The acquisition dates of the Sentinel-2 satellite image time series are shown in
 
 The images used in this analysis were obtained from the THEIA pole platform\footnote{\url{http://theia.cnes.fr}} at level-2A in top of canopy reflectance values and with associated cloud masks.
 
-We focused solely on utilizing the spatial resolution bands of 10m and 20m.
-The initial ten bands \cite{wiki:sentinel2} of the spectrum consist of the visible, near-infrared, and short-wave infrared ranges (such as red, green, and blue), while the remaining six bands are a fusion of the first ten.
+For our classification task, we utilized a total of 16 bands, which included 10 bands with a spatial resolution of 10m and 20m.
+These bands covered the visible, near-infrared, and short-wave infrared ranges.
+Additionally, we derived 6 more bands from the initial 10 bands, bringing the total to 16.
+
+\begin{table}[H]
+  \centering
+  \begin{tabular}{lll}
+    Sentinel-2 Band & Name & Spatial resolution (m) \\[0.2cm]\hline \\[-0.2cm] 
+    Band 2 &   Blue & 10\\
+    Band 3 &   Green  & 10\\
+    Band 4 &   Red  & 10\\
+    Band 5 &   Vegetation Red Edge 1  & 20\\
+    Band 6 &   Vegetation Red Edge 2  & 20\\
+    Band 7 &   Vegetation Red Edge 3  & 20\\
+    Band 8 &   Near Infrared 1  & 10\\
+    Band 8A &  Near Infrared 2  & 20\\
+    Band 11 &  Short Wave Infrared 1  & 20\\
+    Band 12 &  Short Wave Infrared 2  & 20\\
+  \end{tabular}
+  \caption{Spectral bands for the Sentinel-2 sensors (10m and 20m).\cite{wiki:sentinel2}}
+  \label{tab:bands}
+\end{table}
+
 
 To replace cloudy pixel values, a preprocessing step was performed using multi-temporal linear interpolation based on the available cloud masks (also known as temporal gap-filling\cite{IENCO201911}).
 The study area is located within the Sentinel-2 tile 31TEJ with relative orbit number 8.
