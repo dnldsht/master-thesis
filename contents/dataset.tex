@@ -40,22 +40,39 @@ Additionally, we derived 6 more bands from the initial 10 bands, bringing the to
 \begin{table}[H]
   \centering
   \begin{tabular}{lll}
-    Sentinel-2 Band & Name & Spatial resolution (m) \\[0.2cm]\hline \\[-0.2cm] 
-    Band 2 &   Blue & 10\\
-    Band 3 &   Green  & 10\\
-    Band 4 &   Red  & 10\\
-    Band 5 &   Vegetation Red Edge 1  & 20\\
-    Band 6 &   Vegetation Red Edge 2  & 20\\
-    Band 7 &   Vegetation Red Edge 3  & 20\\
-    Band 8 &   Near Infrared 1  & 10\\
-    Band 8A &  Near Infrared 2  & 20\\
-    Band 11 &  Short Wave Infrared 1  & 20\\
-    Band 12 &  Short Wave Infrared 2  & 20\\
+    Sentinel-2 Band & Description & Spatial resolution (m) \\[0.2cm]\hline \\[-0.2cm] 
+    B2 &   Blue & 10\\
+    B3 &   Green  & 10\\
+    B4 &   Red  & 10\\
+    B5 &   Vegetation Red Edge 1  & 20\\
+    B6 &   Vegetation Red Edge 2  & 20\\
+    B7 &   Vegetation Red Edge 3  & 20\\
+    B8 &   Near Infrared 1  & 10\\
+    B8A &  Near Infrared 2  & 20\\
+    B11 &  Short Wave Infrared 1  & 20\\
+    B12 &  Short Wave Infrared 2  & 20\\
   \end{tabular}
   \caption{Spectral bands for the Sentinel-2 sensors (10m and 20m).\cite{wiki:sentinel2}}
   \label{tab:bands}
 \end{table}
 
+\begin{table}[H]
+  \centering
+  \begin{tabular}{ll}
+    Band & Description \\[0.2cm]\hline \\[-0.2cm] 
+    $NDVI = \frac{B8-B4}{B8+B4}$ &   Normalized Difference Vegetation Index \\[0.2cm]
+    $NDWI = \frac{B3-B8}{B3+B8}$  & Normalized Difference Water Index \\[0.2cm]
+    $BRI = \sqrt[2]{B2^2 + \dots + B12^2} $  & Brightness Index \\[0.2cm]
+    $MNDWI = \frac{B3-B11}{B3+B11}$ &   Modified NDWI \\[0.2cm]
+    $SWDVI = \frac{B11-B8}{B11+B8}$ &   Short Wave NDWI \\[0.2cm]
+    $NDRE = \frac{B8-B5}{B8+B5}$ &   Normalized Difference Red Edge Index \\[0.2cm]
+  \end{tabular}
+  \caption{Derived bands }
+  \label{tab:derivedbands}
+\end{table}
+
+
+%  https://gisgeography.com/sentinel-2-bands-combinations/
 
 To replace cloudy pixel values, a preprocessing step was performed using multi-temporal linear interpolation based on the available cloud masks (also known as temporal gap-filling\cite{IENCO201911}).
 The study area is located within the Sentinel-2 tile 31TEJ with relative orbit number 8.
