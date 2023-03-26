@@ -60,16 +60,19 @@ Additionally, we derived 6 more bands from the initial 10 bands, bringing the to
   \centering
   \begin{tabular}{ll}
     Band & Description \\[0.2cm]\hline \\[-0.2cm] 
-    $NDVI = \frac{B8-B4}{B8+B4}$ &   Normalized Difference Vegetation Index \\[0.2cm]
-    $NDWI = \frac{B3-B8}{B3+B8}$  & Normalized Difference Water Index \\[0.2cm]
-    $BRI = \sqrt[2]{B2^2 + \dots + B12^2} $  & Brightness Index \\[0.2cm]
-    $MNDWI = \frac{B3-B11}{B3+B11}$ &   Modified NDWI \\[0.2cm]
-    $SWDVI = \frac{B11-B8}{B11+B8}$ &   Short Wave NDWI \\[0.2cm]
-    $NDRE = \frac{B8-B5}{B8+B5}$ &   Normalized Difference Red Edge Index \\[0.2cm]
+    $NDVI = \frac{B8-B4}{B8+B4}$ &   Normalized Difference Vegetation Index \cite{rouse1974monitoring} \\[0.2cm]
+    $NDWI = \frac{B3-B8}{B3+B8}$  & Normalized Difference Water Index \cite{doi:10.1080/01431169608948714} \\[0.2cm]
+    $BRI = \sqrt[2]{B2^2 + \dots + B12^2} $  & Brightness Index  \cite{rs9010095} \\[0.2cm]
+    $MNDWI = \frac{B3-B11}{B3+B11}$ &   Modified NDWI \cite{doi:10.1080/01431160600589179} \\[0.2cm]
+    $SWDVI = \frac{B11-B8}{B11+B8}$ &   Short Wave NDWI \cite{1996RSEnv..58..257G}\\[0.2cm]
+    $NDRE = \frac{B8-B5}{B8+B5}$ &   Normalized Difference Red Edge Index \cite{barnes2000coincident} \\[0.2cm]
   \end{tabular}
-  \caption{Derived bands }
+  \caption{ Derived Bands from Multispectral Data }
   \label{tab:derivedbands}
 \end{table}
+
+Derived bands are new spectral bands that are created by combining or transforming the original bands.
+These derived bands can provide additional information about the surface features of interest that may not be captured by the original bands alone.
 
 
 %  https://gisgeography.com/sentinel-2-bands-combinations/
