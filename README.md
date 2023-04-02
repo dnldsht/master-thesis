@@ -1,0 +1,16 @@
+# Incomplete time-series classification methods
+
+This thesis investigates the problem of classification for incomplete time series.
+Time series data, characterised by a sequence of observations taken over time, are abundant in a wide range of fields such as finance, healthcare and Earth satellite observations.
+However, the presence of missing values in these series can make the classification task more complex and challenging.
+
+To address this issue, we implemented several machine learning models and compared their performance on a dataset of Satellite Image Time Series (SITS) to study how natural and semi-natural areas evolve over time.
+Various models have been employed, including Random Forests, Temporal Convolutional Neural Networks (TempCNNs), Recurrent Neural Networks (RNNs), Generative Adversarial Networks (GANs), and Transformers.
+On the other hand to handle missing data, three approaches have been used: using pre-imputed data, excluding missing data, and imputing missing data. 
+Using pre-imputed data involves using a pre-processing step to fill in the missing values using a method such as mean imputation or linear interpolation.
+Excluding missing data simply involves discarding the missing values, while imputing missing data involves using components of the neural network to estimate the missing values.
+
+The results of our experiments on incomplete time series classification showed that Temporal Convolutional Neural Networks (TempCNNs) and Transformers outperformed the other models in terms of accuracy, while at the same time keeping the number of parameters low.
+This indicates that these models were effective in handling missing data and avoiding overfitting.
+
+In conclusion, our study highlights the importance of considering missing data when performing time series classification and the effectiveness of TempCNNs and Transformers in addressing this issue.
