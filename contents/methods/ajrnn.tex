@@ -11,7 +11,6 @@ The authors evaluate the performance of the AJ-RNN on several real-world dataset
 
 \subsection{Adversarial learning}
 
-% TODO review
 Previous studies have shown that adversarial approaches outperform traditional methods in generating data that conforms to the distribution of a given dataset \cite{goodfellow2014generative, ledig2017photo}.
 
 Furthermore, GANs have shown promising results in filling in missing data in time series prediction \cite{yoon2018gain, li2018learning, luo2018multivariate}. Similarly, adversarial techniques have also been applied to tasks such as video captioning \cite{yang2018video} and domain adaptation \cite{ganin2017domain}.
@@ -83,12 +82,6 @@ To obtain the probability distribution over each category label, a softmax is ap
 
 where $K$ is the number of class labels and $\{W_l\}^K_{l=1}$ are the class-specific weights of the softmax layer.
 More complex networks can be used for the classifier based on the specific task at hand. However, in this study, a simple classifier is used.
-% TODO include ?
-%to mainly demonstrate the mitigation of the exploding bias problem and to report the achieved results.
-% For fairness, we use this approach for all methods, ours and the methods we implemented for comparison.
-
-% TODO review
-
 
 During joint learning, imputation and classification tasks are performed. 
 Let $D$ be the time series dataset and let the superscript $i$ denote the $i$-th sample in the dataset.
