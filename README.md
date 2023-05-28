@@ -1,6 +1,6 @@
 # Incomplete time-series classification methods
 
-PDF version of the thesis: [main.pdf](main.pdf)
+[pdf](main.pdf) · [slides](https://docs.google.com/presentation/d/1QaWIksGR7WRoONGDDdmWmzWLt5xMMF1tBhi8Qh_3n3Y/edit?usp=sharing)
 
 ## Abstract
 
